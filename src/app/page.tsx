@@ -1,11 +1,20 @@
 import React from 'react'
+import HeaderUnlogged from './components/HeaderUnlogged'
+import HeaderLogged from './components/HeaderLogged'
 
-const Page = () => {
+
+const Home = () => {
+  let logged = true;
   return (
     <>
-        <h1>Page</h1>
+        {logged &&
+            <HeaderLogged />
+        }
+        {!logged &&
+            <HeaderUnlogged />
+        }
     </>
   )
 }
 
-export default Page;
+export default Home;
