@@ -1,10 +1,9 @@
 import React from 'react'
-import HeaderUnlogged from './components/HeaderUnlogged'
-import HeaderLogged from './components/HeaderLogged'
+import {HeaderLogged, HeaderUnlogged} from './components/Headers'
 
 
 const Home = () => {
-  let logged = true;
+  let logged = false;
   return (
     <>
         {logged &&
