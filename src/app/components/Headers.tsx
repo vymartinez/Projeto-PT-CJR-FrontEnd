@@ -1,15 +1,21 @@
-import React from 'react'
+"use client"
+
+import React, { useState } from 'react'
 import bell from '../../../public/icons/bell.svg'
 import arrowLeft from '../../../public/icons/arrow-right.svg'
 import logo from '../../../public/images/unb-logo.png'
 import Image from 'next/image'
 import user from '../../../public/images/default-user.jpg'
+import Menu from '../components/Menu'
 
 export const HeaderLogged = () => {
+  const [openMenu, setOpenMenu] = useState(false);
+  const handleClick = () => openMenu ? setOpenMenu(false) : setOpenMenu(true);
+
   return (
     <>
-        <header className='w-full h-24 bg-sky-700 flex'>
-            <div className='mx-8 my-6 flex-1'>
+        <header className='w-full h-24 bg-sky-800 flex z-[-1]'>
+            <div className='mx-8 my-6 border border-white border-1'>
               <Image
               src={logo}
               alt="logo-unb"
@@ -17,15 +23,16 @@ export const HeaderLogged = () => {
               height={46}
               />
             </div>
-            <div className='my-7 mx-16'>
+            <div className='my-7 mx-16 flex-1 justify-end flex'>
               <Image 
               src={bell}
               alt="bell"
               width={45}
               height={45}
+              className='cursor-pointer'
               />
             </div>
-            <div className='rounded-full w-16 h-16 border border-solid border-sky-800 border-1 overflow-hidden my-4'>
+            <div onClick={handleClick} className='rounded-full w-16 h-16 border border-solid border-sky-800 border-1 overflow-hidden my-4 cursor-pointer'>
               <Image
               src={user}
               alt="user-pic"
@@ -40,9 +47,11 @@ export const HeaderLogged = () => {
               alt="arrow-left"
               width={40}
               height={40}
+              className='cursor-pointer'
               />
             </div>
         </header>
+            {openMenu && <Menu />}
     </>
   )
 }
@@ -50,8 +59,8 @@ export const HeaderLogged = () => {
 export const HeaderUnlogged = () => {
   return (
     <>
-        <header className='w-full h-24 bg-sky-700 flex'>
-            <div className='mx-8 my-6 flex-1'>
+        <header className='w-full h-24 bg-sky-800 flex justify-between'>
+            <div className='mx-8 my-6'>
               <Image
               src={logo}
               alt="logo-unb"
@@ -59,7 +68,7 @@ export const HeaderUnlogged = () => {
               height={46}
               />
             </div>
-            <button className='w-40 h-10 bg-green-600 rounded-xl my-7 mx-8 border border-1 border-white text-white capitalize text-sm'>
+            <button className='md:w-40 md:h-10 md:mx-8 md:my-7 bg-green-600 rounded-xl my-8 mx-6 border border-1 border-white text-white capitalize text-sm w-28 h-8'>
                 Login
             </button>
         </header>

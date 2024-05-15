@@ -3,7 +3,7 @@ import {HeaderLogged, HeaderUnlogged} from './components/Headers'
 
 
 const Home = () => {
-  let logged = false;
+  let logged = true;
   return (
     <>
         {logged &&
