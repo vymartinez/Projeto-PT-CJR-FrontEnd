@@ -14,7 +14,7 @@ export const HeaderLogged = () => {
 
   return (
     <>
-        <header className='w-full h-24 bg-sky-800 flex z-[-1]'>
+        <header className='w-full h-24 bg-primary flex z-[-1]'>
             <div className='mx-8 my-6 border border-white border-1'>
               <Image
               src={logo}
@@ -32,7 +32,7 @@ export const HeaderLogged = () => {
               className='cursor-pointer'
               />
             </div>
-            <div onClick={handleClick} className='rounded-full w-16 h-16 border border-solid border-sky-800 border-1 overflow-hidden my-4 cursor-pointer'>
+            <div onClick={handleClick} className='rounded-full w-16 h-16 border border-solid border-background border-1 overflow-hidden my-4 cursor-pointer'>
               <Image
               src={user}
               alt="user-pic"
@@ -59,8 +59,8 @@ export const HeaderLogged = () => {
 export const HeaderUnlogged = () => {
   return (
     <>
-        <header className='w-full h-24 bg-sky-800 flex justify-between'>
-            <div className='mx-8 my-6'>
+        <header className='w-full h-24 bg-primary flex justify-between'>
+            <div className='mx-8 my-6 border border-white border-1'>
               <Image
               src={logo}
               alt="logo-unb"
@@ -68,7 +68,7 @@ export const HeaderUnlogged = () => {
               height={46}
               />
             </div>
-            <button className='md:w-40 md:h-10 md:mx-8 md:my-7 bg-green-600 rounded-xl my-8 mx-6 border border-1 border-white text-white capitalize text-sm w-28 h-8'>
+            <button className='md:w-40 md:h-10 md:mx-8 md:my-7 bg-button rounded-xl my-8 mx-6 border border-1 border-background text-white/90 capitalize text-sm w-28 h-8'>
                 Login
             </button>
         </header>

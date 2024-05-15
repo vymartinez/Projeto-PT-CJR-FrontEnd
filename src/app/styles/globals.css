@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@layer {
+    :root {
+        --primary: #295135;
+        --secondary: black;
+        --background: #abcea1;
+        --button: #161B33;
+        --extra: blue;
+    }
+}
