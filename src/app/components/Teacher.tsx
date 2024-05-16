@@ -20,6 +20,7 @@ const Teacher = ( {  name, discipline, department, photo } : Teacher) => {
                     }}
                     className='rounded-3xl relative'
                     draggable={false}
+                    priority={false}
                     />
                 </div>
                 <div className='flex justify-center flex-col text-center mt-3 md:mt-6'>
