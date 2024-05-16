@@ -15,39 +15,33 @@ export const HeaderLogged = () => {
   return (
     <>
         <header className='w-screen h-24 bg-primary flex z-[-1]'>
-            <div className='mx-8 my-6 border border-white border-1'>
+            <div className='relative w-16 h-8 my-8 sm:w-24 sm:h-12 mx-8 sm:my-6 border border-white border-1'>
               <Image
               src={logo}
               alt="logo-unb"
-              width={92}
-              height={46}
+              fill
+              sizes="max"
+              draggable={false}
               />
             </div>
-            <div className='my-7 mx-16 flex-1 justify-end flex'>
+            <div className='my-7 sm:mx-16 mx-8 flex-1 justify-end flex'>
               <Image 
               src={bell}
               alt="bell"
               width={45}
               height={45}
-              className='cursor-pointer'
+              className='cursor-pointer w-auto h-auto'
+              draggable={false}
               />
             </div>
-            <div onClick={handleClick} className='rounded-full w-16 h-16 border border-solid border-background border-1 overflow-hidden my-4 cursor-pointer'>
+            <div onClick={handleClick} className='mr-3 rounded-full w-12 h-12 my-6 sm:w-16 sm:h-16 border border-solid border-background border-1 overflow-hidden sm:my-4 cursor-pointer'>
               <Image
               src={user}
               alt="user-pic"
               style={{
                 objectFit: 'cover',
               }}
-              />
-            </div>
-            <div className='my-7 mx-4'>
-              <Image 
-              src={arrowLeft}
-              alt="arrow-left"
-              width={40}
-              height={40}
-              className='cursor-pointer'
+              draggable={false}
               />
             </div>
         </header>
@@ -60,12 +54,13 @@ export const HeaderUnlogged = () => {
   return (
     <>
         <header className='w-full h-24 bg-primary flex justify-between'>
-            <div className='mx-8 my-6 border border-white border-1'>
+            <div className='relative w-16 h-8 my-8 sm:w-24 sm:h-12 mx-8 sm:my-6 border border-white border-1'>
               <Image
               src={logo}
               alt="logo-unb"
-              width={92}
-              height={46}
+              fill
+              sizes="100vw"
+              draggable={false}
               />
             </div>
             <button className='md:w-40 md:h-10 md:mx-8 md:my-7 bg-button rounded-xl my-8 mx-6 border border-1 border-background text-white/90 capitalize text-sm w-28 h-8'>
