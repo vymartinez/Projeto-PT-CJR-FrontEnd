@@ -13,8 +13,8 @@ const Feed = () => {
           <div>
             <SearchBar />
           </div>
+          <div className='container mx-auto w-full h-2 rounded-full bg-primary'></div>
           <div>
-
           </div>
         </main>
     </>

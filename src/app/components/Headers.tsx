@@ -14,7 +14,7 @@ export const HeaderLogged = () => {
 
   return (
     <>
-        <header className='w-full h-24 bg-primary flex z-[-1]'>
+        <header className='w-screen h-24 bg-primary flex z-[-1]'>
             <div className='mx-8 my-6 border border-white border-1'>
               <Image
               src={logo}
