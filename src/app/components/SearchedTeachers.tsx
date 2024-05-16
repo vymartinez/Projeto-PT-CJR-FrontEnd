@@ -43,8 +43,8 @@ export const SearchedTeachers = () => {
 
     return (
         <>
-        <div className='w-full py-8 px-40 flex sm:flex-row flex-col items-center sm:justify-between sm:items-end container mx-auto'>
-              <h1 className='xl:text-2xl text-lg lg:text-xl sm:-ml-36 font-semibold text-center'>
+        <div className='w-full py-8 px-40 flex container mx-auto flex-col items-center sm:flex-row sm:justify-between sm:items-end'>
+              <h1 className='font-semibold text-center text-lg sm:-ml-36 lg:text-xl xl:text-2xl'>
                 Lista de Professores
               </h1>
               <div className='w-1/4'>
@@ -58,15 +58,16 @@ export const SearchedTeachers = () => {
                   draggable={false}
                   />
                 </div>
-                  <input type="text" placeholder='Buscar Professor(a)' value={inputValue} onChange={(e) => verifyResults(e)} className='rounded-md sm:m-0 mt-3 text-center py-2 md:px-10 placeholder:text-xs sm:px-5 px-3 lg:placeholder:text-md sm:placeholder:text-sm focus:outline-none'/>
+                  <input type="text" placeholder='Buscar Professor(a)' value={inputValue} onChange={(e) => verifyResults(e)}
+                  className='rounded-md text-center px-3 py-2 mt-3 placeholder:text-xs focus:outline-none sm:px-5 sm:m-0 sm:placeholder:text-sm md:px-10 lg:placeholder:text-md'/>
                 </div>
               </div>
             </div>
-            <div className='container mx-auto w-3/4 sm:w-full h-2 rounded-full bg-primary'></div>
+            <div className='container h-2 rounded-full bg-primary mx-auto w-3/4 sm:w-full'></div>
             <div className='text-center font-bold text-md m-5'>
               {heading}
             </div>
-            <div className={`grid grid-cols-1 sm:grid-cols-2 grid-rows-2 md:grid-rows-2 xl:grid-rows-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 container mx-auto`}>
+            <div className={`grid grid-cols-1 grid-rows-2 container mx-auto sm:grid-cols-2 md:grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-rows-1 xl:grid-cols-6`}>
             {teachersList.slice(0, teachersDisplaying).map(item => {
               return (
                 <>

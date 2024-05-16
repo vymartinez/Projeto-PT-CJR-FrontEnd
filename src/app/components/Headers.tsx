@@ -15,7 +15,7 @@ export const HeaderLogged = () => {
   return (
     <>
         <header className='w-screen h-24 bg-primary flex z-[-1]'>
-            <div className='relative w-16 h-8 my-8 sm:w-24 sm:h-12 mx-8 sm:my-6 border border-white border-1'>
+            <div className='relative w-16 h-8 mx-8 my-8 border border-white border-1 sm:w-24 sm:h-12 sm:my-6'>
               <Image
               src={logo}
               alt="logo-unb"
@@ -24,7 +24,7 @@ export const HeaderLogged = () => {
               draggable={false}
               />
             </div>
-            <div className='my-7 sm:mx-16 mx-8 flex-1 justify-end flex'>
+            <div className='my-7 mx-8 flex-1 justify-end flex sm:mx-16'>
               <Image 
               src={bell}
               alt="bell"
@@ -34,7 +34,7 @@ export const HeaderLogged = () => {
               draggable={false}
               />
             </div>
-            <div onClick={handleClick} className='mr-3 rounded-full w-12 h-12 my-6 sm:w-16 sm:h-16 border border-solid border-background border-1 overflow-hidden sm:my-4 cursor-pointer'>
+            <div onClick={handleClick} className='mr-3 rounded-full w-12 h-12 cursor-pointer my-6 border border-solid border-background border-1 overflow-hidden sm:w-16 sm:h-16 sm:my-4'>
               <Image
               src={user}
               alt="user-pic"
@@ -42,6 +42,7 @@ export const HeaderLogged = () => {
                 objectFit: 'cover',
               }}
               draggable={false}
+              priority={false}
               />
             </div>
         </header>
@@ -54,7 +55,7 @@ export const HeaderUnlogged = () => {
   return (
     <>
         <header className='w-full h-24 bg-primary flex justify-between'>
-            <div className='relative w-16 h-8 my-8 sm:w-24 sm:h-12 mx-8 sm:my-6 border border-white border-1'>
+            <div className='relative w-16 h-8 mx-8 my-8 border border-white border-1 sm:w-24 sm:h-12 sm:my-6'>
               <Image
               src={logo}
               alt="logo-unb"
@@ -63,7 +64,7 @@ export const HeaderUnlogged = () => {
               draggable={false}
               />
             </div>
-            <button className='md:w-40 md:h-10 md:mx-8 md:my-7 bg-button rounded-xl my-8 mx-6 border border-1 border-background text-white/90 capitalize text-sm w-28 h-8'>
+            <button className='bg-button rounded-xl my-8 mx-6 border border-1 border-background text-white/90 capitalize text-sm w-28 h-8 md:w-40 md:h-10 md:mx-8 md:my-7'>
                 Login
             </button>
         </header>

@@ -8,8 +8,8 @@ const Teacher = ( {  name, discipline, department, photo } : Teacher) => {
   return (
     <>
         <div className='flex justify-center w-full'>
-            <div className='relative lg:h-64 lg:w-48 h-52 w-40 bg-white rounded-lg my-5 hover:opacity-80 cursor-pointer'>
-                <div className='rounded-3xl lg:w-32 lg:h-32 h-24 w-24 relative bg-center m-auto mt-5 mb-4 xs:mb-3'>
+            <div className='relative h-52 w-40 bg-white rounded-lg my-5 border-2 hover:border-primary cursor-pointer lg:h-64 lg:w-48'>
+                <div className='rounded-3xl h-24 w-24 relative bg-center m-auto mt-5 mb-4 lg:w-32 lg:h-32'>
                     <Image
                     src={photo}
                     alt='teacher-pic'
@@ -23,8 +23,8 @@ const Teacher = ( {  name, discipline, department, photo } : Teacher) => {
                     />
                 </div>
                 <div className='flex justify-center flex-col text-center mt-3 md:mt-6'>
-                    <p className='lg:text-md text-sm text-black'>{name}</p>
-                    <p className='xl:text-sm md:text-xs text-xs  text-gray-400 md:mt-2 mt-1'>{discipline}</p>
+                    <p className=' text-sm text-black lg:text-md'>{name}</p>
+                    <p className='mt-1 text-gray-400 text-xs md:text-xs md:mt-2 xl:text-sm'>{discipline}</p>
                 </div>
             </div>
         </div>
