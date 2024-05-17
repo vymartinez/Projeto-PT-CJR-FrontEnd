@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
-import arrowLeft from '../../../public/icons/arrow-left.svg'
+import arrowRight from '../../../public/icons/arrow-right.svg'
 
 const Menu = () => {
   return (
@@ -18,8 +18,8 @@ const Menu = () => {
             </div>
             <div className='relative h-3 w-3 mt-3'>
               <Image 
-              src={arrowLeft}
-              alt="arrow-left"
+              src={arrowRight}
+              alt="arrow-right"
               fill
               className='cursor-pointer'
               draggable={false}

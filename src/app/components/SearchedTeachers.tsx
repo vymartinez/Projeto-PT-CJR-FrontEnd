@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Teacher from './Teacher'
 import { Teachers } from '../data/Teachers'
 import glass from '../../../public/icons/magnifying-glass.svg'
@@ -9,7 +9,7 @@ import Image from 'next/image'
 export const SearchedTeachers = () => {
 
   const [teachersDisplaying, setTeachersDisplaying] = useState(12);
-  React.useEffect(() => {
+  useEffect(() => {
     window.onresize = () => {
       if (window.innerWidth > 1280) {
         setTeachersDisplaying(12)
