@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import bell from '../../../public/icons/bell.svg'
-import arrowLeft from '../../../public/icons/arrow-right.svg'
 import logo from '../../../public/images/unb-logo.png'
 import Image from 'next/image'
 import user from '../../../public/images/default-user.jpg'

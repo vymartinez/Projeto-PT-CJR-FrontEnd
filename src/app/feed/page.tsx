@@ -14,8 +14,6 @@ const Feed = () => {
             <SearchedTeachers />
           </div>
           <div className='container mx-auto w-full h-2 rounded-full bg-primary my-3'></div>
-          <div>
-          </div>
         </main>
     </>
   )
