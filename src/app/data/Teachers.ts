@@ -18,7 +18,7 @@ export const Teachers : Teacher[] = [
         name: 'Péricles',
         discipline: 'Cálculo I',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/pericles.png"
     },
     {
         key: 4,
@@ -53,11 +53,11 @@ export const Teachers : Teacher[] = [
         name: 'Irineu',
         discipline: 'Cálculo II',
         department: 'Departamento de Matemática',
-        photo: ""
+        photo: "/images/irineu.jpg"
     },
     {
         key: 9,
-        name: 'Flavin do Pneu',
+        name: 'Biruto',
         discipline: 'Redes de Computadores',
         department: 'Departamento CIC',
         photo: ""
@@ -71,10 +71,10 @@ export const Teachers : Teacher[] = [
     },
     {
         key: 11,
-        name: 'Biruto',
+        name: 'Flavin do Pneu',
         discipline: 'Sistemas de Informação',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/flavin.jpg"
     },
     {
         key: 12,
