@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Teachers } from '../data/Teachers';
 import building from '../../../public/icons/building.svg'
 import book from '../../../public/icons/book.svg'
+import mail from '../../../public/icons/mail.svg'
 
 
 type Props =  {
@@ -62,8 +63,8 @@ const Profile = ({id} : Props) => {
                     </p>
                 </div>  
             </div>
-            <div className='flex flex-col text-center'>
-                <h1 className='font-bold my-2'>Publicações</h1>
+            <div className='flex flex-col text-center items-center'>
+                <h1 className='font-bold my-3'>Publicações</h1>
                 <Post
                 profile={profile}
                 />
