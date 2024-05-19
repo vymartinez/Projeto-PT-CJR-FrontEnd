@@ -6,18 +6,18 @@ import { useRouter } from 'next/navigation';
 import Profile from '../components/Profile';
 
 const UserProfile = () => {
-  let logged = true;
+  let logged = false;
   const router = useRouter();
   return (
     <>
       {logged && <HeaderLogged />}
       {!logged && <HeaderUnlogged />}
 
-      <div>
+      <main className='flex justify-center'>
         <Profile 
           id={'3'}
         />
-      </div>
+      </main>
 
     </>
   )
