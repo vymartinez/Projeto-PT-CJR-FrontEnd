@@ -1,14 +1,18 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation' 
 
-const Teacher = ( {  name, discipline, department, photo } : Teacher) => {
-    if (photo === '') {
-        photo = '/images/default-user.jpg'
+const Teacher = ( {  id, name, discipline, photo } : Teacher) => {
+
+    const router = useRouter()
+    const handleClick = (key : number) => {
+        router.push(`/${key}`)
     }
+
   return (
     <>
         <div className='flex justify-center w-full'>
-            <div className='relative h-52 w-40 bg-white rounded-lg my-5 border-2 hover:border-primary cursor-pointer lg:h-64 lg:w-48'>
+            <div className='relative h-52 w-40 bg-white rounded-lg my-5 border-2 hover:border-primary cursor-pointer lg:h-64 lg:w-48' onClick={() => handleClick(id)}>
                 <div className='rounded-3xl h-24 w-24 relative bg-center m-auto mt-5 mb-4 lg:w-32 lg:h-32'>
                     <Image
                     src={photo}

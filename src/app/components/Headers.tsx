@@ -6,6 +6,7 @@ import logo from '../../../public/images/unb-logo.png'
 import Image from 'next/image'
 import user from '../../../public/images/default-user.jpg'
 import Menu from '../components/Menu'
+import { useRouter } from 'next/navigation'
 
 export const HeaderLogged = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -51,6 +52,11 @@ export const HeaderLogged = () => {
 }
 
 export const HeaderUnlogged = () => {
+
+  const router = useRouter()
+  const handleClick = () => {
+    router.replace("/")
+  }
   return (
     <>
         <header className='w-full h-24 bg-primary flex justify-between'>
@@ -59,11 +65,11 @@ export const HeaderUnlogged = () => {
               src={logo}
               alt="logo-unb"
               fill
-              sizes="100vw"
+              sizes="max"
               draggable={false}
               />
             </div>
-            <button className='bg-gradient-to-b from-sky-800 to-button rounded-xl my-8 mx-6 border border-1 border-background text-white/90 capitalize text-sm w-28 h-8 md:w-40 md:h-10 md:mx-8 md:my-7'>
+            <button onClick={handleClick} className='bg-gradient-to-b from-sky-800 to-button rounded-xl my-8 mx-6 border border-1 border-background text-white/90 capitalize text-sm w-28 h-8 md:w-40 md:h-10 md:mx-8 md:my-7'>
                 Login
             </button>
         </header>

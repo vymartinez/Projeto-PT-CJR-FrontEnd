@@ -71,12 +71,15 @@ export const SearchedTeachers = () => {
             {teachersList.slice(0, teachersDisplaying).map(item => {
               return (
                 <>
-                    <Teacher 
-                    key={item.key}
+                    <Teacher
+                    id={item.id}
+                    key={item.id}
                     name={item.name} 
                     discipline={item.discipline}
                     department={item.department}
                     photo={item.photo}
+                    createdAt={item.createdAt}
+                    updatedAt={item.updatedAt}
                     />
                 </>
               )
