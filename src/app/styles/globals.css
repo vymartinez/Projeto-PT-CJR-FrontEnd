@@ -11,10 +11,10 @@
 @layer {
     :root {
         --primary: #295135;
-        --secondary: black;
+        --secondary: #075985;
         --background: #abcea1;
         --button: #161B33;
-        --extra: blue;
+        --extra: #F1F1F1;
     }
 }
 

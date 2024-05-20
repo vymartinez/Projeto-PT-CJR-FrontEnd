@@ -1,86 +1,86 @@
 export const Teachers : Teacher[] = [
     {
-        key: 1,
+        id: 1,
         name: 'Josefino',
         discipline: 'Álgebra Linear',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 2,
+        id: 2,
         name: 'Ciclano',
         discipline: 'Cálculo III',
         department: 'Departamento de Matemática',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 3,
+        id: 3,
         name: 'Péricles',
         discipline: 'Cálculo I',
         department: 'Departamento CIC',
         photo: "/images/pericles.png"
     },
     {
-        key: 4,
+        id: 4,
         name: 'Fulano',
         discipline: 'Introdução aos Sistemas Computacionais',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 5,
+        id: 5,
         name: 'Beltrano',
         discipline: 'Geologia',
         department: 'Departamento de Rochas',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 6,
+        id: 6,
         name: 'Voltano',
         discipline: 'Inteligência Artificial',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 7,
+        id: 7,
         name: 'Joséfa',
         discipline: 'Matemática II',
         department: 'Departamento de Matemática',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 8,
+        id: 8,
         name: 'Irineu',
         discipline: 'Cálculo II',
         department: 'Departamento de Matemática',
         photo: "/images/irineu.jpg"
     },
     {
-        key: 9,
+        id: 9,
         name: 'Biruto',
         discipline: 'Redes de Computadores',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 10,
+        id: 10,
         name: 'Tibóia',
         discipline: 'Estrutura de Dados',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/default-user.jpg"
     },
     {
-        key: 11,
+        id: 11,
         name: 'Flavin do Pneu',
         discipline: 'Sistemas de Informação',
         department: 'Departamento CIC',
         photo: "/images/flavin.jpg"
     },
     {
-        key: 12,
+        id: 12,
         name: 'Jota',
         discipline: 'Compiladores',
         department: 'Departamento CIC',
-        photo: ""
+        photo: "/images/default-user.jpg"
     }
 ];

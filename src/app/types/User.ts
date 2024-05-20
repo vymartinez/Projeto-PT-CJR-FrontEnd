@@ -1,8 +1,10 @@
-interface Teacher {
+interface User {
     id: number;
     name: string;
-    discipline: string;
+    email: string;
+    password: string;
     department: string;
+    course: string;
     photo: string;
     createdAt: string;
     updatedAt: string;
