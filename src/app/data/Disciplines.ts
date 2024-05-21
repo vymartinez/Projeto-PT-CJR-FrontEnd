@@ -1,4 +1,4 @@
-[
+export const Disciplines: Discipline[] = [
     {
       "id": 0,
       "name": "Introdução aos Sistemas Computacionais",

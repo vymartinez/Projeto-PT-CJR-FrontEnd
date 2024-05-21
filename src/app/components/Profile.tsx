@@ -5,6 +5,7 @@ import { Teachers } from '../data/Teachers';
 import building from '../../../public/icons/building.svg'
 import book from '../../../public/icons/book.svg'
 import mail from '../../../public/icons/mail.svg'
+import { Disciplines } from '../data/Disciplines';
 
 type Props =  {
     id: string;
@@ -20,6 +21,17 @@ const Profile = ({id} : Props) => {
     })
 
     if (profile) {
+        const filteredDisciplines = Disciplines.filter(item => {
+            for (let i in profile.disciplinesId) {
+                if (item.id === profile.disciplinesId[i]) {
+                    return item;
+                }
+            }
+        })
+    
+        const disciplines = filteredDisciplines.map(item => {
+            return item.name;
+        })
         return (
         <>
             <div className='w-full sm:w-2/3 md:w-3/5 h-full bg-extra'>
@@ -61,7 +73,7 @@ const Profile = ({id} : Props) => {
                             />
                         </div>
                         <p className='text-xs md:ml-2 md:text-sm'>
-                            {profile.discipline}
+                            {disciplines.join(', ')}
                         </p>
                     </div>  
                 </div>

@@ -1,13 +1,26 @@
 import React from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation' 
+import { useRouter } from 'next/navigation'
+import { Disciplines } from '../data/Disciplines'
 
-const Teacher = ( {  id, name, discipline, photo } : Teacher) => {
+const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
 
     const router = useRouter()
     const handleClick = (key : number) => {
         router.push(`/${key}`)
     }
+
+    const filteredDisciplines = Disciplines.filter(item => {
+        for (let i in disciplinesId) {
+            if (item.id === disciplinesId[i]) {
+                return item;
+            }
+        }
+    })
+
+    const disciplines = filteredDisciplines.map(item => {
+        return item.name;
+    })
 
   return (
     <>
@@ -29,7 +42,7 @@ const Teacher = ( {  id, name, discipline, photo } : Teacher) => {
                 </div>
                 <div className='flex justify-center flex-col text-center mt-3 md:mt-6'>
                     <p className=' text-sm text-black lg:text-md'>{name}</p>
-                    <p className='mt-1 text-gray-400 text-xs md:text-xs md:mt-2 xl:text-sm'>{discipline}</p>
+                    <p className='mt-1 text-gray-400 text-xs md:text-xs md:mt-2 xl:text-sm'>{disciplines.join(', ')}</p>
                 </div>
             </div>
         </div>

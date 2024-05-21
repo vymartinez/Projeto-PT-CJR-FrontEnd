@@ -75,7 +75,7 @@ export const SearchedTeachers = () => {
                     id={item.id}
                     key={item.id}
                     name={item.name} 
-                    discipline={item.discipline}
+                    disciplinesId={item.disciplinesId}
                     department={item.department}
                     photo={item.photo}
                     createdAt={item.createdAt}
