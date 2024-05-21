@@ -5,10 +5,13 @@ import trash from '../../../public/icons/trash.svg'
 import edit from '../../../public/icons/edit.svg'
 
 type Props = {
-  profile: Teacher;
+  profile: Teacher | User;
+  discipline: string;
+  createdAt: string;
+  text: string;
 }
 
-const Post = ({profile} : Props) => {
+const Post = ({profile, discipline, createdAt, text} : Props) => {
   return (
     <>
       <div className='rounded-xl w-11/12 h-full bg-secondary p-4 m-2 mb-5'>
@@ -26,19 +29,14 @@ const Post = ({profile} : Props) => {
           </div>
           <div className='flex items-center justify-center ml-3 mt-3'>
             <ul className='flex list-disc'>
-              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>15/05/2024, às 20:14</li>
-              <li className='text-xs text-gray-400 pr-5 md:pr-5'>Morty Gamer</li>
-              <li className='text-xs text-gray-400'>Viagem Interdimensional</li>
+              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{createdAt}</li>
+              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
+              <li className='text-xs text-gray-400'>{discipline}</li>
             </ul>
           </div>
         </div>
         <div>
-          <p className='text-xs text-white mt-2 p-3'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Nunc laoreet mauris molestie orci mollis vestibulum.
-            Donec nunc quam, tristique a mauris nec, efficitur maximus velit.
-            Nullam sit amet dui sed felis malesuada blandit.Nullam ornare id turpis at lobortis.
-            Donec feugiat, libero et viverra facilisis, enim leo pretium ex, in ornare nisl neque vitae dolor</p>
+          <p className='text-xs text-white mt-2 p-3'>{text}</p>
         </div>
         <div className='flex p-2'>
           <div className='flex items-center'>

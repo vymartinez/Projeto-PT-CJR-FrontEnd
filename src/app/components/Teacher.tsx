@@ -7,7 +7,7 @@ const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
 
     const router = useRouter()
     const handleClick = (key : number) => {
-        router.push(`/${key}`)
+        router.push(`/teachers/${key}`)
     }
 
     const filteredDisciplines = Disciplines.filter(item => {
