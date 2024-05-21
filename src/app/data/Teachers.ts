@@ -2,85 +2,109 @@ export const Teachers : Teacher[] = [
     {
         id: 1,
         name: 'Josefino',
-        discipline: 'Álgebra Linear',
+        disciplinesId: [0],
         department: 'Departamento CIC',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 2,
         name: 'Ciclano',
-        discipline: 'Cálculo III',
+        disciplinesId: [1, 2],
         department: 'Departamento de Matemática',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 3,
         name: 'Péricles',
-        discipline: 'Cálculo I',
+        disciplinesId: [3],
         department: 'Departamento CIC',
-        photo: "/images/pericles.png"
+        photo: "/images/pericles.png",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 4,
         name: 'Fulano',
-        discipline: 'Introdução aos Sistemas Computacionais',
+        disciplinesId: [4],
         department: 'Departamento CIC',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 5,
         name: 'Beltrano',
-        discipline: 'Geologia',
+        disciplinesId: [5],
         department: 'Departamento de Rochas',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 6,
         name: 'Voltano',
-        discipline: 'Inteligência Artificial',
+        disciplinesId: [6],
         department: 'Departamento CIC',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 7,
         name: 'Joséfa',
-        discipline: 'Matemática II',
+        disciplinesId: [0],
         department: 'Departamento de Matemática',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 8,
         name: 'Irineu',
-        discipline: 'Cálculo II',
+        disciplinesId: [1],
         department: 'Departamento de Matemática',
-        photo: "/images/irineu.jpg"
+        photo: "/images/irineu.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 9,
         name: 'Biruto',
-        discipline: 'Redes de Computadores',
+        disciplinesId: [3],
         department: 'Departamento CIC',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 10,
         name: 'Tibóia',
-        discipline: 'Estrutura de Dados',
+        disciplinesId: [4],
         department: 'Departamento CIC',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 11,
         name: 'Flavin do Pneu',
-        discipline: 'Sistemas de Informação',
+        disciplinesId: [5],
         department: 'Departamento CIC',
-        photo: "/images/flavin.jpg"
+        photo: "/images/flavin.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     },
     {
         id: 12,
         name: 'Jota',
-        discipline: 'Compiladores',
+        disciplinesId: [6],
         department: 'Departamento CIC',
-        photo: "/images/default-user.jpg"
+        photo: "/images/default-user.jpg",
+        createdAt: "2021-06-01T18:00:00.000Z",
+        updatedAt: "2021-06-01T18:00:00.000Z"
     }
 ];

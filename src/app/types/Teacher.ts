@@ -1,7 +1,7 @@
 interface Teacher {
     id: number;
     name: string;
-    discipline: string;
+    disciplinesId: number[];
     department: string;
     photo: string;
     createdAt: string;

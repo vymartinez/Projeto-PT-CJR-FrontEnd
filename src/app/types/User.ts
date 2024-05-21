@@ -5,7 +5,7 @@ interface User {
     password: string;
     department: string;
     course: string;
-    photo: string;
+    picture: string;
     createdAt: string;
     updatedAt: string;
 }
