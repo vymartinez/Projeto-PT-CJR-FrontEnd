@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState } from 'react'
-import bell from '../../../public/icons/bell.svg'
-import logo from '../../../public/images/unb-logo.png'
+import bell from '@/../public/icons/bell.svg'
+import logo from '@/../public/images/unb-logo.png'
 import Image from 'next/image'
-import user from '../../../public/images/default-user.jpg'
+import user from '@/../public/images/default-user.jpg'
 import Menu from '../components/Menu'
 import Link from 'next/link'
 

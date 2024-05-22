@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
-import arrowRight from '../../../public/icons/arrow-right.svg'
+import arrowRight from '@/../public/icons/arrow-right.svg'
 import Link from 'next/link';
 
 const Menu = () => {

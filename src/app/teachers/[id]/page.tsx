@@ -14,6 +14,8 @@ type Props = {
 
 const UserProfile = ({params} : Props) => {
 
+  const satisfiesUserProfile = {"id": -1,"name": "none","email": "none", "password": "none","department": "none","course": "none","photo": "none","createdAt": "none","updatedAt": "none"}
+
   let logged = false;
   const router = useRouter();
 
@@ -34,13 +36,12 @@ if (notError) {
       {!logged && <HeaderUnlogged />}
 
       <main className='flex justify-center min-h-screen h-screen'>
-        
         {notError && <Profile
-          id={params.id}
           isTeacher={true}
+          teacherProfile={notError}
+          userProfile={satisfiesUserProfile}
         />}
       </main>
-
     </>
   )
 }

@@ -1,6 +1,4 @@
 import React from 'react'
-import {HeaderLogged, HeaderUnlogged} from './components/Headers'
-
 
 const Home = () => {
 

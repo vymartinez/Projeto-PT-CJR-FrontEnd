@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Teacher from './Teacher'
 import { Teachers } from '../data/Teachers'
-import glass from '../../../public/icons/magnifying-glass.svg'
+import glass from '@/../public/icons/magnifying-glass.svg'
 import Image from 'next/image'
 
 export const SearchedTeachers = () => {

@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import baloon from '../../../public/icons/balloon.svg'
-import trash from '../../../public/icons/trash.svg'
-import edit from '../../../public/icons/edit.svg'
+import baloon from '@/../public/icons/balloon.svg'
+import trash from '@/../public/icons/trash.svg'
+import edit from '@/../public/icons/edit.svg'
 
 type Props = {
   profile: Teacher | User;
@@ -23,6 +23,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               alt="user-pic"
               fill
               sizes="max"
+              draggable={false}
               />
             </div>
               <h1 className='font-semibold text-xs text-white pr-5 ml-3 items-center flex'>{profile.name}</h1>
@@ -47,6 +48,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               fill
               sizes="max"
               className='cursor-pointer'
+              draggable={false}
               />
             </div>
             <div className='flex items-center my-0 ml-2 md:my-0'>
@@ -61,6 +63,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               fill
               sizes="max"
               className='cursor-pointer'
+              draggable={false}
               />
             </div>
           </div>
@@ -71,6 +74,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
             fill
             sizes="max"
             className='cursor-pointer'
+            draggable={false}
             />
           </div>
         </div>
