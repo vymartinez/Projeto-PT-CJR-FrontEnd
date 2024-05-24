@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import baloon from '@/../public/icons/balloon.svg'
 import trash from '@/../public/icons/trash.svg'
 import edit from '@/../public/icons/edit.svg'
+import EditAssessmentModal from './EditAssessmentModal'
 
 type Props = {
   profile: Teacher | User;
@@ -12,6 +13,7 @@ type Props = {
 }
 
 const Post = ({profile, discipline, createdAt, text} : Props) => {
+  const [modal, setModal] = useState(false);
   return (
     <>
       <div className='rounded-xl w-11/12 h-full bg-secondary p-4 m-2 mb-5'>
@@ -64,6 +66,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               sizes="max"
               className='cursor-pointer'
               draggable={false}
+              onClick={() => setModal(true)}
               />
             </div>
           </div>
@@ -79,6 +82,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
           </div>
         </div>
       </div>
+      {modal && <EditAssessmentModal closeModal={() => setModal(false)}/>}
     </>
   )
 }

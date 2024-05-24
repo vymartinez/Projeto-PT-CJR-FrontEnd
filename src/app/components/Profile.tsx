@@ -86,11 +86,15 @@ const Profile = ({ isTeacher, teacherProfile, userProfile} : Props) => {
                         alt="mail-icon"
                         fill
                         sizes="max"
+                        draggable={false}
                         />}
                     </div>
-                    <p className='text-xs md:ml-2 md:text-sm'>
-                        {disciplines.join(', ')}
-                    </p>
+                    {isTeacher && <p className='text-xs md:ml-2 md:text-sm'>
+                            {disciplines.join(', ')}
+                        </p>}
+                    {!isTeacher &&  <p className='text-xs md:ml-2 md:text-sm'>
+                            {userProfile.email}
+                        </p>}
                 </div>  
             </div>
             <div className='flex flex-col text-center items-center'>

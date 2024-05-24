@@ -59,13 +59,15 @@ export const SearchBar = () => {
       </div>
       </div>
       <div className='container h-2 rounded-full bg-primary mx-auto w-3/4 sm:w-full'></div>
-      <div className='text-center font-bold text-md m-5'>
-        {heading}
+      <div className='flex mx-auto container'>
+        <div className='flex justify-start px-3 mt-5'>
+          <button onClick={handleModal} className='w-fit h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs ml-5'>Nova Avaliação</button>
+        </div>
+        <div className='font-bold text-md my-5 mx-auto'>
+          {heading}
+        </div>
       </div>
-      <div className='flex justify-center mr-5'>
-        <button onClick={handleModal} className='w-3/4 h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs'>Nova Avaliação</button>
-      </div>
-        {modal && <AssessmentModal closeModal={handleModal}/>}
+        {modal && <EditAssessmentModal closeModal={handleModal}/>}
     </>
   )
 }
