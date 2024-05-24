@@ -6,7 +6,8 @@ import Link from 'next/link';
 const Menu = () => {
   return (
     <>   
-        <nav className='flex flex-col w-fit bg-button rounded-md absolute right-2 z-[1] before:w-6 before:h-6 before:content-[""] before:block before:mb-6 before:absolute before:bg-button before:rotate-45 before:ml-3 before:right-6 before:-top-2 before:z-[-1]'>
+        <nav className='flex flex-col w-fit bg-button rounded-md absolute right-2'>
+          <div className=' border-x-[12px] border-x-transparent border-b-[12px] -mt-3 border-b-button top-0 absolute ml-14 sm:ml-12 sm:-mt-2 sm:border-b-8 sm:border-x-8'></div>
             <Link href={'/users/0'} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
                 Meu perfil
             </Link>

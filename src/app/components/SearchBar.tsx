@@ -6,6 +6,7 @@ import glass from '@/../public/icons/magnifying-glass.svg'
 import Image from 'next/image'
 import { useTeachersList } from '../hooks/teachersContext'
 import AssessmentModal from './AssessmentModal'
+import EditAssessmentModal from './EditAssessmentModal'
 
 export const SearchBar = () => {
 
@@ -62,7 +63,7 @@ export const SearchBar = () => {
         {heading}
       </div>
       <div className='flex justify-center mr-5'>
-        <button onClick={handleModal} className='w-fit h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs'>Nova Avaliação</button>
+        <button onClick={handleModal} className='w-3/4 h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs'>Nova Avaliação</button>
       </div>
         {modal && <AssessmentModal closeModal={handleModal}/>}
     </>
