@@ -9,8 +9,8 @@ import Menu from '../components/Menu'
 import Link from 'next/link'
 
 export const HeaderLogged = () => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const handleClick = () => openMenu ? setOpenMenu(false) : setOpenMenu(true);
+  const [menu, setMenu] = useState(false);
+  const handleClick = () => menu ? setMenu(false) : setMenu(true);
 
   return (
     <>
@@ -46,7 +46,7 @@ export const HeaderLogged = () => {
               />
             </div>
         </header>
-            {openMenu && <Menu />}
+            {menu && <Menu/>}
     </>
   )
 }

@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import Image from 'next/image';
 import arrowRight from '@/../public/icons/arrow-right.svg'
 import Link from 'next/link';
+import EditProfile from './EditProfile';
 
 const Menu = () => {
+  const [modal, setModal] = useState(false);
+
+  const handleClick = () => {
+    setModal(true);
+  }
   return (
     <>   
         <nav className='flex flex-col w-fit bg-button rounded-md absolute right-2'>
@@ -11,7 +17,7 @@ const Menu = () => {
             <Link href={'/users/0'} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
                 Meu perfil
             </Link>
-            <div className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
+            <div onClick={handleClick} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
                 Editar perfil
             </div>
             <div className='flex justify-center hover:opacity-80 cursor-pointer'>
@@ -29,6 +35,7 @@ const Menu = () => {
             </div>
             </div>
         </nav>
+      {modal && <EditProfile closeModal={() => setModal(false)}/>}
    </>
   )
 }

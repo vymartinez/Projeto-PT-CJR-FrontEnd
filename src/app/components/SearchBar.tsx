@@ -6,7 +6,6 @@ import glass from '@/../public/icons/magnifying-glass.svg'
 import Image from 'next/image'
 import { useTeachersList } from '../hooks/teachersContext'
 import AssessmentModal from './AssessmentModal'
-import EditAssessmentModal from './EditAssessmentModal'
 
 export const SearchBar = () => {
 
@@ -67,7 +66,7 @@ export const SearchBar = () => {
           {heading}
         </div>
       </div>
-        {modal && <EditAssessmentModal closeModal={handleModal}/>}
+        {modal && <AssessmentModal closeModal={handleModal}/>}
     </>
   )
 }

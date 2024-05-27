@@ -116,7 +116,7 @@ const EditAssessmentModal = ({closeModal}: Props) => {
                 <button onClick={closeModal} className='py-2 px-3 text-white bg-red-600 text-sm mx-3 rounded-xl'>
                     Cancelar
                 </button>
-                <button onClick={handleSendAssessment} className='py-2 px-3 bg-primary text-white text-sm mx-3 rounded-xl'>
+                <button onClick={handleSendAssessment} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
                     Avaliar
                 </button>
             </div>
