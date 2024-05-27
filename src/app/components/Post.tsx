@@ -3,7 +3,7 @@ import Image from 'next/image'
 import baloon from '@/../public/icons/balloon.svg'
 import trash from '@/../public/icons/trash.svg'
 import edit from '@/../public/icons/edit.svg'
-import EditAssessmentModal from './EditAssessmentModal'
+import EditModal from './EditModal'
 
 type Props = {
   profile: Teacher | User;
@@ -14,6 +14,18 @@ type Props = {
 
 const Post = ({profile, discipline, createdAt, text} : Props) => {
   const [modal, setModal] = useState(false);
+  const [isAComment, setIsAComment] = useState(false);
+
+  const handleEdit = () => {
+    setIsAComment(false)
+    setModal(true)
+  }
+
+  const handleComment = () => {
+    setIsAComment(true)
+    setModal(true)
+  }
+
   return (
     <>
       <div className='rounded-xl w-11/12 h-full bg-secondary p-4 m-2 mb-5'>
@@ -51,6 +63,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               sizes="max"
               className='cursor-pointer'
               draggable={false}
+              onClick={handleComment}
               />
             </div>
             <div className='flex items-center my-0 ml-2 md:my-0'>
@@ -66,7 +79,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               sizes="max"
               className='cursor-pointer'
               draggable={false}
-              onClick={() => setModal(true)}
+              onClick={handleEdit}
               />
             </div>
           </div>
@@ -82,7 +95,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
           </div>
         </div>
       </div>
-      {modal && <EditAssessmentModal closeModal={() => setModal(false)}/>}
+      {modal && <EditModal closeModal={() => setModal(false)} isAComment={isAComment}/>}
     </>
   )
 }

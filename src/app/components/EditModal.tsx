@@ -11,9 +11,10 @@ import Image from 'next/image'
 
 type Props = {
     closeModal: () => void;
+    isAComment: boolean;
 }
 
-const EditAssessmentModal = ({closeModal}: Props) => {
+const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
 
     const [textArea, setTextArea] = useState('')
 
@@ -102,7 +103,7 @@ const EditAssessmentModal = ({closeModal}: Props) => {
             </div>
             <div className='flex justify-center w-full h-fit relative bottom-0 mt-12 bg-secondary p-4 rounded-b-xl lg:justify-end'>
                 <div className='flex justify-center items-center w-fit md:w-full md:justify-start'>
-                    <div className='h-6 w-6 relative md:ml-5'>
+                    {!isAComment && <div className='h-6 w-6 relative md:ml-5'>
                         <Image
                         src={trash}
                         alt='trash-icon'
@@ -111,13 +112,14 @@ const EditAssessmentModal = ({closeModal}: Props) => {
                         draggable={false}
                         className='cursor-pointer'
                         />
-                    </div>
+                    </div>}
                 </div>
                 <button onClick={closeModal} className='py-2 px-3 text-white bg-red-600 text-sm mx-3 rounded-xl'>
                     Cancelar
                 </button>
                 <button onClick={handleSendAssessment} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
-                    Avaliar
+                    {!isAComment && <p>Editar</p>}
+                    {isAComment && <p>Comentar</p>}
                 </button>
             </div>
         </div>
