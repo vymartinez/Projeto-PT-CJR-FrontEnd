@@ -1,8 +1,11 @@
-import React, { createContext } from "react";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+'use client'
+
+import React from 'react';
+import Image from 'next/image';
+import { Inter } from 'next/font/google';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,15 +23,15 @@ const validationSchema = Yup.object({
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <div className="w-full flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full bg-background shadow-md rounded-lg overflow-hidden">
         <div className="flex h-full">
           <div className="w-1/2 bg-gray-200">
           <img className="w-full h-full" src="/images/university.png" />
          </div>
-         <div className="w-1/2 flex">
-          <div className="m-auto">
-            <h2 className="w-96 h-16 text-center text-black text-5x1 font-normal ">Avaliação de Professores</h2>
+         <div className="w-1/2">
+          <div className="flex flex-col justify-center items-center h-full">
+            <h2 className="mb-6 w-96 h-36 text-center text-black text-5xl font-normal">Avaliação de Professores</h2>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
               <Form className="flex flex-col">
                 <div className="mb-4">
@@ -48,16 +51,16 @@ const validationSchema = Yup.object({
                     placeholder="Senha"
                     className= "mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md"
                   />
-                  <div className="inline-flez space-x-4">
+                  <div className="inline-flex space-x-12">
                     <button
                     type= "submit"
-                    className= "w-full bg-emerald-200 text-blue-950 py-2 px-4 rounded-md hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                    className= "mt-16 w-full bg-secondary text-white py-2 px-14 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black"
                     >
                     Entrar
                     </button>
                     <button
                      type= "button"
-                     className="w-full bg-emerald-200 text-blue-950 py-2 px-4 rounded-md hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                     className="mt-16 w-full bg-secondary text-white py-2 px-12 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black whitespace-nowrap"
                     >
                      Criar Conta
                     </button>
