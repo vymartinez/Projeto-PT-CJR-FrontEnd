@@ -12,6 +12,12 @@ type Props = {
   text: string;
 }
 
+/*const data = new Intl.DateTimeFormat('pt-br', {
+  dateStyle: 'short',
+  timeStyle:'long',
+}).format()
+console.log(data)*/
+
 const Post = ({profile, discipline, createdAt, text} : Props) => {
   const [modal, setModal] = useState(false);
   const [isAComment, setIsAComment] = useState(false);

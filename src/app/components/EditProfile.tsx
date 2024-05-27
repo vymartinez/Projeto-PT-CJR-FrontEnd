@@ -45,7 +45,7 @@ const EditProfile = ({closeModal} : Props) => {
 
   return (
     <>
-    <div className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/60 z-[1] flex-col'>
+    <div className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/50 z-[1] flex-col'>
         <div className='w-full h-full bg-extra relative sm:rounded-3xl sm:w-2/3 sm:h-5/6 lg:w-2/5'>
             <div className='h-9 w-9 absolute right-5 top-5'>
                 <Image
@@ -80,23 +80,44 @@ const EditProfile = ({closeModal} : Props) => {
                         draggable={false}
                         />
                     </div>
-                    <Field name="name" type="text" id="name" className='rounded-full w-1/2 h-fit py-2 px-3 focus:outline-none mb-2 sm:placeholder:text-sm placeholder:text-xs' placeholder='Nome'/>
+                    <Field name="name" type="text" id="name"
+                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none mb-2 sm:w-1/2 sm:placeholder:text-sm placeholder:text-xs'
+                    placeholder='Nome'/>
                     <ErrorMessage name='name' component="span" className='text-red-600 text-xs'/>
-                    <Field name="email" type="email" id="email" className='rounded-full w-1/2 h-fit py-2 px-3 focus:outline-none my-2 sm:placeholder:text-sm placeholder:text-xs' placeholder='Email'/>
+
+                    <Field name="email" type="email" id="email"
+                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none my-2 sm:w-1/2 sm:placeholder:text-sm placeholder:text-xs' 
+                    placeholder='Email'/>
                     <ErrorMessage name='email' component="span" className='text-red-600 text-xs'/>
-                    <Field name="course" type="text" id="course" className='rounded-full w-1/2 h-fit py-2 px-3 focus:outline-none my-2 sm:placeholder:text-sm placeholder:text-xs' placeholder='Curso'/>
+
+                    <Field name="course" type="text" id="course"
+                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none my-2 sm:w-1/2 sm:placeholder:text-sm placeholder:text-xs' 
+                    placeholder='Curso'/>
                     <ErrorMessage name='course' component="span" className='text-red-600 text-xs'/>
-                    <Field name="department" type="text" id="department" className='rounded-full w-1/2 h-fit py-2 px-3 focus:outline-none my-2 sm:placeholder:text-sm placeholder:text-xs' placeholder='Departamento'/>
+
+                    <Field name="department" type="text" id="department"
+                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none my-2 sm:w-1/2 sm:placeholder:text-sm placeholder:text-xs' 
+                    placeholder='Departamento'/>
                     <ErrorMessage name='department' component="span" className='text-red-600 text-xs'/>
-                    <Field name="newPassword" type="password" id="newPassword" className='rounded-full w-1/2 h-fit py-2 px-3 focus:outline-none my-2 sm:placeholder:text-sm placeholder:text-xs' placeholder='Nova senha'/>
+
+                    <Field name="newPassword" type="password" id="newPassword"
+                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none my-2 sm:w-1/2 sm:placeholder:text-sm placeholder:text-xs' 
+                    placeholder='Nova senha'/>
                     <ErrorMessage name='newPassword' component="span" className='text-red-600 text-xs'/>
-                    <Field name="passwordConfirmation" type="password" id="passwordConfirmation" className='rounded-full w-1/2 h-fit py-2 px-3 focus:outline-none my-2 sm:placeholder:text-sm placeholder:text-xs' placeholder='Confirmar nova senha'/>
+
+                    <Field name="passwordConfirmation" type="password" id="passwordConfirmation"
+                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none my-2 sm:w-1/2 sm:placeholder:text-sm placeholder:text-xs' 
+                    placeholder='Confirmar nova senha'/>
                     <ErrorMessage name='passwordConfirmation' component="span" className='text-red-600 text-xs'/>
-                    <Field name="password" type="password" id="password" className='rounded-full w-1/2 h-fit py-2 px-3 focus:outline-none my-2 sm:placeholder:text-sm placeholder:text-xs' placeholder='Senha Atual'/>
+
+                    <Field name="password" type="password" id="password"
+                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none my-2 sm:w-1/2 sm:placeholder:text-sm placeholder:text-xs' 
+                    placeholder='Senha Atual'/>
                     <ErrorMessage name='password' component="span" className='text-red-600 text-xs'/>
+
                     <input type="file" ref={fileRef} className='hidden'/>
 
-                    <button type='submit' className='text-center py-2 px-4 bg-button text-white rounded-full mt-8  h-fit w-1/5 text-xs sm:text-sm'>Salvar</button>
+                    <button type='submit' className='text-center py-2 px-4 bg-button text-white rounded-full mt-8 w-3/5 h-fit sm:w-1/5 text-xs sm:text-sm'>Salvar</button>
                 </Form>
             </Formik>
         </div>

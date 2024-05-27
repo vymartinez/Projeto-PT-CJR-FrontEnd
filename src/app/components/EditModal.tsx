@@ -24,7 +24,7 @@ const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
 
   return (
     <>
-    <div  className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-[#F1F1F1]/60 z-[1] flex-col'>
+    <div  className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/50 z-[1] flex-col'>
         <div className=' h-full w-full  bg-secondary flex items-center justify-center flex-col pt-3 md:rounded-xl md:h-1/2 md:w-2/3 md:pt-5 md:p-2 lg:p-4 lg:pt-10 lg:h-2/3'>
             <div onClick={closeModal} className=' absolute top-0 right-0 font-bold text-3xl h-10 w-10 m-5 md:hidden'>
                 <Image

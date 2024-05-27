@@ -58,7 +58,7 @@ export const SearchBar = () => {
       </div>
       </div>
       <div className='container h-2 rounded-full bg-primary mx-auto w-3/4 sm:w-full'></div>
-      <div className='flex mx-auto container'>
+      <div className='flex flex-col items-center md:items-start md:flex-row md:mx-auto md:container'>
         <div className='flex justify-start px-3 mt-5'>
           <button onClick={handleModal} className='w-fit h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs ml-5'>Nova Avaliação</button>
         </div>

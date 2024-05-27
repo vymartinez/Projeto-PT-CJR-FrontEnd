@@ -67,7 +67,7 @@ const AssessmentModal = ({closeModal}: Props) => {
 
   return (
     <>
-        <div className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-[#F1F1F1]/60 z-[1] flex-col'>
+        <div className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/50 z-[1] flex-col'>
             <div className='bg-secondary h-full w-full flex flex-col p-4 md:h-2/3 md:w-2/3 md:rounded-xl'>
                 <div className='flex flex-col'>
                     <div className='pt-3 px-3 flex items-center'>
@@ -151,7 +151,9 @@ const AssessmentModal = ({closeModal}: Props) => {
                             />
                         </div>
                     </div>
-                    <textarea maxLength={300} value={textArea} onChange={(e) => setTextArea(e.target.value)} className='w-full h-full rounded-b-xl text-md outline-none flex items-start resize-none px-10 py-5 overflow-hidden'></textarea>
+                    <textarea maxLength={300} value={textArea} onChange={(e) => setTextArea(e.target.value)}
+                        className='w-full h-full rounded-b-xl text-lg outline-none flex items-start resize-none px-10 py-5 overflow-hidden lg:text-2xl'>
+                    </textarea>
                 </div>
                 </div>
             <div className='flex justify-center w-full h-fit relative bottom-0 mt-12 bg-secondary p-4 rounded-b-xl lg:justify-end'>
