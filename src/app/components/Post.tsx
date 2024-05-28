@@ -4,12 +4,17 @@ import baloon from '@/../public/icons/balloon.svg'
 import trash from '@/../public/icons/trash.svg'
 import edit from '@/../public/icons/edit.svg'
 import EditModal from './EditModal'
+import AssessmentComments from './AssessmentComments'
+import { Comments } from '../data/Comments'
+import ConfirmDelete from './ConfirmDelete'
 
 type Props = {
   profile: Teacher | User;
+  id: number;
   discipline: string;
   createdAt: string;
   text: string;
+  commentSection: boolean;
 }
 
 /*const data = new Intl.DateTimeFormat('pt-br', {
@@ -18,9 +23,11 @@ type Props = {
 }).format()
 console.log(data)*/
 
-const Post = ({profile, discipline, createdAt, text} : Props) => {
+const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props) => {
   const [modal, setModal] = useState(false);
   const [isAComment, setIsAComment] = useState(false);
+  const [comments, setComments] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
 
   const handleEdit = () => {
     setIsAComment(false)
@@ -32,9 +39,17 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
     setModal(true)
   }
 
+  var commentsLength = 0;
+
+  Comments.filter(comment => { 
+    if (comment.userId === profile.id) {
+      commentsLength += 1;
+    }
+  })
+
   return (
     <>
-      <div className='rounded-xl w-11/12 h-full bg-secondary p-4 m-2 mb-5'>
+      <div className='rounded-xl w-11/12 h-full bg-secondary p-4 m-2 mb-5 border border-extra'>
         <div className='flex flex-col'>
           <div className='flex justify-center'>
             <div className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
@@ -73,7 +88,9 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               />
             </div>
             <div className='flex items-center my-0 ml-2 md:my-0'>
-              <p className='text-xs text-white'>2 comentários</p>
+              {!commentSection && <p onClick={() => setComments(true)} className='text-xs text-white cursor-pointer hover:underline'>
+                {commentsLength == 1 ? commentsLength + ' comentário' : commentsLength + " comentários"}
+              </p>}
             </div>
           </div>
           <div className='grow flex justify-end'>
@@ -89,7 +106,7 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
               />
             </div>
           </div>
-          <div className='h-5 w-5 relative mx-2'>
+          <div onClick={() => setConfirmation(true)} className='h-5 w-5 relative mx-2'>
             <Image
             src={trash}
             alt="trash-icon"
@@ -102,6 +119,8 @@ const Post = ({profile, discipline, createdAt, text} : Props) => {
         </div>
       </div>
       {modal && <EditModal closeModal={() => setModal(false)} isAComment={isAComment}/>}
+      {comments && <AssessmentComments closeModal={() => setComments(false)} assessmentId={id}/>}
+      {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
     </>
   )
 }

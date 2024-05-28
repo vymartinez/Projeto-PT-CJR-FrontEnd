@@ -8,6 +8,7 @@ import link from '@/../public/icons/link.svg'
 import x from '@/../public/icons/x.svg'
 import trash from '@/../public/icons/trash.svg'
 import Image from 'next/image'
+import ConfirmDelete from './ConfirmDelete'
 
 type Props = {
     closeModal: () => void;
@@ -17,6 +18,7 @@ type Props = {
 const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
 
     const [textArea, setTextArea] = useState('')
+    const [confirmation, setConfirmation] = useState(false);
 
     const handleSendAssessment = () => {
         closeModal()
@@ -103,7 +105,7 @@ const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
             </div>
             <div className='flex justify-center w-full h-fit relative bottom-0 mt-12 bg-secondary p-4 rounded-b-xl lg:justify-end'>
                 <div className='flex justify-center items-center w-fit md:w-full md:justify-start'>
-                    {!isAComment && <div className='h-6 w-6 relative md:ml-5'>
+                    {!isAComment && <div onClick={() => setConfirmation(true)} className='h-6 w-6 relative md:ml-5'>
                         <Image
                         src={trash}
                         alt='trash-icon'
@@ -124,6 +126,7 @@ const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
             </div>
         </div>
     </div>
+    {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
     </>
   )
 }

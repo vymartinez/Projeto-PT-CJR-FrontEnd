@@ -103,11 +103,13 @@ const Profile = ({ isTeacher, teacherProfile, userProfile} : Props) => {
                     if (item.teacherId === teacherProfile.id) {
                         const course = Disciplines[item.teacherId].name;
                         return <Post 
-                        key={item.id} 
+                        key={item.id}
+                        id={item.id}
                         profile={Users[item.userId]}
                         discipline={course}
                         createdAt={item.createdAt}
                         text={item.text}
+                        commentSection={false}
                         />
                     }
                 })}
@@ -115,11 +117,13 @@ const Profile = ({ isTeacher, teacherProfile, userProfile} : Props) => {
                         if (item.userId === userProfile.id) {
                             const course = Disciplines[item.userId].name;
                             return <Post 
-                            key={item.id} 
+                            key={item.id}
+                            id={item.id}
                             profile={userProfile}
                             discipline={course}
                             createdAt={item.createdAt}
                             text={item.text}
+                            commentSection={false}
                             />
                         }
                     })}
