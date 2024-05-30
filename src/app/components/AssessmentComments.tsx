@@ -9,6 +9,7 @@ import { Users } from '../data/Users'
 import { Assessments } from '../data/Assessments'
 import Post from './Post'
 import ConfirmDelete from './ConfirmDelete'
+import EditModal from "./EditModal"
 
 type Props = {
     closeModal: () => void;
@@ -18,7 +19,7 @@ type Props = {
 const AssessmentComments = ({closeModal, assessmentId} : Props) => {
 
   const [confirmation, setConfirmation] = useState(false);
-
+  const [editModal, setEditModal] = useState(false);
   const comments = Comments.filter((item) => {
     if (item.assessmentId === assessmentId) {
       return item;
@@ -30,7 +31,7 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
   return (
     <>
        <div className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/50 z-[1] flex-col'>
-            <div className='w-full md:w-1/2 h-screen bg-secondary border-l border-l-white border-r border-r-white overflow-y-scroll  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'>
+            <div className='w-full md:w-1/2 h-screen bg-[#ECEBE9] border-l border-l-white border-r border-r-white overflow-y-scroll  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'>
               <div className='absolute h-10 w-10 right-10 top-10'>
                 <Image
                 src={x}
@@ -64,7 +65,7 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
                         draggable={false}
                         />
                       </div>
-                      <div className='rounded-xl w-4/5 h-fit p-4 border border-white mb-3 sm:flex-1'>
+                      <div className='rounded-xl w-4/5 h-fit p-4 border border-white mb-3 bg-secondary sm:flex-1'>
                         <div className='flex flex-col'>
                           <div className='flex justify-center'>
                             <div className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
@@ -80,8 +81,8 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
                           </div>
                           <div className='flex items-center justify-center ml-3 mt-3'>
                             <ul className='flex list-disc'>
-                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{user[item.userId].name}</li>
-                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{item.createdAt}</li>
+                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{item.createdAt}</li>
+                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{user[item.id].name}</li>
                               <li className='text-xs text-gray-400'>{user[item.id].course}</li>
                             </ul>
                           </div>
@@ -103,7 +104,7 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
                               sizes="max"
                               className='cursor-pointer'
                               draggable={false}
-                              onClick={closeModal}
+                              onClick={() => setEditModal(true)}
                               />
                             </div>
                           </div>
@@ -121,6 +122,7 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
                       </div>
                     </div>
                     {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
+                    {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={false}/>}
                     </>
                   )
                 })}

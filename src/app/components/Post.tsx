@@ -7,6 +7,7 @@ import EditModal from './EditModal'
 import AssessmentComments from './AssessmentComments'
 import { Comments } from '../data/Comments'
 import ConfirmDelete from './ConfirmDelete'
+import Link from 'next/link'
 
 type Props = {
   profile: Teacher | User;
@@ -52,7 +53,7 @@ const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props
       <div className='rounded-xl w-11/12 h-full bg-secondary p-4 m-2 mb-5 border border-extra'>
         <div className='flex flex-col'>
           <div className='flex justify-center'>
-            <div className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
+            <Link href={`/users/${profile.id}`} className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
               <Image 
               src={profile.photo}
               alt="user-pic"
@@ -60,8 +61,10 @@ const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props
               sizes="max"
               draggable={false}
               />
-            </div>
-              <h1 className='font-semibold text-xs text-white pr-5 ml-3 items-center flex'>{profile.name}</h1>
+            </Link>
+              <div className='font-semibold text-xs text-white pr-5 ml-3 items-center flex'>
+                <Link href={`/users/${profile.id}`}>{profile.name}</Link>
+              </div>
           </div>
           <div className='flex items-center justify-center ml-3 mt-3'>
             <ul className='flex list-disc'>
@@ -88,7 +91,7 @@ const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props
               />
             </div>
             <div className='flex items-center my-0 ml-2 md:my-0'>
-              {!commentSection && <p onClick={() => setComments(true)} className='text-xs text-white cursor-pointer hover:underline'>
+              {!commentSection && <p onClick={() => commentsLength > 0 ? setComments(true) : null} className={`text-xs text-white ${commentsLength > 0 ? 'cursor-pointer hover:underline' : ''}`}>
                 {commentsLength == 1 ? commentsLength + ' comentário' : commentsLength + " comentários"}
               </p>}
             </div>

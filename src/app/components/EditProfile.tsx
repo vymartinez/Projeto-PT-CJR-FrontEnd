@@ -23,16 +23,16 @@ const EditProfile = ({closeModal} : Props) => {
         email: Yup.string().email("email inválido").optional(),
         course: Yup.string().optional(),
         department: Yup.string().optional(),
-        newPassword: Yup.string().min(6, "New password must be at least 6 characters long").oneOf([Yup.ref("passwordConfirmation")], "Passwords don't match"),
-        passwordConfirmation: Yup.string().min(6, "Password confirmation must be at least 6 characters long").oneOf([Yup.ref("newPassword")], "Passwords don't match").when("newPassword", ([newPassword], schema) => {
+        newPassword: Yup.string().min(6, "Nova senha deve ter pelo menos 6 caracteres").oneOf([Yup.ref("passwordConfirmation")], "As senhas não coincidem"),
+        passwordConfirmation: Yup.string().min(6, "Nova senha deve ter pelo menos 6 caracteres").oneOf([Yup.ref("newPassword")], "As senhas não coincidem").when("newPassword", ([newPassword], schema) => {
             if (newPassword) {
-                return schema.required("Confirmation password is required");
+                return schema.required("Confirmação de senha é obrigatória");
             }
             return schema;
         }),
-        password: Yup.string().oneOf([Yup.ref("oldPassword")], "Passwords don't match").when("newPassword", ([newPassword], schema) => {
+        password: Yup.string().oneOf([Yup.ref("oldPassword")], "As senhas não coincidem").when("newPassword", ([newPassword], schema) => {
             if (newPassword) {
-                return schema.required("Old password is required");
+                return schema.required("Senha antiga é obrigatória");
             }
             return schema;
         }),
