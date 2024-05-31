@@ -1,35 +1,39 @@
-'use client'
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
-import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
-import * as Yup from 'yup';
-import unb from "@/../public/images/unb.avif"
-import logo from "@/../public/images/unb-logo.png"
+import unb from '../../../public/images/university.png';
+import { RegisterForm } from '../components/RegisterForm'; // Ajuste o caminho conforme necessário
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
-export default function Cadastro() {
-    const cadastro = useFormik({
-        initialValues: {
-        email: '',
-        },
-        onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
-        },
-    });
-    return (
-        <form onSubmit={cadastro.handleSubmit}>
-        <label htmlFor="email">Email Address</label>
-        <input
-            id="email"
-            name="email"
-            type="email"
-            onChange={cadastro.handleChange}
-            value={cadastro.values.email}
-        />
+const Cadastro = () => {
+  // Defina os estilos que serão passados para o RegisterForm
+  const formStyles = {
+    label: 'text-gray-600 font-semibold', // Adicione ou ajuste classes conforme necessário
+    field: 'border border-gray-300 p-2 rounded w-full mt-1', // Adicione ou ajuste classes conforme necessário
+    button: 'bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700', // Adicione ou ajuste classes conforme necessário
+  };
 
-        <button type="submit">Submit</button>
-        </form>
-    );
-}
+  return (
+    <div className="flex flex-row w-full">
+      <div className="w-1/2">
+        <Image src={unb} alt="Logo" />
+      </div>
+      <div className="w-1/2 p-8 flex flex-col justify-center">
+        <h2 className="text-2xl font-semibold text-gray-600 text-center">Avaliação de professores</h2>
+        <div className="mt-4 flex items-center justify-between">
+          <span className="border-b border-red-700 w-1/5 lg:w-1/4"></span>
+          <a href="#" className="text-xs text-center text-gray-500 uppercase">Cadastre-se</a>
+          <span className="border-b w-1/5 border-red-700 lg:w-1/4"></span>
+        </div>
+        <div className="mt-8">
+          <RegisterForm styles={formStyles} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Cadastro;
