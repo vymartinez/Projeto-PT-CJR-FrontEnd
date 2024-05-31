@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
 
 interface RegisterFormProps {
@@ -34,17 +34,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
       }}
     >
       <Form>
-      <label htmlFor="foto">Foto:</label>
-        <input
-            id="foto"
-            name="foto"
-            type="file"
-            accept="image/*"
-            className="border rounded-lg p-2"
-            onChange={handleFileChange}
-        />
-        
-
         <label className={styles.label} htmlFor='name'>
           Nome completo
         </label>
