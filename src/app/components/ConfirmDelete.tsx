@@ -24,7 +24,7 @@ const ConfirmDelete = ({closeConfirmation} : Props) => {
                 sizes='max'
                 />
             </div>
-            <div className='w-full h-full bg-extra rounded-2xl sm:h-1/2 flex flex-col gap-10 justify-center items-center sm:w-1/2 md:w-1/3'>
+            <div className='w-full h-full bg-extra flex flex-col gap-10 justify-center items-center sm:rounded-2xl sm:h-1/2 sm:w-1/2 md:w-1/3'>
                 <div className='flex justify-center items-center gap-2'>
                     <h1 className='text-3xl font-semibold'>Atenção</h1>
                     <div className='relative h-16 w-16'>
