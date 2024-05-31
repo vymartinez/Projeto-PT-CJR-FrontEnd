@@ -31,7 +31,7 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
   return (
     <>
        <div className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/50 z-[1] flex-col'>
-            <div className='w-full md:w-1/2 h-screen bg-[#ECEBE9] border-l border-l-white border-r border-r-white overflow-y-scroll  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'>
+            <div className='w-full h-screen bg-[#ECEBE9] border-l border-l-white border-r border-r-white overflow-y-scroll md:w-1/2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'>
               <div className='absolute h-10 w-10 right-10 top-10'>
                 <Image
                 src={x}

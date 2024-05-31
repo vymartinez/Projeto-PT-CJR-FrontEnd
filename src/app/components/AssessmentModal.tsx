@@ -151,8 +151,8 @@ const AssessmentModal = ({closeModal}: Props) => {
                             />
                         </div>
                     </div>
-                    <textarea maxLength={300} value={textArea} onChange={(e) => setTextArea(e.target.value)}
-                        className='w-full h-full rounded-b-xl text-lg outline-none flex items-start resize-none px-10 py-5 overflow-hidden lg:text-2xl'>
+                    <textarea maxLength={250} value={textArea} onChange={(e) => setTextArea(e.target.value)}
+                        className='w-full h-full rounded-b-xl text-md outline-none flex items-start resize-none px-10 py-5 overflow-hidden lg:text-xl'>
                     </textarea>
                 </div>
                 </div>

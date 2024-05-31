@@ -27,7 +27,7 @@ const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
   return (
     <>
     <div  className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/50 z-[1] flex-col'>
-        <div className=' h-full w-full  bg-secondary flex items-center justify-center flex-col pt-3 md:rounded-xl md:h-1/2 md:w-2/3 md:pt-5 md:p-2 lg:p-4 lg:pt-10 lg:h-2/3'>
+        <div className=' h-full w-full  bg-secondary flex items-center justify-center flex-col pt-3 md:rounded-xl md:h-2/3 md:w-2/3 md:pt-5 md:p-2 lg:p-4 lg:pt-10 lg:h-2/3'>
             <div onClick={closeModal} className=' absolute top-0 right-0 font-bold text-3xl h-10 w-10 m-5 md:hidden'>
                 <Image
                 src={x}
@@ -101,7 +101,8 @@ const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
                         />
                     </div>
                 </div>
-                <textarea maxLength={300} value={textArea} onChange={(e) => setTextArea(e.target.value)} className='w-full h-full rounded-b-xl text-md outline-none flex items-start resize-none px-10 py-5 overflow-hidden'></textarea>
+                {!isAComment && <textarea maxLength={250} value={textArea} onChange={(e) => setTextArea(e.target.value)} className='w-full h-full rounded-b-xl text-md outline-none flex items-start resize-none px-10 py-5 overflow-hidden lg:text-xl'></textarea>}
+                {isAComment && <textarea maxLength={200} value={textArea} onChange={(e) => setTextArea(e.target.value)} className='w-full h-full rounded-b-xl text-md outline-none flex items-start resize-none px-10 py-5 overflow-hidden lg:text-xl'></textarea>}
             </div>
             <div className='flex justify-center w-full h-fit relative bottom-0 mt-12 bg-secondary p-4 rounded-b-xl lg:justify-end'>
                 <div className='flex justify-center items-center w-fit md:w-full md:justify-start'>
