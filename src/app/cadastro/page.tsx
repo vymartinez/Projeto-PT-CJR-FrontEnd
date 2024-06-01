@@ -17,9 +17,9 @@ const Cadastro = () => {
   };
 
   return (
-    <div className="flex flex-row w-full">
-      <div className="w-1/2">
-        <Image src={unb} alt="Logo" />
+    <div className="w-full flex min-h-screen flex-col h-0 xl:flex-row overflow-y-auto overflow-x-hidden">
+      <div className="xl:w-3/4 xl:h-screen w-full h-[300px] relative">
+        <Image src={unb} alt="Logo"  fill sizes='max'/>
       </div>
       <div className="w-1/2 p-8 flex flex-col justify-center">
         <h2 className="text-2xl font-semibold text-gray-600 text-center">Avaliação de professores</h2>
