@@ -117,7 +117,7 @@ const EditProfile = ({closeModal} : Props) => {
 
                     <input type="file" ref={fileRef} className='hidden'/>
 
-                    <button type='submit' className='text-center py-2 px-4 bg-button text-white text-xs rounded-full mt-8 mb- w-3/5 h-fit sm:w-1/5 sm:text-sm'>Salvar</button>
+                    <button type='submit' className='text-center py-2 mb-4 px-4 bg-button text-white text-xs rounded-full mt-8 mb- w-3/5 h-fit sm:w-1/5 sm:text-sm'>Salvar</button>
                 </Form>
             </Formik>
         </div>

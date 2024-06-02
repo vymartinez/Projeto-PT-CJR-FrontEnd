@@ -6,6 +6,7 @@ import glass from '@/../public/icons/magnifying-glass.svg'
 import Image from 'next/image'
 import { useTeachersList } from '../hooks/teachersContext'
 import AssessmentModal from './AssessmentModal'
+import axios from "axios"
 
 export const SearchBar = () => {
 

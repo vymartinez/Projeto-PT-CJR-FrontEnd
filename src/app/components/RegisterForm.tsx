@@ -56,7 +56,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
         <Field className={styles.field} id='email' name='email' type='email' />
 
         <label className={styles.label} htmlFor='password'>
-          Password
+          Senha
         </label>
         <Field className={styles.field} id='password' name='password' type='password' />
 
@@ -70,7 +70,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
         </label>
         <Field className={styles.field} id='departamento' name='departamento' />
         
-        <div className='mt-8'>
+        <div className='mt-8 flex justify-center'>
           <button type='submit' className={styles.button}>
             Cadastrar
           </button>

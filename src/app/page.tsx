@@ -31,20 +31,18 @@ const validationSchema = Yup.object({
         <div className='relative w-1/4 h-[12.5%] my-4'>
           <Image src={logo} alt='unb-logo' fill className='object-contain' sizes='max'/>
         </div>
-      <div className="flex flex-col justify-center items-center my-auto h-1/2">
+      <div className="flex flex-col justify-center items-center my-auto h-1/2 w-1/2">
         <h2 className="mb-16 w-3/4 flex items-center justify-center h-36 text-center text-black text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal">Avaliação de Professores</h2>
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-          <Form className="flex flex-col">
-            <div className="mb-4">
+          <Form className="flex flex-col w-full items-center">
+            <div className="mb-4 max-w-80">
               <Field
                 name="email"
                 type="email"
                 id= "email"
                 placeholder ="Email"
-                className= "mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md"
+                className= "mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md mb-4"
               />
-            </div>
-            <div className="mb-4">
               <Field
                 name="password" 
                 type="password"
@@ -52,16 +50,16 @@ const validationSchema = Yup.object({
                 placeholder="Senha"
                 className= "mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md"
               />
-              <div className="inline-flex space-x-12">
+              <div className="flex justify-center gap-12">
                 <button
                 type= "submit"
-                className= "mt-16 sm:w-32 md:w-36 lg:w-40 w-full bg-secondary text-white py-2 px-8 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black"
+                className= "mt-16 sm:w-32 md:w-36 lg:w-40 w-full bg-secondary text-white py-2 px-6 lg:px-8 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black"
                 >
                 Entrar
                 </button>
                 <button
                   type= "button"
-                  className="mt-16 sm:w-32 md:w-36 lg:40 w-full bg-secondary text-white py-2 px-8 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black whitespace-nowrap"
+                  className="mt-16 sm:w-32 md:w-36 lg:40 w-full bg-secondary text-white py-2 px-6 lg:px-8 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black whitespace-nowrap"
                 >
                   Criar Conta
                 </button>
