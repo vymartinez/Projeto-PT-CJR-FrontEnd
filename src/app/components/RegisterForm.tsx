@@ -2,6 +2,15 @@
 
 import React, { ChangeEvent } from 'react';
 import { Formik, Field, Form } from 'formik';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object({
+  name: Yup.string().required('Nome é obrigtório'),
+  email: Yup.string().required('Email é obrigatório'),
+  password: Yup.string().min(11, 'A senha deve conter no mínimo 11 caracteres').required('Senha é obrigatório'),
+  curso: Yup.string().required('Por favor informe seu curso'),
+  departamento: Yup.string().required('Por favor informe o seu departamento'),
+})
 
 interface RegisterFormProps {
   styles: {
@@ -21,7 +30,7 @@ interface FormValues {
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
   <>
-    <Formik<FormValues>
+    <Formik <FormValues>
       initialValues={{
         name: '',
         email: '',
@@ -29,6 +38,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
         curso: '',
         departamento: '',
       }}
+
+      validationSchema={validationSchema}
       onSubmit={(values) => {
         alert(JSON.stringify(values, null, 2));
       }}

@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import unb from '../../../public/images/university.png';
 import { RegisterForm } from '../components/RegisterForm'; // Ajuste o caminho conforme necessário
 
+
 const inter = Inter({ subsets: ['latin'] });
 
 const Cadastro = () => {
