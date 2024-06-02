@@ -7,7 +7,7 @@ const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
 
     const router = useRouter()
     const handleClick = (key : number) => {
-        router.push(`/${key}`)
+        router.push(`/teachers/${key}`)
     }
 
     const filteredDisciplines = Disciplines.filter(item => {
@@ -42,7 +42,7 @@ const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
                 </div>
                 <div className='flex justify-center flex-col text-center mt-3 md:mt-6'>
                     <p className=' text-sm text-black lg:text-md'>{name}</p>
-                    <p className='mt-1 text-gray-400 text-xs md:text-xs md:mt-2 xl:text-sm'>{disciplines.join(', ')}</p>
+                    <p className='mt-1 text-gray-400 text-xs md:text-xs md:mt-2 xl:text-sm'>{disciplines.slice(0, 2).join(', ')}</p>
                 </div>
             </div>
         </div>

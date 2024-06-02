@@ -1,7 +1,8 @@
 import React from 'react'
 import { HeaderLogged, HeaderUnlogged } from '../components/Headers';
-import Image from 'next/image'
-import {SearchedTeachers} from '../components/SearchedTeachers';
+import { SearchBar } from '../components/SearchBar'
+import { TeachersContextProvider } from '../hooks/teachersContext';
+import TeachersList from '../components/TeachersList';
 
 const Feed = () => {
   let logged = true;
@@ -10,10 +11,11 @@ const Feed = () => {
         {logged && <HeaderLogged/>}
         {!logged && <HeaderUnlogged/>}
         <main>
-          <div>
-            <SearchedTeachers />
-          </div>
-          <div className='container mx-auto w-full h-2 rounded-full bg-primary my-3'></div>
+          <TeachersContextProvider>
+              <SearchBar/>
+            <TeachersList/>
+          </TeachersContextProvider>
+          <div className='container h-2 rounded-full bg-primary mx-auto w-3/4 sm:w-full mt-3'></div>
         </main>
     </>
   )
