@@ -1,16 +1,16 @@
 "use client"
 
 import React, { useState } from 'react'
-import bell from '../../../public/icons/bell.svg'
-import logo from '../../../public/images/unb-logo.png'
+import bell from '@/../public/icons/bell.svg'
+import logo from '@/../public/images/unb-logo.png'
 import Image from 'next/image'
-import user from '../../../public/images/default-user.jpg'
+import user from '@/../public/images/default-user.jpg'
 import Menu from '../components/Menu'
 import Link from 'next/link'
 
 export const HeaderLogged = () => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const handleClick = () => openMenu ? setOpenMenu(false) : setOpenMenu(true);
+  const [menu, setMenu] = useState(false);
+  const handleClick = () => menu ? setMenu(false) : setMenu(true);
 
   return (
     <>
@@ -46,7 +46,7 @@ export const HeaderLogged = () => {
               />
             </div>
         </header>
-            {openMenu && <Menu />}
+            {menu && <Menu/>}
     </>
   )
 }
