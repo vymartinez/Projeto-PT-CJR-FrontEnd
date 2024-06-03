@@ -3,20 +3,19 @@
 import { createContext, ReactNode, useContext } from "react"
 
 type ContextType = {
-    InitialValue: Discipline[];
+    Disciplines: Discipline[];
 }
 
 type Props = {
     children: ReactNode;
-    InitialValue: Discipline[];
-
+    Disciplines: Discipline[];
 }
 
 export const DisciplinesContext = createContext<ContextType | null>(null);
 
-export const DisciplinesContextProvider = ({children, InitialValue} : Props) => {
+export const DisciplinesContextProvider = ({children, Disciplines} : Props) => {
     return (
-    <DisciplinesContext.Provider value={{InitialValue}}>
+    <DisciplinesContext.Provider value={{Disciplines}}>
         {children}
     </DisciplinesContext.Provider>
     );

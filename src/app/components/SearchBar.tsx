@@ -13,11 +13,12 @@ export const SearchBar = () => {
   const teachersCtx = useTeachersList()
   const [heading, setHeading] = useState('')
 
+  if (teachersCtx) {
   const verifyResults = (e : React.ChangeEvent<HTMLInputElement>) => {
     const searchWord = e.target.value;
     setInputValue(searchWord)
-    const filter = Teachers.filter((teacher) => teacher.name.toLowerCase().includes(searchWord.toLowerCase()))
-    teachersCtx?.setTeachersList(filter)
+    const filter = teachersCtx.Teachers.filter((teacher) => teacher.name.toLowerCase().includes(searchWord.toLowerCase()))
+    teachersCtx.setTeachersList(filter)
     if (searchWord === '') {
       setHeading('')
     } else {
@@ -68,4 +69,6 @@ export const SearchBar = () => {
         {modal && <AssessmentModal closeModal={handleModal}/>}
     </>
   )
+}
+return null;
 }
