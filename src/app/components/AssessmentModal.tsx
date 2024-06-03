@@ -6,8 +6,6 @@ import question from '@/../public/icons/question.svg'
 import photo from '@/../public/icons/photo.svg'
 import link from '@/../public/icons/link.svg'
 import Image from 'next/image'
-import { Teachers } from '../data/Teachers'
-import { Disciplines } from '../data/Disciplines'
 import OptionsMenu from './OptionsMenu'
 
 type Props = {

@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import { Comments } from '../data/Comments'
 import Image from 'next/image'
 import x from '@/../public/icons/customX.svg'
 import trash from '@/../public/icons/trash.svg'
 import edit from '@/../public/icons/edit.svg'
 import curvedArrow from '@/../public/icons/curvedArrow.svg'
-import { Users } from '../data/Users'
-import { Assessments } from '../data/Assessments'
 import Post from './Post'
 import ConfirmDelete from './ConfirmDelete'
 import EditModal from "./EditModal"

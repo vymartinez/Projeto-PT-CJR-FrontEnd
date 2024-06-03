@@ -5,7 +5,6 @@ import trash from '@/../public/icons/trash.svg'
 import edit from '@/../public/icons/edit.svg'
 import EditModal from './EditModal'
 import AssessmentComments from './AssessmentComments'
-import { Comments } from '../data/Comments'
 import ConfirmDelete from './ConfirmDelete'
 import Link from 'next/link'
 

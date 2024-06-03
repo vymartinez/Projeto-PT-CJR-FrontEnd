@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, useState, ReactNode, useContext } from "react"
-import { Teachers } from "../data/Teachers";
 
 type ContextType = {
     TeachersList: Teacher[];

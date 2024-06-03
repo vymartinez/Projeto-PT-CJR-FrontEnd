@@ -2,10 +2,10 @@ interface User {
     id: number;
     name: string;
     email: string;
-    password: string;
     department: string;
     course: string;
-    photo: string;
+    photo: Buffer;
+    assessments: Assessment[];
     createdAt: string;
     updatedAt: string;
 }

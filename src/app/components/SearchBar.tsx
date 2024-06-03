@@ -1,12 +1,10 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Teachers } from '../data/Teachers'
 import glass from '@/../public/icons/magnifying-glass.svg'
 import Image from 'next/image'
 import { useTeachersList } from '../hooks/teachersContext'
 import AssessmentModal from './AssessmentModal'
-import axios from "axios"
 
 export const SearchBar = () => {
 

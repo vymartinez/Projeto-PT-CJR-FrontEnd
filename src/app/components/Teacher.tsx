@@ -1,9 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Disciplines } from '../data/Disciplines'
+import user from '@/../public/images/default-user.jpg'
 
-const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
+const Teacher = ( {  id, name, teacherSubjects, photo } : Teacher) => {
 
     const router = useRouter()
     const handleClick = (key : number) => {
@@ -11,11 +11,9 @@ const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
     }
 
     const filteredDisciplines = Disciplines.filter(item => {
-        for (let i in disciplinesId) {
-            if (item.id === disciplinesId[i]) {
+            if (teacherSubjects === teacherSubjects) {
                 return item;
             }
-        }
     })
 
     const disciplines = filteredDisciplines.map(item => {
@@ -28,7 +26,7 @@ const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
             <div className='relative h-52 w-40 bg-white rounded-lg my-5 border-2 hover:border-primary cursor-pointer lg:h-64 lg:w-48' onClick={() => handleClick(id)}>
                 <div className='rounded-3xl h-24 w-24 relative bg-center m-auto mt-5 mb-4 lg:w-32 lg:h-32'>
                     <Image
-                    src={photo}
+                    src={user}
                     alt='teacher-pic'
                     fill
                     sizes="max"

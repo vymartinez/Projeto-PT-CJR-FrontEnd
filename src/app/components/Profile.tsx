@@ -4,9 +4,6 @@ import Image from 'next/image'
 import building from '@/../public/icons/building.svg'
 import book from '@/../public/icons/book.svg'
 import mail from '@/../public/icons/mail.svg'
-import { Disciplines } from '../data/Disciplines';
-import { Users } from '../data/Users';
-import { Assessments } from '../data/Assessments';
 
 type Props =  {
     isTeacher: boolean;
