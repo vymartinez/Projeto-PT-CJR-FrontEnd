@@ -1,10 +1,6 @@
-"use client"
-
-import React, { useEffect } from 'react'
+import React from 'react'
 import { HeaderLogged, HeaderUnlogged } from '../../components/Headers';
-import { useRouter } from 'next/navigation';
 import Profile from '../../components/Profile';
-import { Teachers } from '../../data/Teachers';
 
 type Props = {
   params: {

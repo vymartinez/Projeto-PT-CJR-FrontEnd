@@ -13,20 +13,21 @@ export const SearchBar = () => {
   const teachersCtx = useTeachersList()
   const [heading, setHeading] = useState('')
 
-  if (teachersCtx) {
   const verifyResults = (e : React.ChangeEvent<HTMLInputElement>) => {
     const searchWord = e.target.value;
     setInputValue(searchWord)
-    const filter = teachersCtx.Teachers.filter((teacher) => teacher.name.toLowerCase().includes(searchWord.toLowerCase()))
-    teachersCtx.setTeachersList(filter)
-    if (searchWord === '') {
-      setHeading('')
-    } else {
-        setHeading(`Nenhum resultado para '${searchWord}'`)
-      if (filter.length > 0) {
-        let phrase = 'resultado encontrado';
-        filter.length == 1 ? phrase : phrase = 'resultados encontrados';
-        setHeading(`${filter.length} ${phrase} para '${searchWord}'`)
+    const filter = teachersCtx?.Teachers.filter((teacher) => teacher.name.toLowerCase().includes(searchWord.toLowerCase()))
+    if (filter) {
+      teachersCtx?.setTeachersList(filter)
+      if (searchWord === '') {
+        setHeading('')
+      } else {
+          setHeading(`Nenhum resultado para '${searchWord}'`)
+        if (filter.length > 0) {
+          let phrase = 'resultado encontrado';
+          filter.length == 1 ? phrase : phrase = 'resultados encontrados';
+          setHeading(`${filter.length} ${phrase} para '${searchWord}'`)
+        }
       }
     }
   }
@@ -69,6 +70,4 @@ export const SearchBar = () => {
         {modal && <AssessmentModal closeModal={handleModal}/>}
     </>
   )
-}
-return null;
 }

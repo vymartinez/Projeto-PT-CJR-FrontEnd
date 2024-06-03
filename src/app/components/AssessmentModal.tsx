@@ -7,6 +7,9 @@ import photo from '@/../public/icons/photo.svg'
 import link from '@/../public/icons/link.svg'
 import Image from 'next/image'
 import OptionsMenu from './OptionsMenu'
+import { useTeachersList } from '../hooks/teachersContext'
+import { useDisciplines } from '../hooks/disciplinesContext'
+import { postAssessment } from '@/utils/api'
 
 type Props = {
     closeModal: () => void;
@@ -14,18 +17,21 @@ type Props = {
 
 const AssessmentModal = ({closeModal}: Props) => {
 
+    const teacherCtx = useTeachersList()
+    const disciplinesCtx = useDisciplines()
+
     const [textArea, setTextArea] = useState('')
     const [disciplines, setDisciplines] = useState('')
     const [teachers, setTeachers] = useState('')
     const [disciplineOptionsMenu, setDisciplineOptionsMenu] = useState(false)
     const [teacherOptionsMenu, setTeacherOptionsMenu] = useState(false)
 
-    const teacherOptions = Teachers.filter(teacher => {
+    const teacherOptions = teacherCtx?.Teachers.filter(teacher => {
         if (teacher.name.toLowerCase().includes(teachers.toLowerCase())) {
             return teacher;
         }
     })
-    const disciplinesOptions = Disciplines.filter(discipline => {
+    const disciplinesOptions = disciplinesCtx?.Disciplines.filter(discipline => {
         if (discipline.name.toLowerCase().includes(disciplines.toLowerCase())) {
             return discipline;
         }
@@ -40,6 +46,12 @@ const AssessmentModal = ({closeModal}: Props) => {
     }
 
     const handleSendAssessment = () => {
+        postAssessment({
+            content: textArea,
+            userId: 1,
+            teacherId: 1,
+            subjectId: 1,
+        })
         closeModal()
     }
 
@@ -73,7 +85,7 @@ const AssessmentModal = ({closeModal}: Props) => {
                         <div onClick={handleTeacherOptions} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
                     </div>
                         <div className='flex justify-center'>
-                            {teacherOptionsMenu && <OptionsMenu options={teacherOptions} setItem={setTeachers} onClick={handleTeacherOptions}/>}
+                            {teacherOptionsMenu && teacherOptions && <OptionsMenu options={teacherOptions} setItem={setTeachers} onClick={handleTeacherOptions}/>}
                         </div>
                 </div>
                 <div className='flex flex-col'>
@@ -82,7 +94,7 @@ const AssessmentModal = ({closeModal}: Props) => {
                         <div onClick={handleDisciplinesOptions} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
                     </div>
                         <div className='flex justify-center'>
-                            {disciplineOptionsMenu && <OptionsMenu options={disciplinesOptions} setItem={setDisciplines} onClick={handleDisciplinesOptions}/>}
+                            {disciplineOptionsMenu && disciplinesOptions && <OptionsMenu options={disciplinesOptions} setItem={setDisciplines} onClick={handleDisciplinesOptions}/>}
                         </div>
                 </div>
                 <div className='h-3/4 w-5/6 container mx-auto pt-3 mt-3'>
@@ -168,4 +180,4 @@ const AssessmentModal = ({closeModal}: Props) => {
   )
 }
 
-export default AssessmentModal
+export default AssessmentModal;

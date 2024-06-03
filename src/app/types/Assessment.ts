@@ -3,7 +3,7 @@ interface Assessment {
     content: string;
     userId: number;
     teacherId: number;
-    assessmentId: number;
+    subjectId: number;
     createdAt: string;
     updatedAt: string;
 }

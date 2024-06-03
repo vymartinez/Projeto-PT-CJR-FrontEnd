@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import user from '@/../public/images/default-user.jpg'
 import { useDisciplines } from '../hooks/disciplinesContext'
 
-const Teacher = ( {  id, name, teacherSubjects, photo } : Teacher) => {
+const Teacher = ( {  id, name, photo } : Teacher) => {
 
     const router = useRouter()
     const handleClick = (key : number) => {
@@ -15,7 +15,7 @@ const Teacher = ( {  id, name, teacherSubjects, photo } : Teacher) => {
 
     if(disciplineCtx) {
     const filteredDisciplines = disciplineCtx.Disciplines.filter(item => {
-        if (teacherSubjects[0].teacherId === item.teachersSubjects[0].teacherId){
+        if (id === item.teachersSubjects[0].teacherId){
             return item;
         }
     })
