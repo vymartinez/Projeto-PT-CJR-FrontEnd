@@ -36,13 +36,6 @@ export const getUser = async (id: number) : Promise<User> => {
   return response.data;
 }
 
-export const getUserByAssessmentId = async (assessmentId: number) : Promise<User> => {
-  const response = await req.get(`/assessment/${assessmentId}`);
-  const userResponse = await req.get(`/user/${response.data.userId}`);
-  return userResponse.data;
-
-}
-
 export const postAssessment = async ({content, userId, teacherId, subjectId} : PostAssessmentProps) => {
   await req.post('/assessment', {
   content: content,
@@ -70,12 +63,6 @@ export const getSubjectNameByTeacherId = async (teacherId: number) : Promise<str
   const discipline : Discipline[] = response.data;
   const filteredSubjects = discipline.filter(subject => subject.teachersSubjects[0].teacherId === teacherId)
   return filteredSubjects.map(subject => subject.name);
-}
-
-export const getSubjectNameByAssessmentId = async (assessmentId: number) : Promise<string> => {
-  const response = await req.get(`/assessment/${assessmentId}`)
-  const subjectResponse = await req.get(`/subject/${response.data.subjectId}`);
-  return subjectResponse.data.name;
 }
 
 export const getAssessments = async() : Promise<Assessment[]> => {
