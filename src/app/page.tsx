@@ -7,10 +7,15 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import unb from "@/../public/images/unb.avif"
 import logo from "@/../public/images/unb-logo.png"
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
+const router = useRouter();
+
 const validationSchema = Yup.object({
     email: Yup.string().email("Endereço de email inválido").required("Required"),
     password: Yup.string().required("Required"),
@@ -19,7 +24,8 @@ const validationSchema = Yup.object({
   const initialValues = { email: "", password: ""};
 
   const handleSubmit = (values: any) => {
-    console.log(values);
+    //envio dos dados
+    return router.replace("/feed");
   }
 
   return (
@@ -52,17 +58,18 @@ const validationSchema = Yup.object({
               />
               <div className="flex justify-center gap-12">
                 <button
+                onClick={handleSubmit}
                 type= "submit"
                 className= "mt-16 sm:w-32 md:w-36 lg:w-40 w-full bg-secondary text-white py-2 px-6 lg:px-8 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black"
                 >
                 Entrar
                 </button>
-                <button
+                <Link href="/register"
                   type= "button"
                   className="mt-16 sm:w-32 md:w-36 lg:40 w-full bg-secondary text-white py-2 px-6 lg:px-8 rounded-md hover:bg-[#075985]/70 focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-black whitespace-nowrap"
                 >
                   Criar Conta
-                </button>
+                </Link>
               </div>
             </div>
           </Form>

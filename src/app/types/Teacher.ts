@@ -1,9 +1,15 @@
 interface Teacher {
     id: number;
     name: string;
-    disciplinesId: number[];
     department: string;
-    photo: string;
-    createdAt: string;
-    updatedAt: string;
+    photo?: {
+        type: string;
+        data: number[];
+    };
+    teacherSubjects: {
+        subjectId: number;
+        teacherId: number;
+        createdAt: string;
+        updatedAt: string;
+    }[];
 }

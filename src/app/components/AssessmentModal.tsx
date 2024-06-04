@@ -6,61 +6,110 @@ import question from '@/../public/icons/question.svg'
 import photo from '@/../public/icons/photo.svg'
 import link from '@/../public/icons/link.svg'
 import Image from 'next/image'
-import { Teachers } from '../data/Teachers'
-import { Disciplines } from '../data/Disciplines'
 import OptionsMenu from './OptionsMenu'
+import { useTeachersList } from '../hooks/teachersContext'
+import { useDisciplines } from '../hooks/disciplinesContext'
+import { postAssessment } from '@/utils/api'
 
 type Props = {
     closeModal: () => void;
 }
 
+type SendProps = {
+    teacherId: number;
+    subjectId: number;
+}
+
 const AssessmentModal = ({closeModal}: Props) => {
+
+    const teacherCtx = useTeachersList()
+    const disciplinesCtx = useDisciplines()
 
     const [textArea, setTextArea] = useState('')
     const [disciplines, setDisciplines] = useState('')
     const [teachers, setTeachers] = useState('')
     const [disciplineOptionsMenu, setDisciplineOptionsMenu] = useState(false)
     const [teacherOptionsMenu, setTeacherOptionsMenu] = useState(false)
+    const [invalid, setInvalid] = useState(false)
 
-    const teacherOptions = Teachers.filter(teacher => {
+    const teacherOptions = teacherCtx?.Teachers.filter(teacher => {
         if (teacher.name.toLowerCase().includes(teachers.toLowerCase())) {
             return teacher;
         }
     })
-    const disciplinesOptions = Disciplines.filter(discipline => {
+    const disciplinesOptions = disciplinesCtx?.Disciplines.filter(discipline => {
         if (discipline.name.toLowerCase().includes(disciplines.toLowerCase())) {
             return discipline;
         }
     })
 
-    const handleDisciplinesOptions = () => {
-        setDisciplineOptionsMenu(!disciplineOptionsMenu)
-    }
-
-    const handleTeacherOptions = () => {
-        setTeacherOptionsMenu(!teacherOptionsMenu)
-    }
-
-    const handleSendAssessment = () => {
+    const handleSendAssessment = ({teacherId, subjectId} : SendProps) => {
+        postAssessment({
+            content: textArea,
+            userId: 1, //ajeitar após autenticação
+            teacherId: teacherId,
+            subjectId: subjectId,
+        })
         closeModal()
     }
 
+    const handleSelectOption = ({name, isATeacher} : {name:string, isATeacher: boolean}) => {
+        if (isATeacher) {
+            if (teacherCtx?.Teachers.find(teacher => {
+                return teacher.name.toLowerCase() === name.toLowerCase();
+            })) {
+                if (disciplines !== "") {
+                    const disciplineId = teacherCtx?.Teachers.find(teacher => {
+                        return teacher.name.toLowerCase() === name.toLowerCase();
+                    })?.teacherSubjects[0].subjectId;
+                    const subject = disciplinesCtx?.Disciplines.filter(discipline => {
+                        return discipline.id === disciplineId;
+                    })[0].name;
+                    if (disciplines !== subject) {
+                        setInvalid(true);
+                    } else {
+                        setInvalid(false);
+                    }
+                }
+            }
+        } else {
+            if (disciplinesCtx?.Disciplines.find(subject => {
+                return subject.name.toLowerCase() === name.toLowerCase();
+            })) {
+                if (teachers !== "") {
+                    const teacherId = disciplinesCtx?.Disciplines.find(subject => {
+                        return subject.name.toLowerCase() === name.toLowerCase();
+                    })?.teachersSubjects[0].teacherId;
+                    const teacher = teacherCtx?.Teachers.filter(teacher => {
+                        return teacher.id === teacherId;
+                    })[0].name;
+                    if (teachers !== teacher) {
+                        setInvalid(true);
+                    } else {
+                        setInvalid(false);
+                    }
+                }
+            }
+            
+        }
+    }
+    
     const handleTeacherInput = (e:React.ChangeEvent<HTMLInputElement>) => {
         setTeachers(e.target.value);
-        if (teachers === '') {
+        if (e.target.value !== "") {
             setTeacherOptionsMenu(true)
-        }
-        if (e.target.value === '') {
+        } else if (e.target.value === '') {
+            setInvalid(false);
             setTeacherOptionsMenu(false)
         }
     }
 
     const handleDisciplineInput = (e:React.ChangeEvent<HTMLInputElement>) => {
         setDisciplines(e.target.value);
-        if (disciplines === '') {
+        if (e.target.value !== '') {
             setDisciplineOptionsMenu(true)
-        }
-        if (e.target.value === '') {
+        } else if (e.target.value === '') {
+            setInvalid(false);
             setDisciplineOptionsMenu(false)
         }
     }
@@ -72,20 +121,26 @@ const AssessmentModal = ({closeModal}: Props) => {
                 <div className='flex flex-col'>
                     <div className='pt-3 px-3 flex items-center'>
                         <input type='text' value={teachers} onChange={(e) => handleTeacherInput(e)} placeholder='Nome do Professor' className='text-sm text-left w-full rounded-full px-3 py-2 outline-none'></input>
-                        <div onClick={handleTeacherOptions} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
+                        <div onClick={() => setTeacherOptionsMenu(!teacherOptionsMenu)} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
                     </div>
                         <div className='flex justify-center'>
-                            {teacherOptionsMenu && <OptionsMenu options={teacherOptions} setItem={setTeachers} onClick={handleTeacherOptions}/>}
+                            {teacherOptionsMenu && teacherOptions && <OptionsMenu options={teacherOptions} setItem={setTeachers} closeModal={() => setTeacherOptionsMenu(!teacherOptionsMenu)} isATeacher={true} handleSelectOption={handleSelectOption}/>}
                         </div>
+                        {invalid && <div className='text-center text-xs text-red-200'>
+                            <p>Por favor, selecione uma opção correspondente à matéria</p>
+                        </div>}
                 </div>
                 <div className='flex flex-col'>
                     <div className='pt-3 px-3 flex items-center'>
                         <input type='text' value={disciplines} onChange={(e) => handleDisciplineInput(e)} placeholder='Disciplina' className='text-sm text-left pl-3 rounded-full w-full py-2 outline-none'></input>
-                        <div onClick={handleDisciplinesOptions} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
+                        <div onClick={() => setDisciplineOptionsMenu(!disciplineOptionsMenu)} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
                     </div>
                         <div className='flex justify-center'>
-                            {disciplineOptionsMenu && <OptionsMenu options={disciplinesOptions} setItem={setDisciplines} onClick={handleDisciplinesOptions}/>}
+                            {disciplineOptionsMenu && disciplinesOptions && <OptionsMenu options={disciplinesOptions} setItem={setDisciplines} closeModal={() => setDisciplineOptionsMenu(!disciplineOptionsMenu)} isATeacher={false} handleSelectOption={handleSelectOption}/>}
                         </div>
+                        {invalid && <div className='text-center text-xs text-red-200'>
+                            <p>Por favor, selecione uma opção correspondente ao professor</p>
+                        </div>}
                 </div>
                 <div className='h-3/4 w-5/6 container mx-auto pt-3 mt-3'>
                 <div className='rounded-xl bg-extra h-full w-full top-0 relative'>
@@ -160,9 +215,15 @@ const AssessmentModal = ({closeModal}: Props) => {
                 <button onClick={closeModal} className='py-2 px-3 text-white bg-red-600 text-sm mx-3 rounded-xl'>
                     Cancelar
                 </button>
-                <button onClick={handleSendAssessment} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
+                {teacherOptions && disciplinesOptions && !teacherOptionsMenu && !disciplineOptionsMenu && teachers && disciplines && !invalid &&
+                 <button onClick={() => handleSendAssessment({teacherId: teacherOptions[0].id, subjectId: disciplinesOptions[0].id})} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
                     Avaliar
-                </button>
+                </button> 
+                ||
+                (!teacherOptions || !disciplinesOptions || !teacherOptionsMenu || !disciplineOptionsMenu || !teachers || !disciplines || invalid) && 
+                <div className='py-2 px-3 bg-lime-600/50 text-white text-sm mx-3 rounded-xl'>
+                    Avaliar
+                </div>}
             </div>
             </div>
         </div>
@@ -170,4 +231,4 @@ const AssessmentModal = ({closeModal}: Props) => {
   )
 }
 
-export default AssessmentModal
+export default AssessmentModal;

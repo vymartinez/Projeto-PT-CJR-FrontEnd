@@ -5,6 +5,7 @@ import Image from 'next/image'
 import defaultUser from '@/../public/images/default-user.jpg'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from "yup"
+import { sendPhoto } from '@/utils/api'
 
 type Props = {
     closeModal: () => void;
@@ -40,7 +41,18 @@ const EditProfile = ({closeModal} : Props) => {
 
     const onSubmit = (values:any) => {
         console.log(values)
+        handleSubmit()
         closeModal();
+    }
+
+    const handleSubmit = () => {
+        if (fileRef.current?.files && fileRef.current.files.length > 0) {
+            const file = fileRef.current.files[0];
+            const data = new FormData();
+            data.append('file', file);
+            console.log(data);
+            sendPhoto({photo: data, userId: 1}); //ajeitar após autenticação
+        }
     }
 
   return (

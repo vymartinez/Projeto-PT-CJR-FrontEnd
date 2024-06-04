@@ -1,10 +1,8 @@
-"use client"
-
-import React, { useEffect } from 'react'
+import React from 'react'
 import { HeaderLogged, HeaderUnlogged } from '../../components/Headers';
-import { useRouter } from 'next/navigation';
 import Profile from '../../components/Profile';
-import { Teachers } from '../../data/Teachers';
+import { getTeacher } from '@/utils/api';
+import { redirect } from 'next/navigation';
 
 type Props = {
   params: {
@@ -12,22 +10,21 @@ type Props = {
   }
 }
 
-const UserProfile = ({params} : Props) => {
+const TeacherProfile = async ({params} : Props) => {
 
-  const satisfiesUserProfile = {"id": -1,"name": "none","email": "none", "password": "none","department": "none","course": "none","photo": "none","createdAt": "none","updatedAt": "none"}
+  const satisfiesUserProfile = {"id": 1,"name": "none","email": "none", "password": "none","department": "none","course": "none", assessments: {id: -1 ,content: "", userId: -1, teacherId: -1, subjectId: -1, created_at: "", updatedAt: ""} ,"created_at": "none","updatedAt": "none"}
 
+  const Teacher = await getTeacher(parseInt(params.id));
   let logged = false;
-  const router = useRouter();
 
-  useEffect(() => {
-    if (!notError) {
-      return router.push('/404-error');
-    }
-  })
+  let notError : boolean;
 
-  const notError = Teachers.find(teachers => {
-    return teachers.id === parseInt(params.id);
-})
+  if (Teacher) {
+    notError = true;
+  } else {
+    notError = false;
+    redirect('/404-error');
+  }
 
 if (notError) {
   return (
@@ -35,10 +32,10 @@ if (notError) {
       {logged && <HeaderLogged />}
       {!logged && <HeaderUnlogged />}
 
-      <main className='flex justify-center min-h-screen h-screen'>
+      <main className='flex justify-center min-h-screen'>
         {notError && <Profile
           isTeacher={true}
-          teacherProfile={notError}
+          teacherProfile={Teacher}
           userProfile={satisfiesUserProfile}
         />}
       </main>
@@ -47,4 +44,4 @@ if (notError) {
 }
 }
 
-export default UserProfile;
+export default TeacherProfile;

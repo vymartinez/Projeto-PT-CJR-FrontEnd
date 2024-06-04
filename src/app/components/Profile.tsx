@@ -4,9 +4,8 @@ import Image from 'next/image'
 import building from '@/../public/icons/building.svg'
 import book from '@/../public/icons/book.svg'
 import mail from '@/../public/icons/mail.svg'
-import { Disciplines } from '../data/Disciplines';
-import { Users } from '../data/Users';
-import { Assessments } from '../data/Assessments';
+import user from '@/../public/images/default-user.jpg'
+import { getAssessments, getComments, getSubjectNameByTeacherId, getUser } from '@/utils/api';
 
 type Props =  {
     isTeacher: boolean;
@@ -14,34 +13,28 @@ type Props =  {
     userProfile: User;
 }
 
-const Profile = ({ isTeacher, teacherProfile, userProfile} : Props) => {
+const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
 
-        const filteredDisciplines = Disciplines.filter(item => {
-            for (let i in teacherProfile.disciplinesId) {
-                if (item.id === teacherProfile.disciplinesId[i]) {
-                    return item;
-                }
-            }
-        })
-    
-        const disciplines = filteredDisciplines.map(item => {
-            return item.name;
-        })
+    const disciplines = await getSubjectNameByTeacherId(teacherProfile.id);
+    const Assessments = await getAssessments()
+    const User = await getUser(userProfile.id)
+    const comments = await getComments();
+
     return (
     <>
-        <div className='w-full sm:w-2/3 md:w-3/5 h-full bg-extra'>
+        <div className='w-full sm:w-2/3 md:w-3/5 min-h-screen h-full bg-extra'>
             <div className='w-full h-40 bg-sky-800'></div>
             <div className='flex justify-center md:block md:ml-8'>
                     <div className='rounded-full w-32 h-32 relative bg-white overflow-hidden border -top-16 border-sky-950'>
                         {isTeacher && <Image 
-                        src={teacherProfile.photo}
+                        src={user}
                         alt="profile-pic"
                         fill
                         sizes="max"
                         draggable={false}
                         />}
-                        {!isTeacher && <Image 
-                        src={userProfile.photo}
+                        {!isTeacher && <Image
+                        src={user}
                         alt="profile-pic"
                         fill
                         sizes="max"
@@ -68,7 +61,7 @@ const Profile = ({ isTeacher, teacherProfile, userProfile} : Props) => {
                         />
                     </div>
                     <p className='text-xs md:ml-2 md:text-sm'>
-                        {isTeacher && teacherProfile.department}
+                        Departamento de {isTeacher && teacherProfile.department}
                         {!isTeacher && userProfile.department}
                     </p>
                 </div>
@@ -101,31 +94,44 @@ const Profile = ({ isTeacher, teacherProfile, userProfile} : Props) => {
                 <h1 className='font-bold relative -top-5 md:top-0 md:mb-3'>Publicações</h1>
                 {isTeacher && Assessments.map(item => {
                     if (item.teacherId === teacherProfile.id) {
-                        const course = Disciplines[item.teacherId].name;
                         return <Post 
                         key={item.id}
-                        id={item.id}
-                        profile={Users[item.userId]}
-                        discipline={course}
-                        createdAt={item.createdAt}
-                        text={item.text}
+                        assessmentId={item.id}
+                        profile={User}
+                        teacherId={item.teacherId}
+                        discipline={disciplines[0]}
+                        disciplineId={item.subjectId}
+                        createdAt={item.created_at}
+                        content={item.content}
                         commentSection={false}
+                        commentsList={comments.filter(comment => {
+                            if (comment.assessmentId === item.id) {
+                                return comment;
+                            };
+                        })}
                         />
                     }
                 })}
                 {!isTeacher && Assessments.map(item => {
-                        if (item.userId === userProfile.id) {
-                            const course = Disciplines[item.userId].name;
-                            return <Post 
-                            key={item.id}
-                            id={item.id}
-                            profile={userProfile}
-                            discipline={course}
-                            createdAt={item.createdAt}
-                            text={item.text}
-                            commentSection={false}
-                            />
+                    if (item.userId === userProfile.id) {
+                        return <Post 
+                        key={item.id}
+                        assessmentId={item.id}
+                        profile={userProfile}
+                        teacherId={item.teacherId}
+                        discipline={disciplines[0]}
+                        disciplineId={item.subjectId}
+                        createdAt={item.created_at}
+                        content={item.content}
+                        commentSection={false}
+                        commentsList={comments.filter(comment => { {
+                            if (comment.assessmentId === item.id) {
+                                return comment;
+                            };
                         }
+                        })}
+                        />
+                    }
                     })}
             </div>
         </div>

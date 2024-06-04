@@ -3,14 +3,17 @@ import React, { Dispatch, SetStateAction } from 'react'
 type Props = {
     options: Teacher[] | Discipline[]
     setItem: Dispatch<SetStateAction<string>>;
-    onClick: () => void;
+    closeModal: () => void;
+    isATeacher: boolean;
+    handleSelectOption: ({name, isATeacher} : {name:string, isATeacher:boolean}) => void;
 }
 
-const OptionsMenu = ({options, setItem, onClick}: Props) => {
+const OptionsMenu = ({options, setItem, closeModal, isATeacher, handleSelectOption}: Props) => {
 
     const handleClick = (name:string) => {
         setItem(name)
-        onClick()
+        handleSelectOption({name, isATeacher})
+        closeModal()
     }
     
   return (
