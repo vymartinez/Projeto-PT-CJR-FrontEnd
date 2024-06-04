@@ -4,6 +4,6 @@ interface Assessment {
     userId: number;
     teacherId: number;
     subjectId: number;
-    createdAt: string;
+    created_at: string;
     updatedAt: string;
 }

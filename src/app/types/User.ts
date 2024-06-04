@@ -4,8 +4,8 @@ interface User {
     email: string;
     department: string;
     course: string;
-    photo: Buffer;
-    assessments: Assessment[];
-    createdAt: string;
+    photo?: Buffer;
+    assessments: Assessment;
+    created_at: string;
     updatedAt: string;
 }

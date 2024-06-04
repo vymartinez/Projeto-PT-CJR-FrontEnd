@@ -7,24 +7,23 @@ import curvedArrow from '@/../public/icons/curvedArrow.svg'
 import Post from './Post'
 import ConfirmDelete from './ConfirmDelete'
 import EditModal from "./EditModal"
+import userPic from "@/../public/images/default-user.jpg"
 
 type Props = {
     closeModal: () => void;
     assessmentId: number;
+    profile: User;
+    discipline: string;
+    createdAt: string;
+    content: string;
+    commentsList: Comment[];
 }
 
-const AssessmentComments = ({closeModal, assessmentId} : Props) => {
+const AssessmentComments = ({closeModal, profile, discipline, createdAt, content, assessmentId, commentsList} : Props) => {
 
   const [confirmation, setConfirmation] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const comments = Comments.filter((item) => {
-    if (item.assessmentId === assessmentId) {
-      return item;
-    }
-  })
-  const user = Comments.map((item) => {
-    return Users[item.userId];
-  })
+
   return (
     <>
        <div className='fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black/50 z-[1] flex-col'>
@@ -43,13 +42,14 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
             <div className='h-fit flex justify-center items-center flex-col mt-12'>
               {<Post
               id={assessmentId}
-              discipline={user[assessmentId].course}
-              profile={user[assessmentId]}
-              createdAt={Assessments[assessmentId].createdAt}
-              text={Assessments[assessmentId].text}
+              discipline={discipline}
+              profile={profile}
+              createdAt={createdAt}
+              content={content}
               commentSection={true}
+              commentsList={commentsList}
               />}
-                {comments.map((item) => {
+                {commentsList.map((item) => {
                   return (
                     <>
                     <div key={item.id} className='w-11/12 h-fit flex items-center justify-center'> 
@@ -67,25 +67,25 @@ const AssessmentComments = ({closeModal, assessmentId} : Props) => {
                           <div className='flex justify-center'>
                             <div className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
                               <Image 
-                              src={user[item.id].photo}
+                              src={userPic}
                               alt="user-pic"
                               fill
                               sizes="max"
                               draggable={false}
                               />
                             </div>
-                              <h1 className='font-semibold text-xs text-white pr-5 ml-3 items-center flex'>{user[item.userId].name}</h1>
+                              <h1 className='font-semibold text-xs text-white pr-5 ml-3 items-center flex'>{profile.name}</h1>
                           </div>
                           <div className='flex items-center justify-center ml-3 mt-3'>
                             <ul className='flex list-disc'>
-                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{item.createdAt}</li>
-                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{user[item.id].name}</li>
-                              <li className='text-xs text-gray-400'>{user[item.id].course}</li>
+                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{item.created_at}</li>
+                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
+                              <li className='text-xs text-gray-400'>{discipline}</li>
                             </ul>
                           </div>
                         </div>
                         <div>
-                          <p className='text-xs text-white mt-2 p-3'>{item.text}</p>
+                          <p className='text-xs text-white mt-2 p-3'>{item.content}</p>
                         </div>
                         <div className='flex p-2'>
                           <div className='flex items-center'>

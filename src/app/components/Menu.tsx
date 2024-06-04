@@ -18,7 +18,7 @@ const Menu = () => {
     <>   
         <nav className='flex flex-col w-fit bg-gradient-to-t from-secondary to-button rounded-md absolute right-2'>
           <div className=' border-x-[12px] border-x-transparent border-b-[12px] -mt-3 border-b-button top-0 absolute ml-14 sm:ml-12 sm:-mt-2 sm:border-b-8 sm:border-x-8'></div>
-            <Link href={'/users/0'} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
+            <Link href={'/users/1'} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
                 Meu perfil
             </Link>
             <div onClick={handleClick} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>

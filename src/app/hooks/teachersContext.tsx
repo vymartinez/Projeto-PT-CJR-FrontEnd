@@ -1,6 +1,5 @@
 "use client"
 
-import { getTeachers } from "@/utils/api";
 import { createContext, useState, ReactNode, useContext } from "react"
 
 type ContextType = {

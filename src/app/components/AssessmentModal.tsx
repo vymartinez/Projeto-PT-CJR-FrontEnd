@@ -49,8 +49,8 @@ const AssessmentModal = ({closeModal}: Props) => {
         postAssessment({
             content: textArea,
             userId: 1,
-            teacherId: 1,
-            subjectId: 1,
+            teacherId: 3,
+            subjectId: 6,
         })
         closeModal()
     }

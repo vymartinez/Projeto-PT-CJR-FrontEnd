@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 import Image from 'next/image'
 import baloon from '@/../public/icons/balloon.svg'
@@ -7,27 +9,31 @@ import EditModal from './EditModal'
 import AssessmentComments from './AssessmentComments'
 import ConfirmDelete from './ConfirmDelete'
 import Link from 'next/link'
+import user from '@/../public/images/default-user.jpg'
+import { getComments } from '@/utils/api'
 
 type Props = {
-  profile: Teacher | User;
+  profile: User;
   id: number;
   discipline: string;
   createdAt: string;
-  text: string;
+  content: string;
   commentSection: boolean;
+  commentsList: Comment[];
 }
 
-/*const data = new Intl.DateTimeFormat('pt-br', {
-  dateStyle: 'short',
-  timeStyle:'long',
-}).format()
-console.log(data)*/
 
-const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props) => {
+const Post = ({profile, id, discipline, createdAt, content, commentSection, commentsList} : Props) => {
+  
   const [modal, setModal] = useState(false);
   const [isAComment, setIsAComment] = useState(false);
   const [comments, setComments] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
+  
+  const data = new Intl.DateTimeFormat('pt-br', {
+    dateStyle: 'short',
+    timeStyle:'short',
+  }).format(Date.parse(createdAt))
 
   const handleEdit = () => {
     setIsAComment(false)
@@ -40,12 +46,9 @@ const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props
   }
 
   var commentsLength = 0;
-
-  Comments.filter(comment => { 
-    if (comment.userId === profile.id) {
-      commentsLength += 1;
-    }
-  })
+  if (commentsList.length > 0) {
+    commentsLength = commentsList.length;
+  }
 
   return (
     <>
@@ -54,7 +57,7 @@ const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props
           <div className='flex justify-center'>
             <Link href={`/users/${profile.id}`} className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
               <Image 
-              src={profile.photo}
+              src={user}
               alt="user-pic"
               fill
               sizes="max"
@@ -67,14 +70,14 @@ const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props
           </div>
           <div className='flex items-center justify-center ml-3 mt-3'>
             <ul className='flex list-disc'>
-              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{createdAt}</li>
+              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{data}</li>
               <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
               <li className='text-xs text-gray-400'>{discipline}</li>
             </ul>
           </div>
         </div>
         <div>
-          <p className='text-xs text-white mt-2 p-3'>{text}</p>
+          <p className='text-xs text-white mt-2 p-3'>{content}</p>
         </div>
         <div className='flex p-2'>
           <div className='flex items-center'>
@@ -121,7 +124,16 @@ const Post = ({profile, id, discipline, createdAt, text, commentSection} : Props
         </div>
       </div>
       {modal && <EditModal closeModal={() => setModal(false)} isAComment={isAComment}/>}
-      {comments && <AssessmentComments closeModal={() => setComments(false)} assessmentId={id}/>}
+      {comments && <AssessmentComments
+                    closeModal={() => setComments(false)}
+                    assessmentId={id}
+                    profile={profile}
+                    discipline={discipline}
+                    createdAt={data}
+                    content={content}
+                    commentsList={commentsList}
+                    />
+      }
       {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
     </>
   )
