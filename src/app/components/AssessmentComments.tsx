@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import x from '@/../public/icons/customX.svg'
 import trash from '@/../public/icons/trash.svg'
@@ -8,7 +8,6 @@ import Post from './Post'
 import ConfirmDelete from './ConfirmDelete'
 import EditModal from "./EditModal"
 import userPic from "@/../public/images/default-user.jpg"
-import { comment } from 'postcss'
 
 type Props = {
     closeModal: () => void;
@@ -27,15 +26,17 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
   const [confirmation, setConfirmation] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [commentId, setCommentId] = useState(0);
+  const [commentContent, setCommentContent] = useState("");
 
-  const handleEdit = (id: number) => {
-    setEditModal(true);
+  const handleEdit = ({id, content}: {id: number, content: string}) => {
     setCommentId(id);
+    setCommentContent(content);
+    setEditModal(true);
   }
 
   const handleDelete = (id: number) => {
-    setConfirmation(true);
     setCommentId(id);
+    setConfirmation(true);
   }
 
   return (
@@ -121,7 +122,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                               sizes="max"
                               className='cursor-pointer'
                               draggable={false}
-                              onClick={() => handleEdit(item.id)}
+                              onClick={() => handleEdit({id: item.id, content: item.content})}
                               />
                             </div>
                           </div>
@@ -145,7 +146,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
         </div>
       </div>
       {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)} isAComment={true} id={commentId}/>}
-      {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={true} assessmentId={assessmentId} isEditing={true} disciplineId={disciplineId} teacherId={teacherId} commentId={commentId}/>}
+      {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={true} assessmentId={assessmentId} isEditing={true} disciplineId={disciplineId} teacherId={teacherId} commentId={commentId} content={commentContent}/>}
     </>
   )
 }

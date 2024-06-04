@@ -32,10 +32,6 @@ export const SearchBar = () => {
     }
   }
 
-  const handleModal = () => {
-    setModal(!modal)
-  }
-
   return (
       <>
       <div className='w-full py-8 px-40 flex container mx-auto flex-col items-center sm:flex-row sm:justify-between sm:items-end'>
@@ -61,13 +57,13 @@ export const SearchBar = () => {
       <div className='container h-2 rounded-full bg-primary mx-auto w-3/4 sm:w-full'></div>
       <div className='flex flex-col items-center md:items-start md:flex-row md:mx-auto md:container'>
         <div className='flex justify-start px-3 mt-5'>
-          <button onClick={handleModal} className='w-fit h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs ml-5'>Nova Avaliação</button>
+          <button onClick={() => setModal(!modal)} className='w-fit h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs ml-5'>Nova Avaliação</button>
         </div>
         <div className='font-bold text-md my-5 mx-auto'>
           {heading}
         </div>
       </div>
-        {modal && <AssessmentModal closeModal={handleModal}/>}
+        {modal && <AssessmentModal closeModal={() => setModal(!modal)}/>}
     </>
   )
 }

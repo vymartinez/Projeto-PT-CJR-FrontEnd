@@ -126,7 +126,7 @@ const AssessmentModal = ({closeModal}: Props) => {
                         <div className='flex justify-center'>
                             {teacherOptionsMenu && teacherOptions && <OptionsMenu options={teacherOptions} setItem={setTeachers} closeModal={() => setTeacherOptionsMenu(!teacherOptionsMenu)} isATeacher={true} handleSelectOption={handleSelectOption}/>}
                         </div>
-                        {invalid && <div className='text-center text-xs text-red-200'>
+                        {invalid && <div className='text-center text-xs text-red-300'>
                             <p>Por favor, selecione uma opção correspondente à matéria</p>
                         </div>}
                 </div>
@@ -138,7 +138,7 @@ const AssessmentModal = ({closeModal}: Props) => {
                         <div className='flex justify-center'>
                             {disciplineOptionsMenu && disciplinesOptions && <OptionsMenu options={disciplinesOptions} setItem={setDisciplines} closeModal={() => setDisciplineOptionsMenu(!disciplineOptionsMenu)} isATeacher={false} handleSelectOption={handleSelectOption}/>}
                         </div>
-                        {invalid && <div className='text-center text-xs text-red-200'>
+                        {invalid && <div className='text-center text-xs text-red-300'>
                             <p>Por favor, selecione uma opção correspondente ao professor</p>
                         </div>}
                 </div>

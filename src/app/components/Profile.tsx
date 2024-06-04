@@ -88,7 +88,7 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
                     {!isTeacher &&  <p className='text-xs md:ml-2 md:text-sm'>
                             {userProfile.email}
                         </p>}
-                </div>  
+                </div> 
             </div>
             <div className='flex flex-col text-center items-center'>
                 <h1 className='font-bold relative -top-5 md:top-0 md:mb-3'>Publicações</h1>

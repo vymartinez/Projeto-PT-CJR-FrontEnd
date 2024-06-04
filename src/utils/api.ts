@@ -28,6 +28,11 @@ type PatchAssessmentProps = {
   assessmentId: number;
 }
 
+type PatchUserProps = {
+  values: EditProfile,
+  userId: number;
+}
+
 const req = axios.create({
   baseURL: 'http://localhost:3001'
 })
@@ -130,6 +135,16 @@ export const postComment = async ({content, userId, assessmentId} : PostCommentP
   userId: userId,
   assessmentId: assessmentId})
 };
+
+export const patchUser = async ({values, userId} : PatchUserProps) => {
+  await req.patch(`/user/${userId}`, {
+    name: values.name,
+    email: values.email,
+    password: values.newPassword,
+    department: values.department,
+    course: values.course
+  });
+}
 
 export const deleteAssessment = async (assessmentId: number) => {
   await req.delete(`/assessment/${assessmentId}`);

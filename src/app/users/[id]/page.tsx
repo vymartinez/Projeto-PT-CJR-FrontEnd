@@ -19,16 +19,10 @@ const UserProfile = async ({params} : Props) => {
   const User = await getUser(parseInt(params.id));
   let logged = false;
 
-  let notError : boolean;
-
-  if (User) {
-    notError = true;
-  } else {
-    notError = false;
+  if (!User) {
     redirect('/404-error');
   }
 
-if (notError) {
   return (
     <>
       {logged && <HeaderLogged />}
@@ -45,7 +39,6 @@ if (notError) {
 
     </>
   )
-}
 }
 
 export default UserProfile;

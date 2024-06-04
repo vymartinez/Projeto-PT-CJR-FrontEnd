@@ -10,8 +10,8 @@ const Feed = async () => {
         {logged && <HeaderLogged/>}
         {!logged && <HeaderUnlogged/>}
         <main>
-              <SearchBar/>
-              <TeachersList/>
+            <SearchBar/>
+            <TeachersList/>
           <div className='container h-2 rounded-full bg-primary mx-auto w-3/4 sm:w-full mt-3'></div>
         </main>
     </>

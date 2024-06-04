@@ -5,7 +5,7 @@ import Image from 'next/image'
 import defaultUser from '@/../public/images/default-user.jpg'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from "yup"
-import { sendPhoto } from '@/utils/api'
+import { getUser, patchUser, sendPhoto } from '@/utils/api'
 
 type Props = {
     closeModal: () => void;
@@ -15,7 +15,7 @@ const EditProfile = ({closeModal} : Props) => {
 
     const fileRef = useRef<HTMLInputElement>(null)
 
-    const oldPassword: string = "testando"
+    var oldPassword: string = "jwtToken"
 
     const initialValues = {name: "", email: "", course: "", department: "", newPassword: "", passwordConfirmation: "", password: "", oldPassword: oldPassword}
 
@@ -39,9 +39,19 @@ const EditProfile = ({closeModal} : Props) => {
         }),
     })
 
-    const onSubmit = (values:any) => {
-        console.log(values)
-        handleSubmit()
+    const onSubmit = async (values: EditProfile) => {
+        if (values) {
+            const user = await getUser(1)//ajeitar após a autenticação
+            const filteresValues = {
+                name: values.name ? values.name : user.name,
+                email: values.email? values.email : user.email,
+                course: values.course ? values.course : user.course,
+                department: values.department ? values.department : user.department,
+                newPassword: values.newPassword ? values.newPassword : oldPassword,
+            }
+            await patchUser({values: filteresValues, userId: 1}) //ajeitar após autenticação
+            handleSubmit()
+        }
         closeModal();
     }
 

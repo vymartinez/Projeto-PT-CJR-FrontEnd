@@ -19,11 +19,12 @@ type Props = {
     teacherId: number;
     assessmentId: number;
     commentId?: number;
+    content: string;
 }
 
-const EditAssessmentModal = ({closeModal, isAComment, isEditing, disciplineId, teacherId, assessmentId, commentId}: Props) => {
+const EditAssessmentModal = ({closeModal, isAComment, isEditing, disciplineId, teacherId, assessmentId, commentId, content}: Props) => {
 
-    const [textArea, setTextArea] = useState('')
+    const [textArea, setTextArea] = useState(content)
     const [confirmation, setConfirmation] = useState(false);
 
     const handleComment = () => {

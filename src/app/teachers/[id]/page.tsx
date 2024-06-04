@@ -17,31 +17,23 @@ const TeacherProfile = async ({params} : Props) => {
   const Teacher = await getTeacher(parseInt(params.id));
   let logged = false;
 
-  let notError : boolean;
-
-  if (Teacher) {
-    notError = true;
-  } else {
-    notError = false;
+  if (!Teacher) {
     redirect('/404-error');
   }
-
-if (notError) {
   return (
     <>
       {logged && <HeaderLogged />}
       {!logged && <HeaderUnlogged />}
 
       <main className='flex justify-center min-h-screen'>
-        {notError && <Profile
+        <Profile
           isTeacher={true}
           teacherProfile={Teacher}
           userProfile={satisfiesUserProfile}
-        />}
+        />
       </main>
     </>
   )
-}
 }
 
 export default TeacherProfile;
