@@ -14,8 +14,10 @@ import { getComments } from '@/utils/api'
 
 type Props = {
   profile: User;
-  id: number;
+  teacherId: number;
+  assessmentId: number;
   discipline: string;
+  disciplineId: number;
   createdAt: string;
   content: string;
   commentSection: boolean;
@@ -23,27 +25,17 @@ type Props = {
 }
 
 
-const Post = ({profile, id, discipline, createdAt, content, commentSection, commentsList} : Props) => {
+const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, createdAt, content, commentSection, commentsList} : Props) => {
   
-  const [modal, setModal] = useState(false);
-  const [isAComment, setIsAComment] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [commentModal, setCommentModal] = useState(false);
   const [comments, setComments] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
   
-  const data = new Intl.DateTimeFormat('pt-br', {
+  const date = new Intl.DateTimeFormat('pt-br', {
     dateStyle: 'short',
     timeStyle:'short',
   }).format(Date.parse(createdAt))
-
-  const handleEdit = () => {
-    setIsAComment(false)
-    setModal(true)
-  }
-
-  const handleComment = () => {
-    setIsAComment(true)
-    setModal(true)
-  }
 
   var commentsLength = 0;
   if (commentsList.length > 0) {
@@ -70,7 +62,7 @@ const Post = ({profile, id, discipline, createdAt, content, commentSection, comm
           </div>
           <div className='flex items-center justify-center ml-3 mt-3'>
             <ul className='flex list-disc'>
-              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{data}</li>
+              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{date}</li>
               <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
               <li className='text-xs text-gray-400'>{discipline}</li>
             </ul>
@@ -89,7 +81,7 @@ const Post = ({profile, id, discipline, createdAt, content, commentSection, comm
               sizes="max"
               className='cursor-pointer'
               draggable={false}
-              onClick={handleComment}
+              onClick={() => setCommentModal(true)}
               />
             </div>
             <div className='flex items-center my-0 ml-2 md:my-0'>
@@ -107,7 +99,7 @@ const Post = ({profile, id, discipline, createdAt, content, commentSection, comm
               sizes="max"
               className='cursor-pointer'
               draggable={false}
-              onClick={handleEdit}
+              onClick={() => setEditModal(true)}
               />
             </div>
           </div>
@@ -123,18 +115,21 @@ const Post = ({profile, id, discipline, createdAt, content, commentSection, comm
           </div>
         </div>
       </div>
-      {modal && <EditModal closeModal={() => setModal(false)} isAComment={isAComment}/>}
-      {comments && <AssessmentComments
+      {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={false} assessmentId={assessmentId} isEditing={true} disciplineId={disciplineId} teacherId={teacherId}/>}
+      {commentModal && <EditModal closeModal={() => setCommentModal(false)} isAComment={true} assessmentId={assessmentId} isEditing={false} disciplineId={disciplineId} teacherId={teacherId}/>}
+      {comments && !commentSection && <AssessmentComments
                     closeModal={() => setComments(false)}
-                    assessmentId={id}
+                    assessmentId={assessmentId}
                     profile={profile}
                     discipline={discipline}
-                    createdAt={data}
+                    createdAt={date}
                     content={content}
                     commentsList={commentsList}
+                    teacherId={teacherId}
+                    disciplineId={disciplineId}
                     />
       }
-      {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
+      {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)} isAAssessment={true} id={assessmentId}/>}
     </>
   )
 }

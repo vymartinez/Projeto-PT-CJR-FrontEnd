@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import x from '@/../public/icons/customX.svg'
 import trash from '@/../public/icons/trash.svg'
@@ -8,21 +8,35 @@ import Post from './Post'
 import ConfirmDelete from './ConfirmDelete'
 import EditModal from "./EditModal"
 import userPic from "@/../public/images/default-user.jpg"
+import { comment } from 'postcss'
 
 type Props = {
     closeModal: () => void;
     assessmentId: number;
     profile: User;
     discipline: string;
+    disciplineId: number;
+    teacherId: number;
     createdAt: string;
     content: string;
     commentsList: Comment[];
 }
 
-const AssessmentComments = ({closeModal, profile, discipline, createdAt, content, assessmentId, commentsList} : Props) => {
+const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teacherId, createdAt, content, assessmentId, commentsList} : Props) => {
 
   const [confirmation, setConfirmation] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [commentId, setCommentId] = useState(0);
+
+  const handleEdit = (id: number) => {
+    setEditModal(true);
+    setCommentId(id);
+  }
+
+  const handleDelete = (id: number) => {
+    setConfirmation(true);
+    setCommentId(id);
+  }
 
   return (
     <>
@@ -41,15 +55,21 @@ const AssessmentComments = ({closeModal, profile, discipline, createdAt, content
               </div>
             <div className='h-fit flex justify-center items-center flex-col mt-12'>
               {<Post
-              id={assessmentId}
+              assessmentId={assessmentId}
               discipline={discipline}
               profile={profile}
               createdAt={createdAt}
               content={content}
               commentSection={true}
               commentsList={commentsList}
+              teacherId={teacherId}
+              disciplineId={disciplineId}
               />}
                 {commentsList.map((item) => {
+                  const date = new Intl.DateTimeFormat('pt-br', {
+                    dateStyle: 'short',
+                    timeStyle:'short',
+                  }).format(Date.parse(item.created_at))
                   return (
                     <>
                     <div key={item.id} className='w-11/12 h-fit flex items-center justify-center'> 
@@ -78,7 +98,7 @@ const AssessmentComments = ({closeModal, profile, discipline, createdAt, content
                           </div>
                           <div className='flex items-center justify-center ml-3 mt-3'>
                             <ul className='flex list-disc'>
-                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{item.created_at}</li>
+                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{date}</li>
                               <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
                               <li className='text-xs text-gray-400'>{discipline}</li>
                             </ul>
@@ -101,11 +121,11 @@ const AssessmentComments = ({closeModal, profile, discipline, createdAt, content
                               sizes="max"
                               className='cursor-pointer'
                               draggable={false}
-                              onClick={() => setEditModal(true)}
+                              onClick={() => handleEdit(item.id)}
                               />
                             </div>
                           </div>
-                          <div onClick={() => setConfirmation(true)} className='h-5 w-5 relative mx-2'>
+                          <div onClick={() => handleDelete(item.id)} className='h-5 w-5 relative mx-2'>
                             <Image
                             src={trash}
                             alt="trash-icon"
@@ -118,14 +138,14 @@ const AssessmentComments = ({closeModal, profile, discipline, createdAt, content
                         </div>
                       </div>
                     </div>
-                    {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
-                    {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={false}/>}
                     </>
                   )
                 })}
             </div>
         </div>
       </div>
+      {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)} isAComment={true} id={commentId}/>}
+      {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={true} assessmentId={assessmentId} isEditing={true} disciplineId={disciplineId} teacherId={teacherId} commentId={commentId}/>}
     </>
   )
 }

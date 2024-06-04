@@ -9,18 +9,52 @@ import x from '@/../public/icons/x.svg'
 import trash from '@/../public/icons/trash.svg'
 import Image from 'next/image'
 import ConfirmDelete from './ConfirmDelete'
+import { patchAssessment, patchComment, postComment } from '@/utils/api'
 
 type Props = {
     closeModal: () => void;
     isAComment: boolean;
+    isEditing: boolean;
+    disciplineId: number;
+    teacherId: number;
+    assessmentId: number;
+    commentId?: number;
 }
 
-const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
+const EditAssessmentModal = ({closeModal, isAComment, isEditing, disciplineId, teacherId, assessmentId, commentId}: Props) => {
 
     const [textArea, setTextArea] = useState('')
     const [confirmation, setConfirmation] = useState(false);
 
-    const handleSendAssessment = () => {
+    const handleComment = () => {
+        postComment({
+            content: textArea,
+            userId: 1, //ajeitar após autenticação
+            assessmentId: assessmentId,
+        })
+        closeModal()
+    }
+
+    const handleEdit = () => {
+        patchAssessment({
+            content: textArea,
+            userId: 1, //ajeitar após autenticação
+            teacherId: teacherId,
+            subjectId: disciplineId,
+            assessmentId: assessmentId,
+        })
+        closeModal()
+    }
+
+    const handleEditComment = () => {
+        if (commentId) {
+            patchComment({
+                content: textArea,
+                userId: 1, //ajeitar após autenticação
+                assessmentId: assessmentId,
+                commentId: commentId,
+            })
+        }
         closeModal()
     }
 
@@ -120,14 +154,19 @@ const EditAssessmentModal = ({closeModal, isAComment}: Props) => {
                 <button onClick={closeModal} className='py-2 px-3 text-white bg-red-600 text-sm mx-3 rounded-xl'>
                     Cancelar
                 </button>
-                <button onClick={handleSendAssessment} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
-                    {!isAComment && <p>Editar</p>}
-                    {isAComment && <p>Comentar</p>}
-                </button>
+                {isAComment && !isEditing && <button onClick={handleComment} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
+                  <p>Comentar</p>
+                </button>}
+                {!isAComment && isEditing && <button onClick={handleEdit} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
+                  <p>Editar</p>
+                </button>}
+                {isAComment && isEditing && <button onClick={handleEditComment} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
+                  <p>Editar</p>
+                </button>}
             </div>
         </div>
     </div>
-    {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
+    {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)} isAComment={isAComment} id={isAComment && commentId ? commentId : assessmentId}/>}
     </>
   )
 }

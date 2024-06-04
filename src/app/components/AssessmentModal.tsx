@@ -43,14 +43,6 @@ const AssessmentModal = ({closeModal}: Props) => {
         }
     })
 
-    const handleDisciplinesOptions = () => {
-        setDisciplineOptionsMenu(!disciplineOptionsMenu)
-    }
-
-    const handleTeacherOptions = () => {
-        setTeacherOptionsMenu(!teacherOptionsMenu)
-    }
-
     const handleSendAssessment = ({teacherId, subjectId} : SendProps) => {
         postAssessment({
             content: textArea,
@@ -129,10 +121,10 @@ const AssessmentModal = ({closeModal}: Props) => {
                 <div className='flex flex-col'>
                     <div className='pt-3 px-3 flex items-center'>
                         <input type='text' value={teachers} onChange={(e) => handleTeacherInput(e)} placeholder='Nome do Professor' className='text-sm text-left w-full rounded-full px-3 py-2 outline-none'></input>
-                        <div onClick={handleTeacherOptions} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
+                        <div onClick={() => setTeacherOptionsMenu(!teacherOptionsMenu)} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
                     </div>
                         <div className='flex justify-center'>
-                            {teacherOptionsMenu && teacherOptions && <OptionsMenu options={teacherOptions} setItem={setTeachers} closeModal={handleTeacherOptions} isATeacher={true} handleSelectOption={handleSelectOption}/>}
+                            {teacherOptionsMenu && teacherOptions && <OptionsMenu options={teacherOptions} setItem={setTeachers} closeModal={() => setTeacherOptionsMenu(!teacherOptionsMenu)} isATeacher={true} handleSelectOption={handleSelectOption}/>}
                         </div>
                         {invalid && <div className='text-center text-xs text-red-200'>
                             <p>Por favor, selecione uma opção correspondente à matéria</p>
@@ -141,10 +133,10 @@ const AssessmentModal = ({closeModal}: Props) => {
                 <div className='flex flex-col'>
                     <div className='pt-3 px-3 flex items-center'>
                         <input type='text' value={disciplines} onChange={(e) => handleDisciplineInput(e)} placeholder='Disciplina' className='text-sm text-left pl-3 rounded-full w-full py-2 outline-none'></input>
-                        <div onClick={handleDisciplinesOptions} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
+                        <div onClick={() => setDisciplineOptionsMenu(!disciplineOptionsMenu)} className='h-0 w-0 relative -ml-6 border-x-8 border-x-transparent border-t-8 border-t-gray-600 cursor-pointer'></div>
                     </div>
                         <div className='flex justify-center'>
-                            {disciplineOptionsMenu && disciplinesOptions && <OptionsMenu options={disciplinesOptions} setItem={setDisciplines} closeModal={handleDisciplinesOptions} isATeacher={false} handleSelectOption={handleSelectOption}/>}
+                            {disciplineOptionsMenu && disciplinesOptions && <OptionsMenu options={disciplinesOptions} setItem={setDisciplines} closeModal={() => setDisciplineOptionsMenu(!disciplineOptionsMenu)} isATeacher={false} handleSelectOption={handleSelectOption}/>}
                         </div>
                         {invalid && <div className='text-center text-xs text-red-200'>
                             <p>Por favor, selecione uma opção correspondente ao professor</p>
@@ -226,7 +218,8 @@ const AssessmentModal = ({closeModal}: Props) => {
                 {teacherOptions && disciplinesOptions && !teacherOptionsMenu && !disciplineOptionsMenu && teachers && disciplines && !invalid &&
                  <button onClick={() => handleSendAssessment({teacherId: teacherOptions[0].id, subjectId: disciplinesOptions[0].id})} className='py-2 px-3 bg-lime-600 text-white text-sm mx-3 rounded-xl'>
                     Avaliar
-                </button> ||
+                </button> 
+                ||
                 (!teacherOptions || !disciplinesOptions || !teacherOptionsMenu || !disciplineOptionsMenu || !teachers || !disciplines || invalid) && 
                 <div className='py-2 px-3 bg-lime-600/50 text-white text-sm mx-3 rounded-xl'>
                     Avaliar

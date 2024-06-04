@@ -96,9 +96,11 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
                     if (item.teacherId === teacherProfile.id) {
                         return <Post 
                         key={item.id}
-                        id={item.id}
+                        assessmentId={item.id}
                         profile={User}
+                        teacherId={item.teacherId}
                         discipline={disciplines[0]}
+                        disciplineId={item.subjectId}
                         createdAt={item.created_at}
                         content={item.content}
                         commentSection={false}
@@ -114,9 +116,11 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
                     if (item.userId === userProfile.id) {
                         return <Post 
                         key={item.id}
-                        id={item.id}
+                        assessmentId={item.id}
                         profile={userProfile}
+                        teacherId={item.teacherId}
                         discipline={disciplines[0]}
+                        disciplineId={item.subjectId}
                         createdAt={item.created_at}
                         content={item.content}
                         commentSection={false}

@@ -4,7 +4,10 @@ interface User {
     email: string;
     department: string;
     course: string;
-    photo?: Buffer;
+    photo?: {
+        type: string;
+        data: number[];
+    };
     assessments: Assessment;
     created_at: string;
     updatedAt: string;

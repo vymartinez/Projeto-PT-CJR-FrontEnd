@@ -55,7 +55,7 @@ const Menu = () => {
             </div>
         </nav>
       {modal && <EditProfile closeModal={() => setModal(false)}/>}
-      {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)}/>}
+      {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)} isTheAccount={true} id={0}/>}
    </>
   )
 }

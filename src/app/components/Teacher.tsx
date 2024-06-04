@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import user from '@/../public/images/default-user.jpg'
 import { useDisciplines } from '../hooks/disciplinesContext'
+import user from "@/../public/images/default-user.jpg"
 
 const Teacher = ( {  id, name, photo } : Teacher) => {
 
