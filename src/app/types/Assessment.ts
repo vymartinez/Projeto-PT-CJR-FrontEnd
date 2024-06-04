@@ -1,9 +1,9 @@
 interface Assessment {
     id: number;
+    content: string;
     userId: number;
     teacherId: number;
-    assessmentId: number;
-    text: string;
-    createdAt: string;
+    subjectId: number;
+    created_at: string;
     updatedAt: string;
 }

@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Teachers } from '../data/Teachers'
 import glass from '@/../public/icons/magnifying-glass.svg'
 import Image from 'next/image'
 import { useTeachersList } from '../hooks/teachersContext'
@@ -17,16 +16,18 @@ export const SearchBar = () => {
   const verifyResults = (e : React.ChangeEvent<HTMLInputElement>) => {
     const searchWord = e.target.value;
     setInputValue(searchWord)
-    const filter = Teachers.filter((teacher) => teacher.name.toLowerCase().includes(searchWord.toLowerCase()))
-    teachersCtx?.setTeachersList(filter)
-    if (searchWord === '') {
-      setHeading('')
-    } else {
-        setHeading(`Nenhum resultado para '${searchWord}'`)
-      if (filter.length > 0) {
-        let phrase = 'resultado encontrado';
-        filter.length == 1 ? phrase : phrase = 'resultados encontrados';
-        setHeading(`${filter.length} ${phrase} para '${searchWord}'`)
+    const filter = teachersCtx?.Teachers.filter((teacher) => teacher.name.toLowerCase().includes(searchWord.toLowerCase()))
+    if (filter) {
+      teachersCtx?.setTeachersList(filter)
+      if (searchWord === '') {
+        setHeading('')
+      } else {
+          setHeading(`Nenhum resultado para '${searchWord}'`)
+        if (filter.length > 0) {
+          let phrase = 'resultado encontrado';
+          filter.length == 1 ? phrase : phrase = 'resultados encontrados';
+          setHeading(`${filter.length} ${phrase} para '${searchWord}'`)
+        }
       }
     }
   }

@@ -26,11 +26,9 @@ const TeachersList = () => {
             id={item.id}
             key={item.id}
             name={item.name} 
-            disciplinesId={item.disciplinesId}
+            teacherSubjects={item.teacherSubjects}
             department={item.department}
             photo={item.photo}
-            createdAt={item.createdAt}
-            updatedAt={item.updatedAt}
             />
         )
         })}
@@ -38,4 +36,4 @@ const TeachersList = () => {
   )
 }
 
-export default TeachersList
+export default TeachersList;

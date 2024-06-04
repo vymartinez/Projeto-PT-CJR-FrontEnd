@@ -1,7 +1,12 @@
 interface Discipline {
     id: number;
     name: string;
-    teachersId: number[];
+    teachersSubjects: [{
+        subjectId: number;
+        teacherId: number;
+        createdAt: string;
+        updatedAt: string;
+    }];
     createdAt: string;
     updatedAt: string;
 }

@@ -1,15 +1,16 @@
 "use client"
 
 import React, { ChangeEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Nome é obrigtório'),
   email: Yup.string().required('Email é obrigatório'),
-  password: Yup.string().min(11, 'A senha deve conter no mínimo 11 caracteres').required('Senha é obrigatório'),
-  curso: Yup.string().required('Por favor informe seu curso'),
-  departamento: Yup.string().required('Por favor informe o seu departamento'),
+  password: Yup.string().min(11, 'A senha deve conter no mínimo 11 caracteres').required('Senha é obrigatória'),
+  course: Yup.string().required('Por favor informe seu curso'),
+  department: Yup.string().required('Por favor informe o seu departamento'),
 })
 
 interface RegisterFormProps {
@@ -24,25 +25,31 @@ interface FormValues {
   name: string;
   email: string;
   password: string;
-  curso: string;
-  departamento: string;
+  course: string;
+  department: string;
 }
 
-export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
+export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => {
+
+  const router = useRouter()
+  const onSubmit = (values : any) => {
+    //envio dos dados
+    router.replace("/feed");
+  }
+
+  return (
   <>
     <Formik <FormValues>
       initialValues={{
         name: '',
         email: '',
         password: '',
-        curso: '',
-        departamento: '',
+        course: '',
+        department: '',
       }}
 
       validationSchema={validationSchema}
-      onSubmit={(values) => {
-        alert(JSON.stringify(values, null, 2));
-      }}
+      onSubmit={onSubmit}
     >
       <Form>
         <label className={styles.label} htmlFor='name'>
@@ -56,22 +63,22 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
         <Field className={styles.field} id='email' name='email' type='email' />
 
         <label className={styles.label} htmlFor='password'>
-          Password
+          Senha
         </label>
         <Field className={styles.field} id='password' name='password' type='password' />
 
-        <label className={styles.label} htmlFor='curso'>
+        <label className={styles.label} htmlFor='course'>
           Curso
         </label>
-        <Field className={styles.field} id='curso' name='curso' />
+        <Field className={styles.field} id='course' name='course' />
 
-        <label className={styles.label} htmlFor='departamento'>
+        <label className={styles.label} htmlFor='department'>
           Departamento
         </label>
-        <Field className={styles.field} id='departamento' name='departamento' />
+        <Field className={styles.field} id='department' name='department' />
         
-        <div className='mt-8'>
-          <button type='submit' className={styles.button}>
+        <div className='mt-8 flex justify-center'>
+          <button onClick={onSubmit} type='submit' className={styles.button}>
             Cadastrar
           </button>
         </div>
@@ -79,6 +86,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => (
     </Formik>
   </>
 );
+}
 function handleFileChange(event: ChangeEvent<HTMLInputElement>): void {
     throw new Error('Function not implemented.');
 }

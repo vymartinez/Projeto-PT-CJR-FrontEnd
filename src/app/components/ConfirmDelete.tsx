@@ -2,14 +2,26 @@ import React from 'react'
 import Image from 'next/image'
 import danger from "@/../public/icons/danger.svg"
 import x from '@/../public/icons/x.svg'
+import { deleteAccount, deleteAssessment, deleteComment } from '@/utils/api'
 
 type Props = {
     closeConfirmation: () => void;
+    isAComment?: boolean;
+    isAAssessment?: boolean;
+    isTheAccount?: boolean;
+    id: number;
 }
 
-const ConfirmDelete = ({closeConfirmation} : Props) => {
+const ConfirmDelete = ({closeConfirmation, isAAssessment, isAComment, isTheAccount, id} : Props) => {
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
+        if (isAComment) {
+            await deleteComment(id)
+        } else if (isTheAccount) {
+            await deleteAccount(id)
+        } else if (isAAssessment) {
+            await deleteAssessment(id)
+        }
         closeConfirmation()
     }
 

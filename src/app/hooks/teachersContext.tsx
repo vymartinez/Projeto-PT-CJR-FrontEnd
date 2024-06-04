@@ -1,20 +1,25 @@
 "use client"
 
 import { createContext, useState, ReactNode, useContext } from "react"
-import { Teachers } from "../data/Teachers";
 
 type ContextType = {
     TeachersList: Teacher[];
     setTeachersList: (teacher: Teacher[]) => void;
+    Teachers: Teacher[];
 }
 
-export const InitialValue = Teachers;
+type Props = {
+    children: ReactNode;
+    Teachers: Teacher[];
+}
+
 export const TeachersContext = createContext<ContextType | null>(null);
 
-export const TeachersContextProvider = ({children}: {children : ReactNode}) => {
-    const [TeachersList, setTeachersList] = useState(InitialValue);
+export const TeachersContextProvider = ({children, Teachers}: Props) => {
+
+    const [TeachersList, setTeachersList] = useState(Teachers);
     return (
-    <TeachersContext.Provider value={{TeachersList, setTeachersList}}>
+    <TeachersContext.Provider value={{TeachersList, setTeachersList, Teachers}}>
         {children}
     </TeachersContext.Provider>
     );

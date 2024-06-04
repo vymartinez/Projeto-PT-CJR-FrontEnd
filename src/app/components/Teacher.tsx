@@ -1,20 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Disciplines } from '../data/Disciplines'
+import { useDisciplines } from '../hooks/disciplinesContext'
+import user from "@/../public/images/default-user.jpg"
 
-const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
+const Teacher = ( {  id, name, photo } : Teacher) => {
 
     const router = useRouter()
     const handleClick = (key : number) => {
         router.push(`/teachers/${key}`)
     }
 
-    const filteredDisciplines = Disciplines.filter(item => {
-        for (let i in disciplinesId) {
-            if (item.id === disciplinesId[i]) {
-                return item;
-            }
+    const disciplineCtx = useDisciplines()
+
+    if(disciplineCtx) {
+    const filteredDisciplines = disciplineCtx.Disciplines.filter(item => {
+        if (id === item.teachersSubjects[0].teacherId){
+            return item;
         }
     })
 
@@ -28,7 +30,7 @@ const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
             <div className='relative h-52 w-40 bg-white rounded-lg my-5 border-2 hover:border-primary cursor-pointer lg:h-64 lg:w-48' onClick={() => handleClick(id)}>
                 <div className='rounded-3xl h-24 w-24 relative bg-center m-auto mt-5 mb-4 lg:w-32 lg:h-32'>
                     <Image
-                    src={photo}
+                    src={user}
                     alt='teacher-pic'
                     fill
                     sizes="max"
@@ -48,6 +50,7 @@ const Teacher = ( {  id, name, disciplinesId, photo } : Teacher) => {
         </div>
     </>
   )
+} return null;
 }
 
 export default Teacher;

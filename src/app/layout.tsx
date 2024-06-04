@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Questrial } from "next/font/google";
 import "@/app/styles/globals.css";
+import { Providers } from "@/utils/providers";
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -24,7 +25,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className={`${inter.variable} ${questrial.variable}`}>
       <link rel="icon" href="/favicon.ico" sizes="any" />
-      <body>{children}</body>
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }
