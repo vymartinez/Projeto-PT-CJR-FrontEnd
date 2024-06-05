@@ -8,6 +8,7 @@ import Post from './Post'
 import ConfirmDelete from './ConfirmDelete'
 import EditModal from "./EditModal"
 import userPic from "@/../public/images/default-user.jpg"
+import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
     closeModal: () => void;
@@ -27,6 +28,8 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
   const [editModal, setEditModal] = useState(false);
   const [commentId, setCommentId] = useState(0);
   const [commentContent, setCommentContent] = useState("");
+
+  const loggedUserCtx = useLoggedUser();
 
   const handleEdit = ({id, content}: {id: number, content: string}) => {
     setCommentId(id);
@@ -114,7 +117,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                             </div>
                           </div>
                           <div className='grow flex justify-end'>
-                            <div className='h-5 w-5 relative mx-2'>
+                            {loggedUserCtx && loggedUserCtx.User.id === item.userId && <div className='h-5 w-5 relative mx-2'>
                               <Image 
                               src={edit}
                               alt="edit-icon"
@@ -124,9 +127,9 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                               draggable={false}
                               onClick={() => handleEdit({id: item.id, content: item.content})}
                               />
-                            </div>
+                            </div>}
                           </div>
-                          <div onClick={() => handleDelete(item.id)} className='h-5 w-5 relative mx-2'>
+                          {loggedUserCtx && loggedUserCtx.User.id === item.userId && <div onClick={() => handleDelete(item.id)} className='h-5 w-5 relative mx-2'>
                             <Image
                             src={trash}
                             alt="trash-icon"
@@ -135,7 +138,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                             className='cursor-pointer'
                             draggable={false}
                             />
-                          </div>
+                          </div>}
                         </div>
                       </div>
                     </div>

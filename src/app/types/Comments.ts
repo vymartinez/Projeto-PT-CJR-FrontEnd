@@ -4,5 +4,5 @@ interface Comment {
     userId: number;
     assessmentId: number;
     created_at: string;
-    updatedAt: string;
+    updated_at: string;
 }

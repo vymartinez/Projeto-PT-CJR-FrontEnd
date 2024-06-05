@@ -33,6 +33,15 @@ type PatchUserProps = {
   userId: number;
 }
 
+type CreateUserProps = {
+  name: string;
+  email: string;
+  password: string;
+  department: string;
+  course: string;
+  photo?: string;
+}
+
 const req = axios.create({
   baseURL: 'http://localhost:3001'
 })

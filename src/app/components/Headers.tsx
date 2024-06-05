@@ -7,6 +7,7 @@ import Image from 'next/image'
 import user from '@/../public/images/default-user.jpg'
 import Menu from '../components/Menu'
 import Link from 'next/link'
+import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
   photo?: {
@@ -16,8 +17,8 @@ type Props = {
 }
 
 export const HeaderLogged = ({photo} : Props) => {
+
   const [menu, setMenu] = useState(false);
-  const handleClick = () => menu ? setMenu(false) : setMenu(true);
 
   return (
     <>
@@ -41,7 +42,7 @@ export const HeaderLogged = ({photo} : Props) => {
               draggable={false}
               />
             </div>
-            <div onClick={handleClick} className='relative mr-3 rounded-full w-12 h-12 cursor-pointer my-6 border border-solid border-background border-1 overflow-hidden sm:w-16 sm:h-16 sm:my-4'>
+            <div onClick={() => setMenu(!menu)} className='relative mr-3 rounded-full w-12 h-12 cursor-pointer my-6 border border-solid border-background border-1 overflow-hidden sm:w-16 sm:h-16 sm:my-4'>
               <Image
               src={photo ? String.fromCharCode(...photo.data) : user}
               alt="user-pic"
@@ -74,6 +75,17 @@ export const HeaderUnlogged = () => {
                 Login
             </Link>
         </header>
+    </>
+  )
+}
+
+export const ActiveHeader = ({photo} : Props) => {
+
+  const loggedUserCtx = useLoggedUser();
+
+  return (
+    <>
+      {loggedUserCtx?.isLogged ? <HeaderLogged photo={photo}/> : <HeaderUnlogged/>}
     </>
   )
 }

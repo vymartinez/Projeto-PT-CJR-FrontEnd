@@ -10,5 +10,5 @@ interface User {
     };
     assessments: Assessment;
     created_at: string;
-    updatedAt: string;
+    updated_at: string;
 }

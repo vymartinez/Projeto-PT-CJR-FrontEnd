@@ -5,5 +5,5 @@ interface Assessment {
     teacherId: number;
     subjectId: number;
     created_at: string;
-    updatedAt: string;
+    updated_at: string;
 }

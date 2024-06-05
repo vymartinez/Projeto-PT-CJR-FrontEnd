@@ -16,9 +16,9 @@ export const Providers = async({children}: Props) => {
     return (
         <LoggedUserProvider User={User}>
         <TeachersContextProvider Teachers={Teachers}>
-          <DisciplinesContextProvider Disciplines={Disciplines}>
-              {children}
-          </DisciplinesContextProvider>
+        <DisciplinesContextProvider Disciplines={Disciplines}>
+            {children}
+        </DisciplinesContextProvider>
         </TeachersContextProvider>
         </LoggedUserProvider>
     )

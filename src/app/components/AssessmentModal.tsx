@@ -10,6 +10,7 @@ import OptionsMenu from './OptionsMenu'
 import { useTeachersList } from '../hooks/teachersContext'
 import { useDisciplines } from '../hooks/disciplinesContext'
 import { postAssessment } from '@/utils/api'
+import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
     closeModal: () => void;
@@ -24,6 +25,7 @@ const AssessmentModal = ({closeModal}: Props) => {
 
     const teacherCtx = useTeachersList()
     const disciplinesCtx = useDisciplines()
+    const loggedUserCtx = useLoggedUser()
 
     const [textArea, setTextArea] = useState('')
     const [disciplines, setDisciplines] = useState('')
@@ -44,12 +46,14 @@ const AssessmentModal = ({closeModal}: Props) => {
     })
 
     const handleSendAssessment = ({teacherId, subjectId} : SendProps) => {
-        postAssessment({
-            content: textArea,
-            userId: 1, //ajeitar após autenticação
-            teacherId: teacherId,
-            subjectId: subjectId,
-        })
+        if (loggedUserCtx) {
+            postAssessment({
+                content: textArea,
+                userId: loggedUserCtx.User.id,
+                teacherId: teacherId,
+                subjectId: subjectId,
+            })
+        }
         closeModal()
     }
 

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import defaultUser from '@/../public/images/default-user.jpg'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from "yup"
-import { getUser, patchUser, patchPhoto } from '@/utils/api'
+import { patchUser, patchPhoto } from '@/utils/api'
 import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
@@ -42,9 +42,11 @@ const EditProfile = ({closeModal} : Props) => {
                     delete values[key as keyof EditProfile];
                 }
             });
-            await patchUser({values: values, userId: 1}) //ajeitar após autenticação
-            handleSubmit()
+            if (loggedUserCtx) {
+                await patchUser({values: values, userId: loggedUserCtx.User.id})
+            }
         }
+        handleSubmit()
         closeModal();
     }
 
@@ -53,7 +55,9 @@ const EditProfile = ({closeModal} : Props) => {
             const file = fileRef.current.files[0];
             const data = new FormData();
             data.append('file', file);
-            patchPhoto({photo: data, userId: 1}); //ajeitar após autenticação
+            if (loggedUserCtx) {
+                patchPhoto({photo: data, userId: loggedUserCtx.User.id});
+            }
         }
     }
 

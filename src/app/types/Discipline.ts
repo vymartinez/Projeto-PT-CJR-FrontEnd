@@ -4,9 +4,9 @@ interface Discipline {
     teachersSubjects: [{
         subjectId: number;
         teacherId: number;
-        createdAt: string;
-        updatedAt: string;
+        created_at: string;
+        updated_at: string;
     }];
-    createdAt: string;
-    updatedAt: string;
+    created_at: string;
+    updated_at: string;
 }

@@ -10,6 +10,7 @@ import trash from '@/../public/icons/trash.svg'
 import Image from 'next/image'
 import ConfirmDelete from './ConfirmDelete'
 import { patchAssessment, patchComment, postComment } from '@/utils/api'
+import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
     closeModal: () => void;
@@ -27,31 +28,37 @@ const EditAssessmentModal = ({closeModal, isAComment, isEditing, disciplineId, t
     const [textArea, setTextArea] = useState(content)
     const [confirmation, setConfirmation] = useState(false);
 
+    const loggedUserCtx = useLoggedUser();
+
     const handleComment = () => {
-        postComment({
-            content: textArea,
-            userId: 1, //ajeitar após autenticação
-            assessmentId: assessmentId,
-        })
+        if (loggedUserCtx) {
+            postComment({
+                content: textArea,
+                userId: loggedUserCtx.User.id,
+                assessmentId: assessmentId,
+            })
+        }
         closeModal()
     }
 
     const handleEdit = () => {
-        patchAssessment({
-            content: textArea,
-            userId: 1, //ajeitar após autenticação
-            teacherId: teacherId,
-            subjectId: disciplineId,
-            assessmentId: assessmentId,
-        })
+        if (loggedUserCtx) {
+            patchAssessment({
+                content: textArea,
+                userId: loggedUserCtx.User.id,
+                teacherId: teacherId,
+                subjectId: disciplineId,
+                assessmentId: assessmentId,
+            })
+        }
         closeModal()
     }
 
     const handleEditComment = () => {
-        if (commentId) {
+        if (commentId && loggedUserCtx) {
             patchComment({
                 content: textArea,
-                userId: 1, //ajeitar após autenticação
+                userId: loggedUserCtx.User.id,
                 assessmentId: assessmentId,
                 commentId: commentId,
             })

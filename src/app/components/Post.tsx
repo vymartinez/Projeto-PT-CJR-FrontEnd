@@ -10,7 +10,7 @@ import AssessmentComments from './AssessmentComments'
 import ConfirmDelete from './ConfirmDelete'
 import Link from 'next/link'
 import user from '@/../public/images/default-user.jpg'
-import { getComments } from '@/utils/api'
+import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
   profile: User;
@@ -31,6 +31,8 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
   const [commentModal, setCommentModal] = useState(false);
   const [comments, setComments] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
+
+  const loggedUserCtx = useLoggedUser();
   
   const date = new Intl.DateTimeFormat('pt-br', {
     dateStyle: 'short',
@@ -91,7 +93,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
             </div>
           </div>
           <div className='grow flex justify-end'>
-            <div className='h-5 w-5 relative mx-2'>
+          {loggedUserCtx && loggedUserCtx.User.id === profile.id && <div className='h-5 w-5 relative mx-2'>
               <Image 
               src={edit}
               alt="edit-icon"
@@ -101,9 +103,9 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
               draggable={false}
               onClick={() => setEditModal(true)}
               />
-            </div>
+            </div>}
           </div>
-          <div onClick={() => setConfirmation(true)} className='h-5 w-5 relative mx-2'>
+          {loggedUserCtx && loggedUserCtx.User.id === profile.id && <div onClick={() => setConfirmation(true)} className='h-5 w-5 relative mx-2'>
             <Image
             src={trash}
             alt="trash-icon"
@@ -112,7 +114,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
             className='cursor-pointer'
             draggable={false}
             />
-          </div>
+          </div>}
         </div>
       </div>
       {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={false} assessmentId={assessmentId} isEditing={true} disciplineId={disciplineId} teacherId={teacherId} content={content}/>}

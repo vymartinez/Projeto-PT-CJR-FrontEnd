@@ -16,7 +16,7 @@ type Props = {
 export const loggedUserContext = createContext<ContextType | null>(null);
 
 export const LoggedUserProvider = ({children, User}: Props) => {
-    const [isLogged, setIsLogged] = useState(false);
+    const [isLogged, setIsLogged] = useState(true);
     return (
     <loggedUserContext.Provider value={{isLogged, setIsLogged, User}}>
         {children}
