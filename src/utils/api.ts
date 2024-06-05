@@ -158,8 +158,6 @@ export const deleteAccount = async (userId: number) => {
   await req.delete(`/user/${userId}`);
 }
 
-export const sendPhoto = async ({photo, userId} : {photo: FormData, userId: number}) => {
-  await req.patch(`/user/${userId}`, {
-    photo: photo,
-  });
+export const patchPhoto = async ({photo, userId} : {photo: FormData, userId: number}) => {
+  await req.patch(`/user/${userId}`, photo);
 }

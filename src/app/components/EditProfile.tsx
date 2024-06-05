@@ -5,7 +5,8 @@ import Image from 'next/image'
 import defaultUser from '@/../public/images/default-user.jpg'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from "yup"
-import { getUser, patchUser, sendPhoto } from '@/utils/api'
+import { getUser, patchUser, patchPhoto } from '@/utils/api'
+import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
     closeModal: () => void;
@@ -13,11 +14,11 @@ type Props = {
 
 const EditProfile = ({closeModal} : Props) => {
 
+    const loggedUserCtx = useLoggedUser();
+
     const fileRef = useRef<HTMLInputElement>(null)
 
-    var oldPassword: string = "jwtToken"
-
-    const initialValues = {name: "", email: "", course: "", department: "", newPassword: "", passwordConfirmation: "", password: "", oldPassword: oldPassword}
+    const initialValues = {name: "", email: "", course: "", department: "", newPassword: "", passwordConfirmation: ""}
 
     const validationSchema = Yup.object({
         name: Yup.string().optional(),
@@ -31,25 +32,17 @@ const EditProfile = ({closeModal} : Props) => {
             }
             return schema;
         }),
-        password: Yup.string().oneOf([Yup.ref("oldPassword")], "As senhas não coincidem").when("newPassword", ([newPassword], schema) => {
-            if (newPassword) {
-                return schema.required("Senha antiga é obrigatória");
-            }
-            return schema;
-        }),
     })
 
     const onSubmit = async (values: EditProfile) => {
         if (values) {
-            const user = await getUser(1)//ajeitar após a autenticação
-            const filteresValues = {
-                name: values.name ? values.name : user.name,
-                email: values.email? values.email : user.email,
-                course: values.course ? values.course : user.course,
-                department: values.department ? values.department : user.department,
-                newPassword: values.newPassword ? values.newPassword : oldPassword,
-            }
-            await patchUser({values: filteresValues, userId: 1}) //ajeitar após autenticação
+            const keys = Object.keys(values)
+            keys.forEach((key: string) => {
+                if (values[key as keyof EditProfile] === "") {
+                    delete values[key as keyof EditProfile];
+                }
+            });
+            await patchUser({values: values, userId: 1}) //ajeitar após autenticação
             handleSubmit()
         }
         closeModal();
@@ -60,8 +53,7 @@ const EditProfile = ({closeModal} : Props) => {
             const file = fileRef.current.files[0];
             const data = new FormData();
             data.append('file', file);
-            console.log(data);
-            sendPhoto({photo: data, userId: 1}); //ajeitar após autenticação
+            patchPhoto({photo: data, userId: 1}); //ajeitar após autenticação
         }
     }
 
@@ -83,7 +75,7 @@ const EditProfile = ({closeModal} : Props) => {
             <div className='flex justify-center items-center w-full h-fit'>
                 <div className='relative rounded-full w-36 h-36 border border-gray-500 overflow-hidden mt-10 sm:mt-5'>
                     <Image
-                    src={defaultUser}
+                    src={loggedUserCtx?.User.photo ? String.fromCharCode(...loggedUserCtx?.User.photo.data) : defaultUser}
                     alt='user-pic'
                     fill
                     sizes='max'
@@ -131,11 +123,6 @@ const EditProfile = ({closeModal} : Props) => {
                     className='rounded-full w-2/3 h-fit py-2 px-3 placeholder:text-xs focus:outline-none my-2 sm:w-1/2 sm:placeholder:text-sm' 
                     placeholder='Confirmar nova senha'/>
                     <ErrorMessage name='passwordConfirmation' component="span" className='text-red-600 text-xs'/>
-
-                    <Field name="password" type="password" id="password"
-                    className='rounded-full w-2/3 h-fit py-2 px-3 focus:outline-none placeholder:text-xs my-2 sm:w-1/2 sm:placeholder:text-sm' 
-                    placeholder='Senha Atual'/>
-                    <ErrorMessage name='password' component="span" className='text-red-600 text-xs'/>
 
                     <input type="file" ref={fileRef} className='hidden'/>
 

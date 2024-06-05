@@ -3,18 +3,21 @@
 import React from 'react';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import unb from "@/../public/images/unb.avif"
 import logo from "@/../public/images/unb-logo.png"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useLoggedUser } from './hooks/loggedUserContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
 
 const router = useRouter();
+
+const loggedUserCtx = useLoggedUser();
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Endereço de email inválido").required("Required"),
@@ -25,6 +28,7 @@ const validationSchema = Yup.object({
 
   const handleSubmit = (values: any) => {
     //envio dos dados
+    loggedUserCtx?.setIsLogged(true);
     return router.replace("/feed");
   }
 

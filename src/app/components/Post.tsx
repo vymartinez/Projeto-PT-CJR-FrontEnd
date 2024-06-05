@@ -49,7 +49,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
           <div className='flex justify-center'>
             <Link href={`/users/${profile.id}`} className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
               <Image 
-              src={user}
+              src={profile.photo ? String.fromCharCode(...profile.photo.data) : user}
               alt="user-pic"
               fill
               sizes="max"

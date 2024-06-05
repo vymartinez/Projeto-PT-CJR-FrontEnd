@@ -8,14 +8,21 @@ import user from '@/../public/images/default-user.jpg'
 import Menu from '../components/Menu'
 import Link from 'next/link'
 
-export const HeaderLogged = () => {
+type Props = {
+  photo?: {
+    type: string;
+    data: number[];
+  }
+}
+
+export const HeaderLogged = ({photo} : Props) => {
   const [menu, setMenu] = useState(false);
   const handleClick = () => menu ? setMenu(false) : setMenu(true);
 
   return (
     <>
         <header className='w-screen h-24 bg-primary flex z-[-1]'>
-            <div className='relative w-16 h-8 mx-8 my-8 border border-white border-1 sm:w-24 sm:h-12 sm:my-6'>
+            <Link href={'/feed'} className='relative w-16 h-8 mx-8 my-8 border border-white border-1 sm:w-24 sm:h-12 sm:my-6'>
               <Image
               src={logo}
               alt="logo-unb"
@@ -23,7 +30,7 @@ export const HeaderLogged = () => {
               sizes="max"
               draggable={false}
               />
-            </div>
+            </Link>
             <div className='my-7 mx-8 flex-1 justify-end flex sm:mx-16'>
               <Image 
               src={bell}
@@ -34,15 +41,13 @@ export const HeaderLogged = () => {
               draggable={false}
               />
             </div>
-            <div onClick={handleClick} className='mr-3 rounded-full w-12 h-12 cursor-pointer my-6 border border-solid border-background border-1 overflow-hidden sm:w-16 sm:h-16 sm:my-4'>
+            <div onClick={handleClick} className='relative mr-3 rounded-full w-12 h-12 cursor-pointer my-6 border border-solid border-background border-1 overflow-hidden sm:w-16 sm:h-16 sm:my-4'>
               <Image
-              src={user}
+              src={photo ? String.fromCharCode(...photo.data) : user}
               alt="user-pic"
-              style={{
-                objectFit: 'cover',
-              }}
+              fill
+              sizes='max'
               draggable={false}
-              priority={false}
               />
             </div>
         </header>

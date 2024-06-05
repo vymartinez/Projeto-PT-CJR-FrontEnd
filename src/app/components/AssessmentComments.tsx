@@ -88,7 +88,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                           <div className='flex justify-center'>
                             <div className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
                               <Image 
-                              src={userPic}
+                              src={profile.photo ? String.fromCharCode(...profile.photo.data) : userPic}
                               alt="user-pic"
                               fill
                               sizes="max"

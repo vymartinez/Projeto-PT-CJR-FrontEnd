@@ -27,14 +27,14 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
             <div className='flex justify-center md:block md:ml-8'>
                     <div className='rounded-full w-32 h-32 relative bg-white overflow-hidden border -top-16 border-sky-950'>
                         {isTeacher && <Image 
-                        src={user}
+                        src={teacherProfile.photo ? String.fromCharCode(...teacherProfile.photo.data) : user}
                         alt="profile-pic"
                         fill
                         sizes="max"
                         draggable={false}
                         />}
                         {!isTeacher && <Image
-                        src={user}
+                        src={userProfile.photo ? String.fromCharCode(...userProfile.photo.data) : user}
                         alt="profile-pic"
                         fill
                         sizes="max"
@@ -60,10 +60,12 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
                         draggable={false}
                         />
                     </div>
-                    <p className='text-xs md:ml-2 md:text-sm'>
-                        Departamento de {isTeacher && teacherProfile.department}
-                        {!isTeacher && userProfile.department}
-                    </p>
+                    {isTeacher && <p className='text-xs md:ml-2 md:text-sm'>
+                        Departamento de {teacherProfile.department}
+                    </p>}
+                    {!isTeacher && <p className='text-xs md:ml-2 md:text-sm'>
+                        Departamento de {userProfile.department} || {userProfile.course}
+                    </p>}
                 </div>
                 <div className='flex items-center flex-col mb-3 md:ml-8 md:flex-row'>
                     <div className='relative w-6 h-6 my-3 md:my-2'>
