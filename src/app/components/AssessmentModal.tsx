@@ -54,6 +54,7 @@ const AssessmentModal = ({closeModal}: Props) => {
                 subjectId: subjectId,
             })
         }
+        location.reload()
         closeModal()
     }
 

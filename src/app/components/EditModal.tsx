@@ -14,8 +14,8 @@ import { useLoggedUser } from '../hooks/loggedUserContext'
 
 type Props = {
     closeModal: () => void;
-    isAComment: boolean;
-    isEditing: boolean;
+    isAComment?: boolean;
+    isEditing?: boolean;
     disciplineId: number;
     teacherId: number;
     assessmentId: number;
@@ -38,6 +38,7 @@ const EditAssessmentModal = ({closeModal, isAComment, isEditing, disciplineId, t
                 assessmentId: assessmentId,
             })
         }
+        location.reload()
         closeModal()
     }
 
@@ -51,6 +52,7 @@ const EditAssessmentModal = ({closeModal, isAComment, isEditing, disciplineId, t
                 assessmentId: assessmentId,
             })
         }
+        location.reload()
         closeModal()
     }
 
@@ -63,6 +65,7 @@ const EditAssessmentModal = ({closeModal, isAComment, isEditing, disciplineId, t
                 commentId: commentId,
             })
         }
+        location.reload()
         closeModal()
     }
 

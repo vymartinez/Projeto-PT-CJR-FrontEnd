@@ -117,8 +117,8 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
           </div>}
         </div>
       </div>
-      {editModal && <EditModal closeModal={() => setEditModal(false)} isAComment={false} assessmentId={assessmentId} isEditing={true} disciplineId={disciplineId} teacherId={teacherId} content={content}/>}
-      {commentModal && <EditModal closeModal={() => setCommentModal(false)} isAComment={true} assessmentId={assessmentId} isEditing={false} disciplineId={disciplineId} teacherId={teacherId} content=''/>}
+      {editModal && <EditModal closeModal={() => setEditModal(false)} assessmentId={assessmentId} isEditing={true} disciplineId={disciplineId} teacherId={teacherId} content={content}/>}
+      {commentModal && <EditModal closeModal={() => setCommentModal(false)} isAComment={true} assessmentId={assessmentId} disciplineId={disciplineId} teacherId={teacherId} content=''/>}
       {comments && !commentSection && <AssessmentComments
                     closeModal={() => setComments(false)}
                     assessmentId={assessmentId}

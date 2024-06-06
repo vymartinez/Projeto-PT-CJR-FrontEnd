@@ -47,6 +47,7 @@ const EditProfile = ({closeModal} : Props) => {
             }
         }
         handleSubmit()
+        location.reload()
         closeModal();
     }
 

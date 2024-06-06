@@ -5,20 +5,35 @@ import building from '@/../public/icons/building.svg'
 import book from '@/../public/icons/book.svg'
 import mail from '@/../public/icons/mail.svg'
 import user from '@/../public/images/default-user.jpg'
-import { getAssessments, getComments, getSubjectNameByTeacherId, getUser } from '@/utils/api';
+import { getAssessments, getComments, getDisciplines, getUsers } from '@/utils/api';
 
 type Props =  {
-    isTeacher: boolean;
-    teacherProfile: Teacher;
-    userProfile: User;
+    teacherProfile?: Teacher;
+    userProfile?: User;
 }
 
-const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
+const Profile = async ({ teacherProfile, userProfile} : Props) => {
 
-    const disciplines = await getSubjectNameByTeacherId(teacherProfile.id);
     const Assessments = await getAssessments()
-    const User = await getUser(userProfile.id)
     const comments = await getComments();
+    const Users = await getUsers();
+    const Disciplines = await getDisciplines();
+
+    const findUser = (id : number) => {
+        const user = Users.filter(user => user.id === id)
+        if (user) {
+            return user[0];
+        }
+        throw new Error('User not found');
+    }
+
+    const findDiscipline = (id : number) => {
+            const discipline = Disciplines.filter(discipline => discipline.id === id)
+            if (discipline) {
+                return discipline[0].name;
+            }
+        throw new Error('Discipline not found');
+    }
 
     return (
     <>
@@ -26,14 +41,14 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
             <div className='w-full h-40 bg-sky-800'></div>
             <div className='flex justify-center md:block md:ml-8'>
                     <div className='rounded-full w-32 h-32 relative bg-white overflow-hidden border -top-16 border-sky-950'>
-                        {isTeacher && <Image 
+                        {teacherProfile && <Image 
                         src={teacherProfile.photo ? String.fromCharCode(...teacherProfile.photo.data) : user}
                         alt="profile-pic"
                         fill
                         sizes="max"
                         draggable={false}
                         />}
-                        {!isTeacher && <Image
+                        {userProfile && <Image
                         src={userProfile.photo ? String.fromCharCode(...userProfile.photo.data) : user}
                         alt="profile-pic"
                         fill
@@ -46,8 +61,8 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
             <div className='flex flex-col border-b border-1 border-black relative pb-3 -top-10 md:-top-6 text-center md:text-left'>
                 <div className='md:ml-8'>
                     <h1 className='font-bold text-2xl'>
-                        {isTeacher && teacherProfile.name}
-                        {!isTeacher && userProfile.name}
+                        {teacherProfile && teacherProfile.name}
+                        {userProfile && userProfile.name}
                     </h1>
                 </div>
                 <div className='md:ml-8 flex items-center flex-col md:flex-row'>
@@ -60,23 +75,23 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
                         draggable={false}
                         />
                     </div>
-                    {isTeacher && <p className='text-xs md:ml-2 md:text-sm'>
+                    {teacherProfile && <p className='text-xs md:ml-2 md:text-sm'>
                         Departamento de {teacherProfile.department}
                     </p>}
-                    {!isTeacher && <p className='text-xs md:ml-2 md:text-sm'>
+                    {userProfile && <p className='text-xs md:ml-2 md:text-sm'>
                         Departamento de {userProfile.department} || {userProfile.course}
                     </p>}
                 </div>
                 <div className='flex items-center flex-col mb-3 md:ml-8 md:flex-row'>
                     <div className='relative w-6 h-6 my-3 md:my-2'>
-                        {isTeacher && <Image 
+                        {teacherProfile && <Image 
                         src={book}
                         alt="book-icon"
                         fill
                         sizes="max"
                         draggable={false}
                         />}
-                        {!isTeacher && <Image 
+                        {userProfile && <Image 
                         src={mail}
                         alt="mail-icon"
                         fill
@@ -84,24 +99,24 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
                         draggable={false}
                         />}
                     </div>
-                    {isTeacher && <p className='text-xs md:ml-2 md:text-sm'>
-                            {disciplines.join(', ')}
+                    {teacherProfile && <p className='text-xs md:ml-2 md:text-sm'>
+                            {teacherProfile.teacherSubjects.map(item => findDiscipline(item.subjectId)).join(', ')}
                         </p>}
-                    {!isTeacher &&  <p className='text-xs md:ml-2 md:text-sm'>
+                    {userProfile &&  <p className='text-xs md:ml-2 md:text-sm'>
                             {userProfile.email}
                         </p>}
                 </div> 
             </div>
             <div className='flex flex-col text-center items-center'>
                 <h1 className='font-bold relative -top-5 md:top-0 md:mb-3'>Publicações</h1>
-                {isTeacher && Assessments.map(item => {
+                {teacherProfile && Assessments.map(item => {
                     if (item.teacherId === teacherProfile.id) {
                         return <Post 
                         key={item.id}
                         assessmentId={item.id}
-                        profile={User}
+                        profile={findUser(item.userId)}
                         teacherId={item.teacherId}
-                        discipline={disciplines[0]}
+                        discipline={findDiscipline(item.subjectId)}
                         disciplineId={item.subjectId}
                         createdAt={item.created_at}
                         content={item.content}
@@ -114,14 +129,14 @@ const Profile = async ({ isTeacher, teacherProfile, userProfile} : Props) => {
                         />
                     }
                 })}
-                {!isTeacher && Assessments.map(item => {
+                {userProfile && Assessments.map(item => {
                     if (item.userId === userProfile.id) {
                         return <Post 
                         key={item.id}
                         assessmentId={item.id}
                         profile={userProfile}
                         teacherId={item.teacherId}
-                        discipline={disciplines[0]}
+                        discipline={findDiscipline(item.subjectId)}
                         disciplineId={item.subjectId}
                         createdAt={item.created_at}
                         content={item.content}

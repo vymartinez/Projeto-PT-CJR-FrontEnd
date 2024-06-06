@@ -17,10 +17,13 @@ const ConfirmDelete = ({closeConfirmation, isAAssessment, isAComment, isTheAccou
     const handleDelete = async () => {
         if (isAComment) {
             await deleteComment(id)
+            location.reload()
         } else if (isTheAccount) {
             await deleteAccount(id)
+            location.reload()
         } else if (isAAssessment) {
             await deleteAssessment(id)
+            location.reload()
         }
         closeConfirmation()
     }
