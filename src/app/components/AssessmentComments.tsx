@@ -69,14 +69,14 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
               teacherId={teacherId}
               disciplineId={disciplineId}
               />}
-                {commentsList.map((item) => {
+                {commentsList.map((comment) => {
                   const date = new Intl.DateTimeFormat('pt-br', {
                     dateStyle: 'short',
                     timeStyle:'short',
-                  }).format(Date.parse(item.created_at))
+                  }).format(Date.parse(comment.created_at))
                   return (
                     <>
-                    <div key={item.id} className='w-11/12 h-fit flex items-center justify-center'> 
+                    <div key={comment.id} className='w-11/12 h-fit flex items-center justify-center'> 
                       <div className='relative h-10 w-10 mb-24 ml-2 mr-5'>
                         <Image
                         src={curvedArrow}
@@ -109,7 +109,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                           </div>
                         </div>
                         <div>
-                          <p className='text-xs text-white mt-2 p-3'>{item.content}</p>
+                          <p className='text-xs text-white mt-2 p-3'>{comment.content}</p>
                         </div>
                         <div className='flex p-2'>
                           <div className='flex items-center'>
@@ -117,7 +117,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                             </div>
                           </div>
                           <div className='grow flex justify-end'>
-                            {loggedUserCtx && loggedUserCtx.User.id === item.userId && <div className='h-5 w-5 relative mx-2'>
+                            {loggedUserCtx && loggedUserCtx.User.id === comment.userId && <div className='h-5 w-5 relative mx-2'>
                               <Image 
                               src={edit}
                               alt="edit-icon"
@@ -125,11 +125,11 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                               sizes="max"
                               className='cursor-pointer'
                               draggable={false}
-                              onClick={() => handleEdit({id: item.id, content: item.content})}
+                              onClick={() => handleEdit({id: comment.id, content: comment.content})}
                               />
                             </div>}
                           </div>
-                          {loggedUserCtx && loggedUserCtx.User.id === item.userId && <div onClick={() => handleDelete(item.id)} className='h-5 w-5 relative mx-2'>
+                          {loggedUserCtx && loggedUserCtx.User.id === comment.userId && <div onClick={() => handleDelete(comment.id)} className='h-5 w-5 relative mx-2'>
                             <Image
                             src={trash}
                             alt="trash-icon"

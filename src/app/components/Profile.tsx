@@ -5,7 +5,7 @@ import building from '@/../public/icons/building.svg'
 import book from '@/../public/icons/book.svg'
 import mail from '@/../public/icons/mail.svg'
 import user from '@/../public/images/default-user.jpg'
-import { getAssessments, getComments, getDisciplines, getUsers } from '@/utils/api';
+import { getAssessments, getDisciplines } from '@/utils/api';
 
 type Props =  {
     teacherProfile?: Teacher;
@@ -14,18 +14,8 @@ type Props =  {
 
 const Profile = async ({ teacherProfile, userProfile} : Props) => {
 
-    const Assessments = await getAssessments()
-    const comments = await getComments();
-    const Users = await getUsers();
+    const Assessments = await getAssessments();
     const Disciplines = await getDisciplines();
-
-    const findUser = (id : number) => {
-        const user = Users.filter(user => user.id === id)
-        if (user) {
-            return user[0];
-        }
-        throw new Error('User not found');
-    }
 
     const findDiscipline = (id : number) => {
             const discipline = Disciplines.filter(discipline => discipline.id === id)
@@ -109,44 +99,35 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
             </div>
             <div className='flex flex-col text-center items-center'>
                 <h1 className='font-bold relative -top-5 md:top-0 md:mb-3'>Publicações</h1>
-                {teacherProfile && Assessments.map(item => {
-                    if (item.teacherId === teacherProfile.id) {
+                {teacherProfile && Assessments.map(assessment => {
+                    if (assessment.teacherId === teacherProfile.id) {
                         return <Post 
-                        key={item.id}
-                        assessmentId={item.id}
-                        profile={findUser(item.userId)}
-                        teacherId={item.teacherId}
-                        discipline={findDiscipline(item.subjectId)}
-                        disciplineId={item.subjectId}
-                        createdAt={item.created_at}
-                        content={item.content}
+                        key={assessment.id}
+                        assessmentId={assessment.id}
+                        profile={assessment.user}
+                        teacherId={assessment.teacherId}
+                        discipline={assessment.subject.name}
+                        disciplineId={assessment.subjectId}
+                        createdAt={assessment.created_at}
+                        content={assessment.content}
                         commentSection={false}
-                        commentsList={comments.filter(comment => {
-                            if (comment.assessmentId === item.id) {
-                                return comment;
-                            };
-                        })}
+                        commentsList={assessment.comments}
                         />
                     }
                 })}
-                {userProfile && Assessments.map(item => {
-                    if (item.userId === userProfile.id) {
+                {userProfile && Assessments.map(assessment => {
+                    if (assessment.userId === userProfile.id) {
                         return <Post 
-                        key={item.id}
-                        assessmentId={item.id}
+                        key={assessment.id}
+                        assessmentId={assessment.id}
                         profile={userProfile}
-                        teacherId={item.teacherId}
-                        discipline={findDiscipline(item.subjectId)}
-                        disciplineId={item.subjectId}
-                        createdAt={item.created_at}
-                        content={item.content}
+                        teacherId={assessment.teacherId}
+                        discipline={assessment.subject.name}
+                        disciplineId={assessment.subjectId}
+                        createdAt={assessment.created_at}
+                        content={assessment.content}
                         commentSection={false}
-                        commentsList={comments.filter(comment => { {
-                            if (comment.assessmentId === item.id) {
-                                return comment;
-                            };
-                        }
-                        })}
+                        commentsList={assessment.comments}
                         />
                     }
                     })}
