@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import { Formik, Form, Field } from 'formik';
@@ -10,10 +10,13 @@ import logo from "@/../public/images/unb-logo.png"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLoggedUser } from './hooks/loggedUserContext';
+import req from "@/utils/api"
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
+const [user, setUser] = useState();
 
 const router = useRouter();
 
@@ -31,6 +34,15 @@ const validationSchema = Yup.object({
     loggedUserCtx?.setIsLogged(true);
     return router.replace("/feed");
   }
+
+  useEffect(() => {
+    req
+    .get("user")
+    .then((reponse) => setUser(reponse.data))
+    .catch((err) => {
+      console.error("ocorreu um erro" + err);
+    });
+  }, []);
 
   return (
     <div className="w-full flex min-h-screen bg-extra flex-col h-0 xl:flex-row overflow-y-auto overflow-x-hidden">
