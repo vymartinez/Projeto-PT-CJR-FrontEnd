@@ -79,13 +79,13 @@ export const HeaderUnlogged = () => {
   )
 }
 
-export const ActiveHeader = ({photo} : Props) => {
+export const ActiveHeader = () => {
 
   const loggedUserCtx = useLoggedUser();
 
   return (
     <>
-      {loggedUserCtx?.isLogged ? <HeaderLogged photo={photo}/> : <HeaderUnlogged/>}
+      {loggedUserCtx?.isLogged ? <HeaderLogged photo={loggedUserCtx?.User.photo}/> : <HeaderUnlogged/>}
     </>
   )
 }

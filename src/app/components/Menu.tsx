@@ -5,6 +5,7 @@ import Link from 'next/link';
 import EditProfile from './EditProfile';
 import danger from "@/../public/icons/danger.svg"
 import ConfirmDelete from './ConfirmDelete';
+import { useLoggedUser } from '../hooks/loggedUserContext';
 
 const Menu = () => {
   const [modal, setModal] = useState(false);
@@ -14,11 +15,13 @@ const Menu = () => {
     setModal(true);
   }
 
+  const userCtx = useLoggedUser();
+
   return (
     <>   
         <nav className='flex flex-col w-fit bg-gradient-to-t from-secondary to-button rounded-md absolute right-2'>
           <div className=' border-x-[12px] border-x-transparent border-b-[12px] -mt-3 border-b-button top-0 absolute ml-14 sm:ml-12 sm:-mt-2 sm:border-b-8 sm:border-x-8'></div>
-            <Link href={'/users/1'} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
+            <Link href={`/users/${userCtx?.User.id}`} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
                 Meu perfil
             </Link>
             <div onClick={handleClick} className='text-center cursor-pointer py-2 px-4 border-b border-1 border-solid border-white text-xs font-semibold text-white hover:opacity-80'>
@@ -55,7 +58,7 @@ const Menu = () => {
             </div>
         </nav>
       {modal && <EditProfile closeModal={() => setModal(false)}/>}
-      {confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)} isTheAccount={true} id={0}/>}
+      {userCtx && confirmation && <ConfirmDelete closeConfirmation={() => setConfirmation(false)} isTheAccount={true} id={userCtx.User.id}/>}
    </>
   )
 }

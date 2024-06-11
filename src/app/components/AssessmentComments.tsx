@@ -9,6 +9,7 @@ import ConfirmDelete from './ConfirmDelete'
 import EditModal from "./EditModal"
 import userPic from "@/../public/images/default-user.jpg"
 import { useLoggedUser } from '../hooks/loggedUserContext'
+import Link from 'next/link'
 
 type Props = {
     closeModal: () => void;
@@ -89,21 +90,23 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                       <div className='rounded-xl w-4/5 h-fit p-4 border border-white mb-3 bg-secondary sm:flex-1'>
                         <div className='flex flex-col'>
                           <div className='flex justify-center'>
-                            <div className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
+                            <Link href={`/users/${comment.userId}`} className='relative h-10 w-10 overflow-hidden rounded-full bg-white'>
                               <Image 
-                              src={profile.photo ? String.fromCharCode(...profile.photo.data) : userPic}
+                              src={comment.user.photo ? String.fromCharCode(...comment.user.photo.data) : userPic}
                               alt="user-pic"
                               fill
                               sizes="max"
                               draggable={false}
                               />
+                            </Link>
+                            <div className='font-semibold text-xs text-white pr-5 ml-3 items-center flex'>
+                              <Link href={`/users/${comment.userId}`}>{comment.user.name}</Link>
                             </div>
-                              <h1 className='font-semibold text-xs text-white pr-5 ml-3 items-center flex'>{profile.name}</h1>
                           </div>
                           <div className='flex items-center justify-center ml-3 mt-3'>
                             <ul className='flex list-disc'>
                               <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{date}</li>
-                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
+                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{comment.user.name}</li>
                               <li className='text-xs text-gray-400'>{discipline}</li>
                             </ul>
                           </div>

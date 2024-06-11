@@ -3,6 +3,7 @@ import Image from 'next/image'
 import danger from "@/../public/icons/danger.svg"
 import x from '@/../public/icons/x.svg'
 import { deleteAccount, deleteAssessment, deleteComment } from '@/utils/api'
+import { redirect } from 'next/navigation'
 
 type Props = {
     closeConfirmation: () => void;
@@ -19,8 +20,8 @@ const ConfirmDelete = ({closeConfirmation, isAAssessment, isAComment, isTheAccou
             await deleteComment(id)
             location.reload()
         } else if (isTheAccount) {
-            await deleteAccount(id)
-            location.reload()
+            await deleteAccount(id);
+            redirect('');
         } else if (isAAssessment) {
             await deleteAssessment(id)
             location.reload()

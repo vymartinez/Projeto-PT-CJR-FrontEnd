@@ -13,7 +13,6 @@ type Props = {
 const UserProfile = async ({params} : Props) => {
 
   const User = await getUser(parseInt(params.id));
-  const loggedUser = await getUser(1)//ajeitar após autenticação
 
   if (!User) {
     redirect('/404-error');
@@ -21,7 +20,7 @@ const UserProfile = async ({params} : Props) => {
 
   return (
     <>
-      <ActiveHeader photo={loggedUser.photo}/>
+      <ActiveHeader/>
       <main className='flex justify-center min-h-screen'>
         <Profile
           userProfile={User}

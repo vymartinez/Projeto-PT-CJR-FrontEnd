@@ -6,6 +6,7 @@ interface Teacher {
         type: string;
         data: number[];
     };
+    assessments: Assessment[]
     teacherSubjects: {
         subjectId: number;
         teacherId: number;

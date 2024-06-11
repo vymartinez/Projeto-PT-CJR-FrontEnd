@@ -5,7 +5,7 @@ import building from '@/../public/icons/building.svg'
 import book from '@/../public/icons/book.svg'
 import mail from '@/../public/icons/mail.svg'
 import user from '@/../public/images/default-user.jpg'
-import { getAssessments, getDisciplines } from '@/utils/api';
+import { getAssessments, getComments, getDisciplines } from '@/utils/api';
 
 type Props =  {
     teacherProfile?: Teacher;
@@ -16,6 +16,7 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
 
     const Assessments = await getAssessments();
     const Disciplines = await getDisciplines();
+    const comments = await getComments();
 
     const findDiscipline = (id : number) => {
             const discipline = Disciplines.filter(discipline => discipline.id === id)
@@ -98,7 +99,8 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                 </div> 
             </div>
             <div className='flex flex-col text-center items-center'>
-                <h1 className='font-bold relative -top-5 md:top-0 md:mb-3'>Publicações</h1>
+                {teacherProfile && <h1 className='font-bold relative text-lg -top-5 md:top-0 md:mb-3'>Avaliações</h1>}
+                {userProfile && <h1 className='font-bold relative text-lg -top-5 md:top-0 md:mb-3'>Publicações</h1>}
                 {teacherProfile && Assessments.map(assessment => {
                     if (assessment.teacherId === teacherProfile.id) {
                         return <Post 
@@ -111,10 +113,15 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         createdAt={assessment.created_at}
                         content={assessment.content}
                         commentSection={false}
-                        commentsList={assessment.comments}
+                        commentsList={comments.filter(comment => {
+                            if (comment.assessmentId === assessment.id) {
+                                return comment;
+                            };
+                        })}
                         />
                     }
                 })}
+                {teacherProfile && teacherProfile.assessments.length === 0 && <p className='text-sm font-semibold my-24 text-black'>Este professor ainda não recebeu nenhuma avaliação</p>}
                 {userProfile && Assessments.map(assessment => {
                     if (assessment.userId === userProfile.id) {
                         return <Post 
@@ -127,10 +134,15 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         createdAt={assessment.created_at}
                         content={assessment.content}
                         commentSection={false}
-                        commentsList={assessment.comments}
+                        commentsList={comments.filter(comment => {
+                            if (comment.assessmentId === assessment.id) {
+                                return comment;
+                            };
+                        })}
                         />
                     }
                     })}
+                    {userProfile && userProfile.assessments.length === 0 && <p className='text-sm font-semibold my-24 text-black'>Este usuário ainda não fez nenhuma publicação</p>}
             </div>
         </div>
     </>

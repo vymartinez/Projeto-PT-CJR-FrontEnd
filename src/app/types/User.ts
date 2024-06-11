@@ -8,7 +8,7 @@ interface User {
         type: string;
         data: number[];
     };
-    assessments: Assessment;
+    assessments: Assessment[];
     created_at: string;
     updated_at: string;
 }

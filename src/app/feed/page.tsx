@@ -2,13 +2,11 @@ import React from 'react'
 import { ActiveHeader } from '../components/Headers';
 import { SearchBar } from '../components/SearchBar'
 import TeachersList from '../components/TeachersList';
-import { getUser } from '@/utils/api';
 
-const Feed = async () => {
-  const loggedUser = await getUser(1); //ajeitar após autenticação
+const Feed = () => {
   return (
     <>
-      <ActiveHeader photo={loggedUser.photo}/>
+      <ActiveHeader/>
       <main>
         <SearchBar/>
         <TeachersList/>

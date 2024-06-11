@@ -12,7 +12,7 @@ type Props = {
 export const Providers = async({children}: Props) => {
     const Teachers = await getTeachers()
     const Disciplines = await getDisciplines()
-    const User = await getUser(1)
+    const User = await getUser(1)//ajeitar após autenticação
     return (
         <LoggedUserProvider User={User}>
         <TeachersContextProvider Teachers={Teachers}>
