@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useDisciplines } from '../hooks/disciplinesContext'
 import user from "@/../public/images/default-user.jpg"
 
-const Teacher = ( {  id, name, photo } : Teacher) => {
+const Teacher = ( {  id, name, photo } : Omit<Teacher, "assessments">) => {
 
     const router = useRouter()
     const handleClick = (key : number) => {
