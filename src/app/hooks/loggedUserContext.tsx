@@ -1,6 +1,7 @@
 "use client"
 
-import { createContext, ReactNode, useContext, useState } from "react"
+import { getCookie } from "@/utils/cookies";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 
 type ContextType = {
     User: User;
@@ -16,7 +17,11 @@ type Props = {
 export const loggedUserContext = createContext<ContextType | null>(null);
 
 export const LoggedUserProvider = ({children, User}: Props) => {
-    const [isLogged, setIsLogged] = useState(false);
+
+    const accessToken = getCookie();
+    const [isLogged, setIsLogged] = useState(accessToken ? true : false);
+
+
     return (
     <loggedUserContext.Provider value={{isLogged, setIsLogged, User}}>
         {children}

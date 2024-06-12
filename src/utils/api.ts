@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from './cookies';
 
 const req = axios.create({
   baseURL: 'http://localhost:3001'
@@ -75,11 +76,17 @@ export const getCommentsByAssessmentId = async(assessmentId: number) : Promise<C
 }
 
 export const postAssessment = async ({content, userId, teacherId, subjectId} : PostAssessmentProps) => {
+  const token = getCookie();
   await req.post('/assessment', {
   content: content,
   userId: userId,
   teacherId: teacherId,
-  subjectId: subjectId})
+  subjectId: subjectId
+  }, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
 }
 
 export const postComment = async ({content, userId, assessmentId} : PostCommentProps) => {
@@ -141,7 +148,7 @@ export const postUser = async ({email, name, course, department, password} : Cre
   })
 }
 
-export const doLogin = async (values: {email: string, password: string}) => {
+export const getToken = async (values: {email: string, password: string}) => {
   const response = await req.post('login', values);
-  return response;
+  return response.data.access_token;
 }

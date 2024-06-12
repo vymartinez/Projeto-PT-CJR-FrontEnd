@@ -6,6 +6,7 @@ import EditProfile from './EditProfile';
 import danger from "@/../public/icons/danger.svg"
 import ConfirmDelete from './ConfirmDelete';
 import { useLoggedUser } from '../hooks/loggedUserContext';
+import { removeCookie } from '@/utils/cookies';
 
 const Menu = () => {
   const [modal, setModal] = useState(false);
@@ -13,6 +14,11 @@ const Menu = () => {
 
   const handleClick = () => {
     setModal(true);
+  }
+
+  const handleLogout = () => {
+    removeCookie();
+    window.location.reload();
   }
 
   const userCtx = useLoggedUser();
@@ -28,9 +34,9 @@ const Menu = () => {
                 Editar perfil
             </div>
             <div className='flex justify-center hover:opacity-80 cursor-pointer border-b border-1 border-white'>
-              <Link href="/" className='text-center py-2 pl-4 pr-1 text-xs font-bold text-red-700'>
+              <div onClick={handleLogout} className='text-center py-2 pl-4 pr-1 text-xs font-bold text-red-700'>
                 Sair
-              </Link>
+              </div>
               <div className='relative h-3 w-3 mt-3'>
                 <Image 
                 src={arrowRight}

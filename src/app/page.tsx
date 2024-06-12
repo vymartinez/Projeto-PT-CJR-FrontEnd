@@ -10,11 +10,14 @@ import logo from "@/../public/images/unb-logo.png"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLoggedUser } from './hooks/loggedUserContext';
-import { doLogin } from '@/utils/api';
+import { getToken } from '@/utils/api';
+import { isAxiosError } from 'axios';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
+const [invalid, setInvalid] = useState(false);
 
 const router = useRouter();
 
@@ -28,19 +31,24 @@ const validationSchema = Yup.object({
   const initialValues = { email: "", password: ""};
 
   const handleSubmit = async (values: any) => {
-    const response = await doLogin(values);
-    if (response.status === 200) {
-      const data = response.data;
-      const accessToken = data.access_token;
-      document.cookie = `access_token=${accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; Secure; SameSite=Strict`
-      loggedUserCtx?.setIsLogged(true)
-      router.replace("/feed")
+    try {
+      const accessToken = await getToken(values);
+        document.cookie = `access_token=${accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; Secure; SameSite=Strict`
+        loggedUserCtx?.setIsLogged(true)
+        router.replace("/feed")
+    } catch(error) {
+      if (isAxiosError(error) && error.response?.status === 401) {
+        setInvalid(true)
+      }
+      console.error(error)
     }
-}
+  }
+    useEffect(() => {
+      if (loggedUserCtx?.isLogged) {
+        router.replace("/feed")
+      }
+    });
 
-if (loggedUserCtx?.isLogged) {
-  router.replace("/feed")
-}
   return (
     <div className="w-full flex min-h-screen bg-extra flex-col h-0 xl:flex-row overflow-y-auto overflow-x-hidden">
       <div className='xl:w-3/4 xl:h-screen w-full h-[300px] relative'>
@@ -67,8 +75,9 @@ if (loggedUserCtx?.isLogged) {
                 type="password"
                 id= "password"
                 placeholder="Senha"
-                className= "mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md"
+                className= "mt-1 block w-full px-3 py-2 mb-4 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md"
               />
+              {invalid && <p className="text-red-500 text-sm text-center">Email ou senha inválidos</p>}
               <div className="flex justify-center gap-12">
                 <button
                 onClick={handleSubmit}
