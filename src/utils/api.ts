@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 type PostAssessmentProps = {
   content: string;
@@ -31,6 +31,14 @@ type PatchAssessmentProps = {
 type PatchUserProps = {
   values: EditProfile,
   userId: number;
+}
+
+type CreateUserProps = {
+  email: string;
+  name: string;
+  department: string;
+  course: string;
+  password: string;
 }
 
 const req = axios.create({
@@ -131,9 +139,9 @@ export const postComment = async ({content, userId, assessmentId} : PostCommentP
 
   export const patchComment = async ({content, userId, assessmentId, commentId} : PatchCommentProps) => {
     await req.patch(`/comment/${commentId}`, {
-  content: content,
-  userId: userId,
-  assessmentId: assessmentId})
+    content: content,
+    userId: userId,
+    assessmentId: assessmentId})
 };
 
 export const patchUser = async ({values, userId} : PatchUserProps) => {
@@ -160,4 +168,14 @@ export const deleteAccount = async (userId: number) => {
 
 export const patchPhoto = async ({photo, userId} : {photo: FormData, userId: number}) => {
   await req.patch(`/user/${userId}`, photo);
+}
+
+export const postUser = async ({email, name, course, department, password} : CreateUserProps) => {
+  await req.post('/user', {
+    email: email,
+    name: name,
+    course: course,
+    department: department,
+    password: password
+  })
 }
