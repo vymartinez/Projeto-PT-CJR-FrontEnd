@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import { Formik, Form, Field } from 'formik';
@@ -10,6 +10,7 @@ import logo from "@/../public/images/unb-logo.png"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLoggedUser } from './hooks/loggedUserContext';
+import req from "@/utils/api"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,11 +27,17 @@ const validationSchema = Yup.object({
   
   const initialValues = { email: "", password: ""};
 
-  const handleSubmit = (values: any) => {
-    //envio dos dados
-    loggedUserCtx?.setIsLogged(true);
-    return router.replace("/feed");
-  }
+  const handleSubmit = async (values: any) => {
+    const response = await req.post('login', values)
+
+    if (response.status){
+      const data = response.data;
+      const accessToken = data.access_token
+      document.cookie = `access_token=${accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; Secure; SameSite=Strict`
+      loggedUserCtx?.setIsLogged(true)
+      router.replace("/feed")
+    }
+}
 
   return (
     <div className="w-full flex min-h-screen bg-extra flex-col h-0 xl:flex-row overflow-y-auto overflow-x-hidden">

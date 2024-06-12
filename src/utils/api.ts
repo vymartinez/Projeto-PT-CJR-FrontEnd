@@ -45,6 +45,8 @@ const req = axios.create({
   baseURL: 'http://localhost:3001'
 })
 
+export default req;
+
 export const getTeachers = async () : Promise<Teacher[]> => {
   const response = await req.get('/teacher')
   return response.data;
