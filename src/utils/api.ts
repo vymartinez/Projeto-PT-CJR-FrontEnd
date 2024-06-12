@@ -44,15 +44,6 @@ type CreateUserProps = {
 
 const req = axios.create({
   baseURL: 'http://localhost:3001'
-});
-
-req.interceptors.request.use(async config => {
-  const token = "ALIjLR$sMEkVyaSJAK$%luz#FsGUgw*O_RqAR#e)WpnV!MclviPUEjj*pSnTNsQN";
-
-  if (token) {
-    req.defaults.headers.authorization = 'Bearer ${token}';
-  }
-  return config;
 })
 
 export default req;
