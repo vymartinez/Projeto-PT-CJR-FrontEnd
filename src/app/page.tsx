@@ -10,7 +10,7 @@ import logo from "@/../public/images/unb-logo.png"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLoggedUser } from './hooks/loggedUserContext';
-import req from "@/utils/api"
+import { doLogin } from '@/utils/api';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,17 +28,19 @@ const validationSchema = Yup.object({
   const initialValues = { email: "", password: ""};
 
   const handleSubmit = async (values: any) => {
-    const response = await req.post('login', values)
-
-    if (response.status){
+    const response = await doLogin(values);
+    if (response.status === 200) {
       const data = response.data;
-      const accessToken = data.access_token
+      const accessToken = data.access_token;
       document.cookie = `access_token=${accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; Secure; SameSite=Strict`
       loggedUserCtx?.setIsLogged(true)
       router.replace("/feed")
     }
 }
 
+if (loggedUserCtx?.isLogged) {
+  router.replace("/feed")
+}
   return (
     <div className="w-full flex min-h-screen bg-extra flex-col h-0 xl:flex-row overflow-y-auto overflow-x-hidden">
       <div className='xl:w-3/4 xl:h-screen w-full h-[300px] relative'>

@@ -5,8 +5,13 @@ import glass from '@/../public/icons/magnifying-glass.svg'
 import Image from 'next/image'
 import { useTeachersList } from '../hooks/teachersContext'
 import AssessmentModal from './AssessmentModal'
+import { useLoggedUser } from '../hooks/loggedUserContext'
+import { useRouter } from 'next/navigation'
 
 export const SearchBar = () => {
+
+  const loggedUserCtx = useLoggedUser()
+  const router = useRouter()
 
   const [modal, setModal] = useState(false)
   const [inputValue, setInputValue] = useState('')
@@ -29,6 +34,14 @@ export const SearchBar = () => {
           setHeading(`${filter.length} ${phrase} para '${searchWord}'`)
         }
       }
+    }
+  }
+
+  const handleNewAssessment = () => {
+    if (loggedUserCtx?.isLogged) {
+    setModal(!modal)
+    } else {
+      router.push('/');
     }
   }
 
@@ -57,7 +70,7 @@ export const SearchBar = () => {
       <div className='container h-2 rounded-full bg-primary mx-auto w-3/4 sm:w-full'></div>
       <div className='flex flex-col items-center md:items-start md:flex-row md:mx-auto md:container'>
         <div className='flex justify-start px-3 mt-5'>
-          <button onClick={() => setModal(!modal)} className='w-fit h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs ml-5'>Nova Avaliação</button>
+          <button onClick={handleNewAssessment} className='w-fit h-fit rounded-md text-white py-2 px-4 bg-gradient-to-b from-secondary to-button text-xs ml-5'>Nova Avaliação</button>
         </div>
         <div className='font-bold text-md my-5 mx-auto'>
           {heading}

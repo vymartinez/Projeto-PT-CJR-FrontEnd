@@ -62,7 +62,7 @@ export const HeaderUnlogged = () => {
   return (
     <>
         <header className='w-full h-24 bg-primary flex justify-between'>
-            <div className='relative w-16 h-8 mx-8 my-8 border border-white border-1 sm:w-24 sm:h-12 sm:my-6'>
+            <Link href={'/feed'} className='relative w-16 h-8 mx-8 my-8 border border-white border-1 sm:w-24 sm:h-12 sm:my-6'>
               <Image
               src={logo}
               alt="logo-unb"
@@ -70,7 +70,7 @@ export const HeaderUnlogged = () => {
               sizes="max"
               draggable={false}
               />
-            </div>
+            </Link>
             <Link href="/" className='bg-gradient-to-b from-sky-800 to-button rounded-xl my-8 mx-6 border border-1 border-background text-white/90 flex justify-center items-center capitalize text-sm w-28 h-8 md:w-40 md:h-10 md:mx-8 md:my-7'>
                 Login
             </Link>

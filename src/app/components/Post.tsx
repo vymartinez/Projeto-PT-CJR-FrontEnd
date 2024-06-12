@@ -11,6 +11,7 @@ import ConfirmDelete from './ConfirmDelete'
 import Link from 'next/link'
 import user from '@/../public/images/default-user.jpg'
 import { useLoggedUser } from '../hooks/loggedUserContext'
+import { redirect, useRouter } from 'next/navigation'
 
 type Props = {
   profile: User;
@@ -33,6 +34,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
   const [confirmation, setConfirmation] = useState(false);
 
   const loggedUserCtx = useLoggedUser();
+  const router = useRouter();
   
   const date = new Intl.DateTimeFormat('pt-br', {
     dateStyle: 'short',
@@ -42,6 +44,13 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
   var commentsLength = 0;
   if (commentsList.length > 0) {
     commentsLength = commentsList.length;
+  }
+
+  const handleCommentClick = () => {
+    if (loggedUserCtx?.isLogged) {
+      setCommentModal(true);
+    }
+    router.push('/');
   }
 
   return (
@@ -76,15 +85,15 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
         <div className='flex p-2'>
           <div className='flex items-center'>
             <div className='h-5 w-5 relative'>
-              <Image
+              {<Image
               src={baloon}
               alt="comment-icon"
               fill
               sizes="max"
               className='cursor-pointer'
               draggable={false}
-              onClick={() => setCommentModal(true)}
-              />
+              onClick={handleCommentClick}
+              />}
             </div>
             <div className='flex items-center my-0 ml-2 md:my-0'>
               {!commentSection && <p onClick={() => commentsLength > 0 ? setComments(true) : null} className={`text-xs text-white ${commentsLength > 0 ? 'cursor-pointer hover:underline' : ''}`}>

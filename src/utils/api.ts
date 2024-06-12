@@ -1,46 +1,5 @@
 import axios from 'axios';
 
-type PostAssessmentProps = {
-  content: string;
-  userId: number;
-  teacherId: number;
-  subjectId: number;
-}
-
-type PostCommentProps = {
-  content: string;
-  userId: number;
-  assessmentId: number;
-}
-
-type PatchCommentProps = {
-  content?: string;
-  userId: number;
-  assessmentId: number;
-  commentId: number;
-}
-
-type PatchAssessmentProps = {
-  content?: string;
-  userId: number;
-  teacherId: number;
-  subjectId: number;
-  assessmentId: number;
-}
-
-type PatchUserProps = {
-  values: EditProfile,
-  userId: number;
-}
-
-type CreateUserProps = {
-  email: string;
-  name: string;
-  department: string;
-  course: string;
-  password: string;
-}
-
 const req = axios.create({
   baseURL: 'http://localhost:3001'
 })
@@ -180,4 +139,9 @@ export const postUser = async ({email, name, course, department, password} : Cre
     department: department,
     password: password
   })
+}
+
+export const doLogin = async (values: {email: string, password: string}) => {
+  const response = await req.post('login', values);
+  return response;
 }
