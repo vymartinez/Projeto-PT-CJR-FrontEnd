@@ -33,6 +33,7 @@ type LoggedProps = {
   type PatchUserProps = {
     values: EditProfile,
     userId: number;
+    accessToken: string;
   }
   
   type CreateUserProps = {

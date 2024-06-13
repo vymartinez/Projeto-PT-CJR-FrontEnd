@@ -14,15 +14,11 @@ export const Providers = async({children}: Props) => {
     const Disciplines = await getDisciplines()
     const cookieStore = cookies()
     const token = cookieStore.get('access_token')
-    const userId = await getUserLogged(token)//ajeitar após autenticação
-    var User
-    if (token && userId){
-        User = await getUser(userId.sub)
-    }
+    const User = await getUserLogged(token)//ajeitar após autenticação
     return (
         <>
             {token && User &&
-            <LoggedUserProvider User={User} token={token.toString()}>
+            <LoggedUserProvider User={User} token={token}>
             <TeachersContextProvider Teachers={Teachers}>
             <DisciplinesContextProvider Disciplines={Disciplines}>
                 {children}

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getCookie } from './cookies';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import { get } from 'http';
 
 const req = axios.create({
   baseURL: 'http://localhost:3001'
@@ -130,8 +131,7 @@ export const postComment = async ({content, userId, assessmentId} : PostCommentP
     });
 };
 
-export const patchUser = async ({values, userId} : PatchUserProps) => {
-  const token = getCookie();
+export const patchUser = async ({values, userId, accessToken} : PatchUserProps) => {
   await req.patch(`/user/${userId}`, {
     name: values.name,
     email: values.email,
@@ -140,7 +140,7 @@ export const patchUser = async ({values, userId} : PatchUserProps) => {
     course: values.course
   }, {
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${accessToken}`
     }
   });
 }
@@ -203,13 +203,17 @@ export const getToken = async (values: {email: string, password: string}) => {
   return response.data.access_token;
 }
 
-export const getUserLogged = async (token: RequestCookie | undefined) : Promise<LoggedProps | undefined> => {
-  if(token){
+export const getUserLogged = async (token: RequestCookie | undefined) => {
+  if (token) {
+    const accessToken = token.value;
     const response = await req.get('/me', {
       headers: {
-        'Authorization': `Bearer ${token.toString()}`
+        'Authorization': `Bearer ${accessToken}`
       }
     });
-  return response.data;
+    const userId: LoggedProps = response.data;
+    const User = await getUser(userId.sub)
+    return User;
   }
+  return undefined;
 }

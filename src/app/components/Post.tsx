@@ -49,8 +49,9 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
   const handleCommentClick = () => {
     if (loggedUserCtx?.isLogged) {
       setCommentModal(true);
+    } else {
+      router.push('/');
     }
-    router.push('/');
   }
 
   return (

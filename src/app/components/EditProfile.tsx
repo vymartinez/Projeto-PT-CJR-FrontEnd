@@ -42,12 +42,12 @@ const EditProfile = ({closeModal} : Props) => {
                     delete values[key as keyof EditProfile];
                 }
             });
-            if (loggedUserCtx) {
-                await patchUser({values: values, userId: loggedUserCtx.User.id})
+            if (loggedUserCtx && loggedUserCtx.token) {
+                await patchUser({values: values, userId: loggedUserCtx.User.id, accessToken: loggedUserCtx.token.value})
             }
         }
         handleSubmit()
-        location.reload()
+        window.location.reload()
         closeModal();
     }
 
