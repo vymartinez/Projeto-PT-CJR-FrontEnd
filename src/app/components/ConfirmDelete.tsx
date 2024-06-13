@@ -3,7 +3,8 @@ import Image from 'next/image'
 import danger from "@/../public/icons/danger.svg"
 import x from '@/../public/icons/x.svg'
 import { deleteAccount, deleteAssessment, deleteComment } from '@/utils/api'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { removeCookie } from '@/utils/cookies'
 
 type Props = {
     closeConfirmation: () => void;
@@ -15,13 +16,16 @@ type Props = {
 
 const ConfirmDelete = ({closeConfirmation, isAAssessment, isAComment, isTheAccount, id} : Props) => {
 
+    const router = useRouter()
+
     const handleDelete = async () => {
         if (isAComment) {
             await deleteComment(id)
             location.reload()
         } else if (isTheAccount) {
             await deleteAccount(id);
-            redirect('');
+            removeCookie()
+            router.refresh()
         } else if (isAAssessment) {
             await deleteAssessment(id)
             location.reload()

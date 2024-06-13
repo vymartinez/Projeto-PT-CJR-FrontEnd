@@ -2,7 +2,6 @@ import React from 'react'
 import { ActiveHeader } from '@/app/components/Headers';
 import Profile from '@/app/components/Profile';
 import { getUser } from '@/utils/api';
-import { redirect } from 'next/navigation';
 
 type Props = {
   params: {
@@ -13,10 +12,6 @@ type Props = {
 const UserProfile = async ({params} : Props) => {
 
   const User = await getUser(parseInt(params.id));
-
-  if (!User) {
-    redirect('/404-error');
-  }
 
   return (
     <>

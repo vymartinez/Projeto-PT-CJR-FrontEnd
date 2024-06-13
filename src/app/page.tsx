@@ -40,7 +40,6 @@ const validationSchema = Yup.object({
       if (isAxiosError(error) && error.response?.status === 401) {
         setInvalid(true)
       }
-      console.error(error)
     }
   }
     useEffect(() => {

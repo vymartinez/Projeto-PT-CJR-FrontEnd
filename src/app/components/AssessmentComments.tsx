@@ -19,11 +19,12 @@ type Props = {
     disciplineId: number;
     teacherId: number;
     createdAt: string;
+    updatedAt: string;
     content: string;
     commentsList: Comment[];
 }
 
-const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teacherId, createdAt, content, assessmentId, commentsList} : Props) => {
+const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teacherId, createdAt, updatedAt, content, assessmentId, commentsList} : Props) => {
 
   const [confirmation, setConfirmation] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -64,6 +65,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
               discipline={discipline}
               profile={profile}
               createdAt={createdAt}
+              updatedAt={updatedAt}
               content={content}
               commentSection={true}
               commentsList={commentsList}
@@ -74,7 +76,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                   const date = new Intl.DateTimeFormat('pt-br', {
                     dateStyle: 'short',
                     timeStyle:'short',
-                  }).format(Date.parse(comment.created_at))
+                  }).format(Date.parse(comment.updated_at))
                   return (
                     <>
                     <div key={comment.id} className='w-11/12 h-fit flex items-center justify-center'> 
@@ -105,7 +107,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                           </div>
                           <div className='flex items-center justify-center ml-3 mt-3'>
                             <ul className='flex list-disc'>
-                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{date}</li>
+                              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{comment.created_at !== comment.updated_at ? "Atualizado em" : null} {date}</li>
                               <li className='text-xs text-gray-400 pr-5 md:pr-5'>{comment.user.name}</li>
                               <li className='text-xs text-gray-400'>{discipline}</li>
                             </ul>

@@ -111,6 +111,7 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         discipline={assessment.subject.name}
                         disciplineId={assessment.subjectId}
                         createdAt={assessment.created_at}
+                        updatedAt={assessment.updated_at}
                         content={assessment.content}
                         commentSection={false}
                         commentsList={comments.filter(comment => {
@@ -132,6 +133,7 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         discipline={assessment.subject.name}
                         disciplineId={assessment.subjectId}
                         createdAt={assessment.created_at}
+                        updatedAt={assessment.updated_at}
                         content={assessment.content}
                         commentSection={false}
                         commentsList={comments.filter(comment => {

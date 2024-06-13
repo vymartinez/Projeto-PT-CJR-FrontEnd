@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { getCookie } from './cookies';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
-import { get } from 'http';
+import { redirect } from 'next/navigation';
 
 const req = axios.create({
   baseURL: 'http://localhost:3001'
@@ -14,9 +14,15 @@ export const getTeachers = async () : Promise<Teacher[]> => {
   return response.data;
 }
 
-export const getTeacher = async (id: number) : Promise<Teacher> => {
-  const response = await req.get(`/teacher/${id}`)
-  return response.data;
+export const getTeacher = async (id: number) => {
+  try {
+    const response = await req.get(`/teacher/${id}`)
+    return response.data;
+  } catch(error) {
+    if (isAxiosError(error) && error.response?.status === 404) {
+      redirect("/404-error")
+    }
+  }
 }
   
 export  const getDisciplines = async () : Promise<Discipline[]> => {
@@ -36,9 +42,15 @@ export const getUsers = async () : Promise<User[]> => {
   return response.data;
 }
 
-export const getUser = async (id: number) : Promise<User> => {
-  const response = await req.get(`/user/${id}`);
-  return response.data;
+export const getUser = async (id: number) => {
+  try {
+    const response = await req.get(`/user/${id}`);
+    return response.data;
+  } catch(error) {
+    if (isAxiosError(error) && error.response?.status === 404) {
+      redirect("/404-error")
+    }
+  }
 }
 
 export const getAssessmentByTeacherId = async (teacherId: number) : Promise<Assessment[]> => {

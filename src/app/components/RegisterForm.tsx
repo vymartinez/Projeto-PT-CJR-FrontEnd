@@ -1,10 +1,11 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { postUser } from '@/utils/api';
+import axios, { isAxiosError } from 'axios';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Nome é obrigatório'),
@@ -31,11 +32,23 @@ interface FormValues {
 }
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => {
+
+  const [invalidName, setInvalidName] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
+
   const router = useRouter();
 
-  const onSubmit = (values: FormValues) => {
-    postUser(values);
-    router.replace("/");
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await postUser(values);
+      router.push('/');
+    } catch(error) {
+      if ( isAxiosError(error) && error.response?.status === 409 && error.response.request.response.includes('email')) {
+        setInvalidEmail(true);
+      } else if (isAxiosError(error) && error.response?.status === 409) {
+        setInvalidName(true);
+      }
+    }
   };
 
   return (
@@ -75,6 +88,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ styles }) => {
             Departamento
           </label>
           <Field className={styles.field} id='department' name='department' />
+
+          {invalidEmail && <p className="text-red-500 text-sm text-center mt-10">Email já existente</p>}
+          {invalidName && <p className="text-red-500 text-sm text-center mt-10">nome já existente</p>}
 
           <div className='mt-8 flex justify-center'>
             <button type='submit' className={styles.button}>

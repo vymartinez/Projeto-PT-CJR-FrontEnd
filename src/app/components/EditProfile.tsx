@@ -47,7 +47,6 @@ const EditProfile = ({closeModal} : Props) => {
             }
         }
         handleSubmit()
-        window.location.reload()
         closeModal();
     }
 
@@ -60,6 +59,7 @@ const EditProfile = ({closeModal} : Props) => {
                 patchPhoto({photo: data, userId: loggedUserCtx.User.id});
             }
         }
+
     }
 
   return (

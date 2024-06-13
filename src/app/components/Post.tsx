@@ -11,7 +11,7 @@ import ConfirmDelete from './ConfirmDelete'
 import Link from 'next/link'
 import user from '@/../public/images/default-user.jpg'
 import { useLoggedUser } from '../hooks/loggedUserContext'
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   profile: User;
@@ -20,13 +20,14 @@ type Props = {
   discipline: string;
   disciplineId: number;
   createdAt: string;
+  updatedAt: string;
   content: string;
   commentSection: boolean;
   commentsList: Comment[];
 }
 
 
-const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, createdAt, content, commentSection, commentsList} : Props) => {
+const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, createdAt, updatedAt, content, commentSection, commentsList} : Props) => {
   
   const [editModal, setEditModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
@@ -39,7 +40,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
   const date = new Intl.DateTimeFormat('pt-br', {
     dateStyle: 'short',
     timeStyle:'short',
-  }).format(Date.parse(createdAt))
+  }).format(Date.parse(updatedAt))
 
   var commentsLength = 0;
   if (commentsList.length > 0) {
@@ -74,7 +75,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
           </div>
           <div className='flex items-center justify-center ml-3 mt-3'>
             <ul className='flex list-disc'>
-              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{date}</li>
+              <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{createdAt !== updatedAt ? "Atualizado em" : null} {date}</li>
               <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
               <li className='text-xs text-gray-400'>{discipline}</li>
             </ul>
@@ -134,7 +135,8 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
                     assessmentId={assessmentId}
                     profile={profile}
                     discipline={discipline}
-                    createdAt={date}
+                    createdAt={createdAt}
+                    updatedAt={updatedAt}
                     content={content}
                     commentsList={commentsList}
                     teacherId={teacherId}
