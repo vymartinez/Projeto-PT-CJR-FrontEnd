@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getCookie } from './cookies';
+import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
 const req = axios.create({
   baseURL: 'http://localhost:3001'
@@ -90,52 +91,101 @@ export const postAssessment = async ({content, userId, teacherId, subjectId} : P
 }
 
 export const postComment = async ({content, userId, assessmentId} : PostCommentProps) => {
+  const token = getCookie();
   await req.post('/comment', {
     content: content,
     userId: userId,
-    assessmentId: assessmentId})
+    assessmentId: assessmentId
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
   }
   
   export const patchAssessment = async ({content, userId, teacherId, subjectId, assessmentId}: PatchAssessmentProps) => {
+    const token = getCookie();
     await req.patch(`/assessment/${assessmentId}`, {
     content: content,
     userId: userId,
     teacherId: teacherId,
     subjectId: subjectId
-  })
+  }, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
   }
 
   export const patchComment = async ({content, userId, assessmentId, commentId} : PatchCommentProps) => {
+    const token = getCookie();
     await req.patch(`/comment/${commentId}`, {
     content: content,
     userId: userId,
-    assessmentId: assessmentId})
+    assessmentId: assessmentId
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
 };
 
 export const patchUser = async ({values, userId} : PatchUserProps) => {
+  const token = getCookie();
   await req.patch(`/user/${userId}`, {
     name: values.name,
     email: values.email,
     password: values.newPassword,
     department: values.department,
     course: values.course
+  }, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
   });
 }
 
 export const deleteAssessment = async (assessmentId: number) => {
-  await req.delete(`/assessment/${assessmentId}`);
+  const token = getCookie();
+  await req.delete(`/assessment/${assessmentId}`
+  , {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
 }
 
 export const deleteComment = async (commentId: number) => {
-  await req.delete(`/comment/${commentId}`);
+  const token = getCookie();
+  await req.delete(`/comment/${commentId}`
+    , {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  );
 }
 
 export const deleteAccount = async (userId: number) => {
-  await req.delete(`/user/${userId}`);
+  const token = getCookie();
+  await req.delete(`/user/${userId}`
+    , {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  );
 }
 
 export const patchPhoto = async ({photo, userId} : {photo: FormData, userId: number}) => {
-  await req.patch(`/user/${userId}`, photo);
+  const token = getCookie();
+  await req.patch(`/user/${userId}`, photo
+    , {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  );
 }
 
 export const postUser = async ({email, name, course, department, password} : CreateUserProps) => {
@@ -151,4 +201,15 @@ export const postUser = async ({email, name, course, department, password} : Cre
 export const getToken = async (values: {email: string, password: string}) => {
   const response = await req.post('login', values);
   return response.data.access_token;
+}
+
+export const getUserLogged = async (token: RequestCookie | undefined) : Promise<LoggedProps | undefined> => {
+  if(token){
+    const response = await req.get('/me', {
+      headers: {
+        'Authorization': `Bearer ${token.toString()}`
+      }
+    });
+  return response.data;
+  }
 }

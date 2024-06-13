@@ -1,7 +1,7 @@
 import { DisciplinesContextProvider } from "@/app/hooks/disciplinesContext";
 import { TeachersContextProvider } from "@/app/hooks/teachersContext";
 import { ReactNode } from "react";
-import { getDisciplines, getTeachers, getUser } from "./api";
+import { getDisciplines, getTeachers, getUser, getUserLogged } from "./api";
 import { LoggedUserProvider } from "@/app/hooks/loggedUserContext";
 import { cookies } from "next/headers";
 
@@ -14,10 +14,14 @@ export const Providers = async({children}: Props) => {
     const Disciplines = await getDisciplines()
     const cookieStore = cookies()
     const token = cookieStore.get('access_token')
-    const User = await getUser(2)//ajeitar após autenticação
+    const userId = await getUserLogged(token)//ajeitar após autenticação
+    var User
+    if (token && userId){
+        User = await getUser(userId.sub)
+    }
     return (
         <>
-            {token && 
+            {token && User &&
             <LoggedUserProvider User={User} token={token.toString()}>
             <TeachersContextProvider Teachers={Teachers}>
             <DisciplinesContextProvider Disciplines={Disciplines}>

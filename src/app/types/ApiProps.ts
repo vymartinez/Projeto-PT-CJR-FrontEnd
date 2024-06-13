@@ -4,6 +4,10 @@ type PostAssessmentProps = {
     teacherId: number;
     subjectId: number;
   }
+
+type LoggedProps = {
+    sub: number;
+}
   
   type PostCommentProps = {
     content: string;
