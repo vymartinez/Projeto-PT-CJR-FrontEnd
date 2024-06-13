@@ -49,6 +49,9 @@ export const HeaderLogged = ({photo} : Props) => {
               fill
               sizes='max'
               draggable={false}
+              style={{
+                objectFit: 'cover',
+              }}
               />
             </div>
         </header>

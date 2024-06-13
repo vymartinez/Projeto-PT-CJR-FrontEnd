@@ -12,6 +12,31 @@ const nextConfig = {
                 hostname: 'rockntech.com.br',
                 pathname: '/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'f.i.uol.com.br',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'us-tuna-sounds-images.voicemod.net',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'encrypted-tbn0.gstatic.com',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'pbs.twimg.com',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'thumbnailer.mixcloud.com',
+                pathname: '/**',
+            },
         ],
     }
 };

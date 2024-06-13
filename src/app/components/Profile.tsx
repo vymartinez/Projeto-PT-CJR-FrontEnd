@@ -38,6 +38,9 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         fill
                         sizes="max"
                         draggable={false}
+                        style={{
+                            objectFit: 'cover',
+                        }}
                         />}
                         {userProfile && <Image
                         src={userProfile.photo ? String.fromCharCode(...userProfile.photo.data) : user}
@@ -45,6 +48,9 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         fill
                         sizes="max"
                         draggable={false}
+                        style={{
+                            objectFit: 'cover',
+                        }}
                         />
                         }
                     </div>
