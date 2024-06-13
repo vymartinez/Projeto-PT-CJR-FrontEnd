@@ -35,7 +35,7 @@ const validationSchema = Yup.object({
       const accessToken = await getToken(values);
         document.cookie = `access_token=${accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; Secure; SameSite=Strict`
         loggedUserCtx?.setIsLogged(true)
-        router.replace("/feed")
+        router.refresh()
     } catch(error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         setInvalid(true)
