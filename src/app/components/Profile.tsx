@@ -113,6 +113,7 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         key={assessment.id}
                         assessmentId={assessment.id}
                         profile={assessment.user}
+                        teacher={assessment.teacher}
                         teacherId={assessment.teacherId}
                         discipline={assessment.subject.name}
                         disciplineId={assessment.subjectId}
@@ -135,6 +136,7 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
                         key={assessment.id}
                         assessmentId={assessment.id}
                         profile={userProfile}
+                        teacher={assessment.teacher}
                         teacherId={assessment.teacherId}
                         discipline={assessment.subject.name}
                         disciplineId={assessment.subjectId}

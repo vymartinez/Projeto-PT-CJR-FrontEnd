@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation'
 
 type Props = {
   profile: User;
+  teacher: Teacher;
   teacherId: number;
   assessmentId: number;
   discipline: string;
@@ -27,7 +28,7 @@ type Props = {
 }
 
 
-const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, createdAt, updatedAt, content, commentSection, commentsList} : Props) => {
+const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, createdAt, updatedAt, content, commentSection, commentsList, teacher} : Props) => {
   
   const [editModal, setEditModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
@@ -76,7 +77,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
           <div className='flex items-center justify-center ml-3 mt-3'>
             <ul className='flex list-disc'>
               <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{createdAt !== updatedAt ? "Atualizado em" : null} {date}</li>
-              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{profile.name}</li>
+              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{teacher.name}</li>
               <li className='text-xs text-gray-400'>{discipline}</li>
             </ul>
           </div>
@@ -139,6 +140,7 @@ const Post = ({profile, teacherId, assessmentId, discipline, disciplineId, creat
                     updatedAt={updatedAt}
                     content={content}
                     commentsList={commentsList}
+                    teacher={teacher}
                     teacherId={teacherId}
                     disciplineId={disciplineId}
                     />

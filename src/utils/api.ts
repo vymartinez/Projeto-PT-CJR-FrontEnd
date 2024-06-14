@@ -223,7 +223,7 @@ export const getUserLogged = async (token: RequestCookie | undefined) => {
         'Authorization': `Bearer ${accessToken}`
       }
     });
-    const userId: LoggedProps = response.data;
+    const userId: JWTProps = response.data;
     const User = await getUser(userId.sub)
     return User;
   }

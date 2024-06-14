@@ -5,10 +5,10 @@ type PostAssessmentProps = {
     subjectId: number;
   }
 
-type LoggedProps = {
-    sub: number;
-}
-  
+  type JWTProps = {
+      sub: number;
+  }
+    
   type PostCommentProps = {
     content: string;
     userId: number;

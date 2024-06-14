@@ -59,7 +59,7 @@ const EditProfile = ({closeModal} : Props) => {
                 patchPhoto({photo: data, userId: loggedUserCtx.User.id});
             }
         }
-
+        location.reload()
     }
 
   return (

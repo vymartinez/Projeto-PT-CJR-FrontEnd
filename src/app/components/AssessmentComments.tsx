@@ -17,6 +17,7 @@ type Props = {
     profile: User;
     discipline: string;
     disciplineId: number;
+    teacher: Teacher;
     teacherId: number;
     createdAt: string;
     updatedAt: string;
@@ -24,7 +25,7 @@ type Props = {
     commentsList: Comment[];
 }
 
-const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teacherId, createdAt, updatedAt, content, assessmentId, commentsList} : Props) => {
+const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teacherId, createdAt, updatedAt, content, assessmentId, commentsList, teacher} : Props) => {
 
   const [confirmation, setConfirmation] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -69,6 +70,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
               content={content}
               commentSection={true}
               commentsList={commentsList}
+              teacher={teacher}
               teacherId={teacherId}
               disciplineId={disciplineId}
               />}
@@ -108,7 +110,7 @@ const AssessmentComments = ({closeModal, profile, discipline, disciplineId, teac
                           <div className='flex items-center justify-center ml-3 mt-3'>
                             <ul className='flex list-disc'>
                               <li className='text-xs hidden text-gray-400 pr-5 md:pr-5 md:block'>{comment.created_at !== comment.updated_at ? "Atualizado em" : null} {date}</li>
-                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{comment.user.name}</li>
+                              <li className='text-xs text-gray-400 pr-5 md:pr-5'>{teacher.name}</li>
                               <li className='text-xs text-gray-400'>{discipline}</li>
                             </ul>
                           </div>

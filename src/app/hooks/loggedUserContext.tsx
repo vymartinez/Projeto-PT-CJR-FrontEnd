@@ -1,24 +1,19 @@
 "use client"
 
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { createContext, ReactNode, useContext, useState } from "react"
 
 type ContextType = {
     User: User;
     isLogged: boolean;
     setIsLogged(value: boolean): void;
-    token?: {
-        name: string;
-        value: string;
-    };
+    token?: RequestCookie;
 }
 
 type Props = {
     children: ReactNode;
     User: User;
-    token?: {
-        name: string;
-        value: string;
-    };
+    token?: RequestCookie;
 }
 
 export const loggedUserContext = createContext<ContextType | null>(null);
