@@ -1,11 +1,11 @@
 import React from 'react'
-import Post from './Post';
 import Image from 'next/image'
 import building from '@/../public/icons/building.svg'
 import book from '@/../public/icons/book.svg'
 import mail from '@/../public/icons/mail.svg'
 import user from '@/../public/images/default-user.jpg'
 import { getAssessments, getComments, getDisciplines } from '@/utils/api';
+import RenderPosts from './RenderPosts';
 
 type Props =  {
     teacherProfile?: Teacher;
@@ -107,52 +107,12 @@ const Profile = async ({ teacherProfile, userProfile} : Props) => {
             <div className='flex flex-col text-center items-center'>
                 {teacherProfile && <h1 className='font-bold relative text-lg -top-5 md:top-0 md:mb-3'>Avaliações</h1>}
                 {userProfile && <h1 className='font-bold relative text-lg -top-5 md:top-0 md:mb-3'>Publicações</h1>}
-                {teacherProfile && Assessments.map(assessment => {
-                    if (assessment.teacherId === teacherProfile.id) {
-                        return <Post 
-                        key={assessment.id}
-                        assessmentId={assessment.id}
-                        profile={assessment.user}
-                        teacher={assessment.teacher}
-                        teacherId={assessment.teacherId}
-                        discipline={assessment.subject.name}
-                        disciplineId={assessment.subjectId}
-                        createdAt={assessment.created_at}
-                        updatedAt={assessment.updated_at}
-                        content={assessment.content}
-                        commentSection={false}
-                        commentsList={comments.filter(comment => {
-                            if (comment.assessmentId === assessment.id) {
-                                return comment;
-                            };
-                        })}
-                        />
-                    }
-                })}
-                {teacherProfile && teacherProfile.assessments.length === 0 && <p className='text-sm font-semibold my-24 text-black'>Este professor ainda não recebeu nenhuma avaliação</p>}
-                {userProfile && Assessments.map(assessment => {
-                    if (assessment.userId === userProfile.id) {
-                        return <Post 
-                        key={assessment.id}
-                        assessmentId={assessment.id}
-                        profile={userProfile}
-                        teacher={assessment.teacher}
-                        teacherId={assessment.teacherId}
-                        discipline={assessment.subject.name}
-                        disciplineId={assessment.subjectId}
-                        createdAt={assessment.created_at}
-                        updatedAt={assessment.updated_at}
-                        content={assessment.content}
-                        commentSection={false}
-                        commentsList={comments.filter(comment => {
-                            if (comment.assessmentId === assessment.id) {
-                                return comment;
-                            };
-                        })}
-                        />
-                    }
-                    })}
-                    {userProfile && userProfile.assessments.length === 0 && <p className='text-sm font-semibold my-24 text-black'>Este usuário ainda não fez nenhuma publicação</p>}
+                <RenderPosts
+                Assessments={Assessments}
+                Comments={comments}
+                teacherProfile={teacherProfile}
+                userProfile={userProfile}
+                />
             </div>
         </div>
     </>
