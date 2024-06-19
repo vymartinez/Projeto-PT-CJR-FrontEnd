@@ -4,7 +4,7 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { redirect } from 'next/navigation';
 
 const req = axios.create({
-  baseURL: 'http://localhost:3001'
+  baseURL: 'https://avaliacao-de-professores-cjr.onrender.com'
 })
 
 export default req;

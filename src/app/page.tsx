@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import unb from "@/../public/images/unb.avif"
 import logo from "@/../public/images/unb-logo.png"
@@ -69,6 +69,7 @@ const validationSchema = Yup.object({
                 placeholder ="Email"
                 className= "mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md mb-4"
               />
+              <ErrorMessage name='email' component='div' className='text-red-500 text-sm' />
               <Field
                 name="password" 
                 type="password"
@@ -76,6 +77,7 @@ const validationSchema = Yup.object({
                 placeholder="Senha"
                 className= "mt-1 block w-full px-3 py-2 mb-4 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-550 sm:text-sm rounded-md"
               />
+              <ErrorMessage name='password' component='div' className='text-red-500 text-sm' />
               {invalid && <p className="text-red-500 text-sm text-center">Email ou senha inválidos</p>}
               <div className="flex justify-center gap-12">
                 <button
