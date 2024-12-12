@@ -10,11 +10,13 @@ type Props = {
 }
 
 export const Providers = async({children}: Props) => {
-    const Teachers = await getTeachers()
-    const Disciplines = await getDisciplines()
     const cookieStore = cookies()
     const token = cookieStore.get('access_token')
-    const User = await getUserLogged(token)
+    const [Teachers, Disciplines, User] = await Promise.all([
+        getTeachers(),
+        getDisciplines(),
+        getUserLogged(token)
+    ])
     return (
         <>
             {token && User &&
