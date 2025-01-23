@@ -12,7 +12,11 @@ type Props = {
 export const Providers = async({children}: Props) => {
     const headersList = headers();
     const currentRoute = headersList.get('x-pathname');
-    if (currentRoute === '/') return children;
+    if (currentRoute === '/') return (
+        <>
+            {children}
+        </>
+    )
 
     const cookieStore = cookies()
     const token = cookieStore.get('access_token')
