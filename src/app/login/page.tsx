@@ -9,7 +9,7 @@ import unb from "@/../public/images/unb.avif"
 import logo from "@/../public/images/unb-logo.png"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useLoggedUser } from './hooks/loggedUserContext';
+import { useLoggedUser } from '../hooks/loggedUserContext';
 import { getToken } from '@/utils/api';
 import { isAxiosError } from 'axios';
 
