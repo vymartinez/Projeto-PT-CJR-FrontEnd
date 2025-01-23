@@ -3,13 +3,17 @@ import { TeachersContextProvider } from "@/app/hooks/teachersContext";
 import { ReactNode } from "react";
 import { getDisciplines, getTeachers, getUser, getUserLogged } from "./api";
 import { LoggedUserProvider } from "@/app/hooks/loggedUserContext";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 type Props = {
     children: ReactNode;
 }
 
 export const Providers = async({children}: Props) => {
+    const headersList = headers();
+    const currentRoute = headersList.get('x-pathname');
+    if (currentRoute === '/') return children;
+
     const cookieStore = cookies()
     const token = cookieStore.get('access_token')
     const [Teachers, Disciplines, User] = await Promise.all([
